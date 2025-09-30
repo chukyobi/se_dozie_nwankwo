@@ -9,7 +9,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 const slides = [
   {
     id: 1,
-    title: "Raila Odinga is a candidate for Chairperson of the African Union Commission",
+    title: "Dozie Nwankwo is a Senatorial of the All Progressive Grand Alliance (APGCA)",
     subtitle:
       "Champion of Pan-Africanism, dedicated to unity, innovation, and sustainable development across the continent.",
     cta: "Learn More About the Vision",
