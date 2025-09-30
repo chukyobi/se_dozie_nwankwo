@@ -13,7 +13,7 @@ export function Header() {
         <div className="flex h-16 md:h-20 items-center gap-30">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="text-2xl md:text-3xl font-script text-foreground"><span className="text-green-600">Dozie</span><span className="text-yellow-500">Nwankwo</span></div>
+            <div className="text-2xl md:text-3xl font-script text-foreground"><span className="text-green-600">dozie</span><span className="text-yellow-500">nwankwo</span></div>
             <div className="hidden sm:block h-6 w-px bg-border" />
             <div className="hidden sm:block text-[10px] leading-tight">
               <div className="font-semibold text-primary">POLITICIAN</div>
