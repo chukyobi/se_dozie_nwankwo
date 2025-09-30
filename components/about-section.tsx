@@ -24,7 +24,7 @@ export function AboutSection() {
             </h2>
             <div className="space-y-4 text-base md:text-lg text-muted-foreground leading-relaxed">
               <p>
-                With decades of leadership experience and unwavering commitment to African unity, Raila Odinga brings a
+                With decades of leadership experience and unwavering commitment to African unity, Dozie Nwankwo brings a
                 vision of prosperity, innovation, and collaboration to the African Union Commission.
               </p>
               <p>
