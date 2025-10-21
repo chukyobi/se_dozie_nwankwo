@@ -1,65 +1,76 @@
-export function PrioritiesSection() {
-  const priorities = [
-    {
-      number: "1",
-      title: "Economic Integration",
-      description:
-        "Accelerate continental trade through the African Continental Free Trade Area and strengthen economic partnerships across all regions.",
-    },
-    {
-      number: "2",
-      title: "Peace and Security",
-      description:
-        "Promote lasting peace, conflict resolution, and security cooperation to ensure stability and prosperity for all African nations.",
-    },
-    {
-      number: "3",
-      title: "Youth Empowerment",
-      description:
-        "Invest in education, technology, and entrepreneurship to unlock the potential of Africa's young population.",
-    },
-    {
-      number: "4",
-      title: "Climate Action",
-      description:
-        "Lead sustainable development initiatives and climate resilience programs to protect our continent's future.",
-    },
-  ]
+"use client"
 
+import Image from "next/image"
+
+const priorities = [
+  {
+    title: "Political Speech",
+    description: "If you are going to use a passage of you need to be sure there anything hidden in the middle.",
+    image: "/political-speech-conference.jpg",
+    icon: "🎤",
+  },
+  {
+    title: "Family Protection",
+    description: "If you are going to use a passage of you need to be sure there anything hidden in the middle.",
+    image: "/family-protection-safety.jpg",
+    icon: "👨‍👩‍👧‍👦",
+  },
+  {
+    title: "Safe Environment",
+    description: "If you are going to use a passage of you need to be sure there anything hidden in the middle.",
+    image: "/safe-environment-community.jpg",
+    icon: "🌍",
+  },
+  {
+    title: "Veterans Benefits",
+    description: "If you are going to use a passage of you need to be sure there anything hidden in the middle.",
+    image: "/veterans-military-benefits.jpg",
+    icon: "🎖️",
+  },
+]
+
+export default function PrioritiesSection() {
   return (
-    <section id="priorities" className="py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section className="py-20 bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mb-12 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
-            Key Priorities
-          </h2>
-          <p className="text-base md:text-lg text-muted-foreground text-pretty">
-            A comprehensive vision for Africa's transformation and prosperity
+        <div className="text-center mb-16 space-y-4">
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900">What Our Priorities</h2>
+          <div className="flex justify-center">
+            <div className="w-32 h-1 bg-red-600"></div>
+          </div>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            We are offering the following information's about us that circular that what we actually.
           </p>
         </div>
 
-        {/* Priority Cards */}
-        <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
+        {/* Priorities Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {priorities.map((priority, index) => (
-            <div
-              key={priority.number}
-              className="group p-6 md:p-8 bg-card border border-border rounded-lg hover:shadow-lg transition-all duration-300 animate-scale-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="flex items-start gap-4 md:gap-6">
-                <div className="text-5xl md:text-6xl font-bold text-primary/20 group-hover:text-primary/40 transition-colors">
-                  {priority.number}
-                </div>
-                <div className="flex-1 space-y-2">
-                  <h3 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                    {priority.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{priority.description}</p>
+            <div key={index} className="group">
+              <div className="relative h-64 mb-6 overflow-hidden rounded-lg">
+                <Image
+                  src={priority.image || "/placeholder.svg"}
+                  alt={priority.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                {/* Red Icon Badge */}
+                <div className="absolute top-4 left-4 w-12 h-12 bg-red-600 rounded flex items-center justify-center text-white text-xl">
+                  {priority.icon}
                 </div>
               </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{priority.title}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{priority.description}</p>
             </div>
           ))}
+        </div>
+
+        {/* See More Button */}
+        <div className="flex justify-center">
+          <button className="px-8 py-3 border-2 border-red-600 text-red-600 font-bold hover:bg-red-600 hover:text-white transition-colors">
+            SEE MORE MANIFESTO →
+          </button>
         </div>
       </div>
     </section>

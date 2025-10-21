@@ -1,19 +1,27 @@
-import { Header } from "@/components/header"
-import { HeroSection } from "@/components/hero-section"
-import { FeaturedVideoSection } from "@/components/featured-video-section"
-import { AboutSection } from "@/components/about-section"
-import { PrioritiesSection } from "@/components/priorities-section"
-import { VisionSection } from "@/components/vision-section"
+import Hero from "@/components/hero"
+import Services from "@/components/services"
+import About from "@/components/about"
+//import Team from "@/components/team"
+import Testimonials from "@/components/testimonials"
+import Blog from "@/components/blog"
+import CTA from "@/components/cta"
+import ValuesSection from "@/components/values-section"
+import PrioritiesSection from "@/components/priorities-section"
+import VideoPolicySection from "@/components/video-policy-section"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
-      <HeroSection />
-      <FeaturedVideoSection />
-      <AboutSection />
-      <PrioritiesSection />
-      <VisionSection />
-    </main>
+    <>
+      <Hero />
+      <ValuesSection />
+      {/* <PrioritiesSection /> */}
+      <VideoPolicySection />
+      <Services />
+      <About />
+      {/* <Team /> */}
+      <Testimonials />
+      <Blog />
+      <CTA />
+    </>
   )
 }
