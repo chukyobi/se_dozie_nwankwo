@@ -1,7 +1,17 @@
+
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, Calendar, User, Share2 } from "lucide-react"
 import Link from "next/link"
+
+// Define the specific props expected by this component
+interface BlogPostPageProps {
+  params: {
+    slug: string;
+  };
+  // Note: If you ever use search/query parameters, you would add them here:
+  // searchParams?: { [key: string]: string | string[] | undefined };
+}
 
 // Mock blog post data - in a real app, this would come from a database
 const blogPosts: Record<
@@ -94,7 +104,8 @@ const blogPosts: Record<
   },
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+// Fixed the typing conflict by using the explicit BlogPostPageProps interface
+export default function BlogPostPage({ params }: BlogPostPageProps) {
   const post = blogPosts[params.slug]
 
   if (!post) {
