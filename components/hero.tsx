@@ -28,14 +28,14 @@ export default function Hero() {
   const actionCards = [
     {
       icon: Megaphone,
-      title: "Manifesto",
+      title: "Transparency",
       subtitle: "Join the campaign",
       bgColor: "bg-red-600",
     },
     {
       icon: Handshake,
-      title: "Contribute",
-      subtitle: "Become a volunteer",
+      title: "Partnership",
+      subtitle: "Join the campaign",
       bgColor: "bg-blue-900",
     },
     {
@@ -86,7 +86,7 @@ export default function Hero() {
         <div className="relative z-10 h-full flex flex-col justify-center items-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
             {/* FIX APPLIED: Added !text-white to enforce white color */}
-            <h1 className="text-6xl md:text-7xl !text-white mb-6 leading-tight tracking-tight">
+            <h1 className="text-6xl md:text-7xl text-white mb-6 leading-tight tracking-tight">
               {slides[currentSlide].title}
             </h1>
 
@@ -135,7 +135,7 @@ export default function Hero() {
             >
               {/* Content wrapper for Icon and Text (Left side) */}
               <div className="flex items-center gap-4">
-                <Icon className="w-10 h-10 text-white flex-shrink-0" strokeWidth={1.5} />
+                <Icon className="w-10 h-10 text-white shrink-0" strokeWidth={1.5} />
                 <div>
                   {/* Reduced bottom margin to tighten vertical space */}
                   <h3 className="text-xl md:text-2xl font-bold text-white mb-0 leading-tight">{card.title}</h3>
@@ -143,7 +143,7 @@ export default function Hero() {
                 </div>
               </div>
               {/* Chevron (Right side) */}
-              <div className="text-white text-3xl font-light group-hover:translate-x-1 transition-transform">›</div>
+              {/* <div className="text-white text-3xl font-light group-hover:translate-x-1 transition-transform">›</div> */}
             </div>
           )
         })}

@@ -27,21 +27,10 @@ export default function Navigation() {
               <Link href="/" className="px-3 py-2 text-gray-700 hover:text-red-600 font-medium transition-colors">
                 Home
               </Link>
-              <div className="relative group">
-                <button className="px-3 py-2 text-gray-700 hover:text-red-600 font-medium transition-colors flex items-center gap-1">
-                  Events
-                  <span className="text-xs">▼</span>
-                </button>
-              </div>
-              <div className="relative group">
-                <button className="px-3 py-2 text-gray-700 hover:text-red-600 font-medium transition-colors flex items-center gap-1">
-                  Donations
-                  <span className="text-xs">▼</span>
-                </button>
-              </div>
-              <Link href="/blog" className="px-3 py-2 text-gray-700 hover:text-red-600 font-medium transition-colors">
+             
+              {/* <Link href="/blog" className="px-3 py-2 text-gray-700 hover:text-red-600 font-medium transition-colors">
                 Blog
-              </Link>
+              </Link> */}
               <Link
                 href="/contact"
                 className="px-3 py-2 text-gray-700 hover:text-red-600 font-medium transition-colors"
@@ -68,13 +57,11 @@ export default function Navigation() {
                 Home
               </Link>
               
-              <Link href="/events" className="block px-4 py-2 text-gray-700 text-sm font-bold hover:bg-gray-100 rounded">
-                Events
-              </Link>
+            
              
-              <Link href="/blog" className="block px-4 py-2 text-gray-700 text-sm font-bold hover:bg-gray-100 rounded">
+              {/* <Link href="/blog" className="block px-4 py-2 text-gray-700 text-sm font-bold hover:bg-gray-100 rounded">
                 Blog
-              </Link>
+              </Link> */}
               <Link href="/contact" className="block px-4 py-2 text-gray-700 text-sm font-bold hover:bg-gray-100 rounded">
                 Contact Us
               </Link>
