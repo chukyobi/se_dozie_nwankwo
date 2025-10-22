@@ -92,25 +92,25 @@ export default function Hero() {
           <div className="absolute inset-0 bg-black/60" />
         </div>
 
-        {/* Content: Centered text block on mobile, left-aligned on desktop */}
-        <div className="relative z-10 h-full flex flex-col justify-center items-center sm:items-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Content: HIDDEN (opacity-0 and pointer-events-none added) */}
+        <div className="relative z-10 h-full flex flex-col justify-center items-center sm:items-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 opacity-0 pointer-events-none">
           <div className="max-w-4xl text-center sm:text-left">
-            {/* Headline: Text size reduced from text-6xl to text-4xl on mobile, text-7xl on desktop */}
+            {/* Headline: Hidden */}
             <h1 className="text-4xl md:text-7xl !text-white font-sans mb-3 leading-tight tracking-tight">
               {slides[currentSlide].title}
             </h1>
             
-            {/* Subtitle: Text size reduced from text-2xl to text-xl on mobile, text-3xl on desktop */}
+            {/* Subtitle: Hidden */}
             <p className="text-xl sm:text-3xl !text-white font-sans mb-8 font-normal leading-relaxed">
               {slides[currentSlide].subtitle}
             </p>
 
-            {/* Button: Smaller padding (py-3, px-6) on mobile, centered using margin utility */}
+            {/* Button: Hidden */}
             <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-bold text-sm transition-colors inline-flex items-center gap-2 rounded-full mb-12">
               JOIN MOVEMENT <span className="text-lg">›</span>
             </button>
 
-            {/* Slide Indicators: Positioned below content, now aligned with the centered content block */}
+            {/* Slide Indicators: Hidden (but can be made visible if needed) */}
             <div className="flex justify-center sm:justify-start gap-4 items-center w-full">
               {slides.map((_, index: number) => ( 
                 <div
