@@ -75,8 +75,8 @@ export default function Hero() {
 
   return (
     <>
-      {/* Hero Section with Slider */}
-      <section className="relative w-full h-[80vh] sm:h-screen overflow-hidden">
+      {/* Hero Section with Slider: Reduced height for mobile (h-[65vh]) */}
+      <section className="relative w-full h-[65vh] sm:h-screen overflow-hidden">
         {/* Slider background */}
         <div className="absolute inset-0">
           <div
@@ -92,25 +92,26 @@ export default function Hero() {
           <div className="absolute inset-0 bg-black/60" />
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 h-full flex flex-col justify-center items-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl">
-            {/* Headline is now explicitly text-white and larger (text-7xl) for impact */}
-            <h1 className="text-6xl md:text-7xl !text-white font-sans mb-4 leading-none tracking-tight">
+        {/* Content: Centered text block on mobile, left-aligned on desktop */}
+        <div className="relative z-10 h-full flex flex-col justify-center items-center sm:items-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl text-center sm:text-left">
+            {/* Headline: Text size reduced from text-6xl to text-4xl on mobile, text-7xl on desktop */}
+            <h1 className="text-4xl md:text-7xl !text-white font-sans mb-3 leading-tight tracking-tight">
               {slides[currentSlide].title}
             </h1>
             
-            {/* Subtitle is also explicitly text-white and font-sans */}
-            <p className="text-2xl sm:text-3xl !text-white font-sans mb-12 font-normal leading-relaxed">
+            {/* Subtitle: Text size reduced from text-2xl to text-xl on mobile, text-3xl on desktop */}
+            <p className="text-xl sm:text-3xl !text-white font-sans mb-8 font-normal leading-relaxed">
               {slides[currentSlide].subtitle}
             </p>
 
-            <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 font-bold text-base transition-colors inline-flex items-center gap-2 rounded-full mb-12">
-              JOIN US TODAY <span className="text-xl">›</span>
+            {/* Button: Smaller padding (py-3, px-6) on mobile, centered using margin utility */}
+            <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-bold text-sm transition-colors inline-flex items-center gap-2 rounded-full mb-12">
+              JOIN MOVEMENT <span className="text-lg">›</span>
             </button>
 
-            {/* Slide Indicators: Positioned below content, as seen in the video */}
-            <div className="flex gap-4 items-center">
+            {/* Slide Indicators: Positioned below content, now aligned with the centered content block */}
+            <div className="flex justify-center sm:justify-start gap-4 items-center w-full">
               {slides.map((_, index: number) => ( 
                 <div
                   key={index}
@@ -129,7 +130,7 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* ACTION CARDS SECTION - MODIFIED */}
+      {/* ACTION CARDS SECTION - MODIFIED: Ensured responsiveness remains intact */}
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-0">
         {actionCards.map((card, index: number) => { 
           const Icon = card.icon

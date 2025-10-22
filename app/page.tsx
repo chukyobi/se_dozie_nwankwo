@@ -8,11 +8,13 @@ import CTA from "@/components/cta"
 import ValuesSection from "@/components/values-section"
 import PrioritiesSection from "@/components/priorities-section"
 import VideoPolicySection from "@/components/video-policy-section"
+import QuoteVideoSection from "@/components/quotevideosection"
 
 export default function Home() {
   return (
     <>
       <Hero />
+      <QuoteVideoSection />
       <ValuesSection />
       {/* <PrioritiesSection /> */}
       <VideoPolicySection />
