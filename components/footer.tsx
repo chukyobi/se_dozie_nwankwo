@@ -18,22 +18,22 @@ export default function Footer() {
             <h4 className="font-bold text-lg">Quick Links</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="!text-white hover:text-white transition-colors">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="!text-white hover:text-white transition-colors">
                   Our Platform
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="!text-white hover:text-white transition-colors">
                   News
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="!text-white hover:text-white transition-colors">
                   Events
                 </a>
               </li>
@@ -45,22 +45,22 @@ export default function Footer() {
             <h4 className="font-bold text-lg">Resources</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className=" !text-white hover:text-white transition-colors">
                   Volunteer
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="!text-white hover:text-white transition-colors">
                   Donate
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="!text-white hover:text-white transition-colors">
                   Contact
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="#" className="!text-white hover:text-white transition-colors">
                   Privacy Policy
                 </a>
               </li>
@@ -73,20 +73,15 @@ export default function Footer() {
             <ul className="space-y-3 text-gray-400">
               <li className="flex items-center gap-2">
                 <Mail className="h-5 w-5 text-primary" />
-                <a href="mailto:info@politicia.com" className="hover:text-white transition-colors">
-                  info@politicia.com
+                <a href="mailto:info@politicia.com" className="!text-white hover:text-white transition-colors">
+                  hello@dozienwankwo.com
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-5 w-5 text-primary" />
-                <a href="tel:+1234567890" className="hover:text-white transition-colors">
-                  +1 (234) 567-890
-                </a>
-              </li>
-              <li className="flex items-start gap-2">
+            
+              {/* <li className="flex items-start gap-2">
                 <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                 <span>123 Main Street, City, State 12345</span>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
@@ -95,7 +90,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Copyright */}
-            <p className="text-gray-400 text-sm">&copy; 2025 Politicia Campaign. All rights reserved.</p>
+            <p className="text-gray-400 text-sm">&copy; 2025 Dozie Nwankwo Campaign. All rights reserved.</p>
 
             {/* Social Links */}
             <div className="flex gap-4">
