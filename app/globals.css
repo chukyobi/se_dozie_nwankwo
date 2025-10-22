@@ -102,6 +102,7 @@
   --color-chart-5: var(--chart-5);
   --font-sans: "Geist", "Geist Fallback";
   --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --font-lato: "Oxygen";
 
   /* Primary Colors */
   --color-primary: #dc143c;
@@ -163,7 +164,7 @@
 /* NEW: Define the custom utility class 'font-script' for your decorative font */
 @layer utilities {
   .font-script {
-    font-family: var(--font-script), cursive; 
+    font-family: var(--font-serif), cursive; 
   }
 }
 
