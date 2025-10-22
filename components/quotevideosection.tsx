@@ -20,7 +20,7 @@ export default function QuoteVideoSection() {
                     {/* Updated structure to align the quote lines under each other */}
                     <span className="inline-flex flex-col relative z-10 leading-tight">
                         {/* First line: Reduced size on mobile (text-xl) */}
-                        <span className="font-serif italic mb-4 font-extrabold text-6xl sm:text-4xl">"We are legislators, not public works contractors."</span> 
+                        <span className="font-serif italic mb-4 font-extrabold text-4xl sm:text-4xl">"We are legislators, not public works contractors."</span> 
                         
                         {/* Second line: Reduced size on mobile (text-lg) */}
                         <span className="font-serif text-xl sm:text-xl md:text-xl text-neutral-800">People look up to us to make serious laws that could change the lives of a great number of people, or could change the way society is run or managed</span>
