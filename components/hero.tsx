@@ -65,7 +65,7 @@ export default function Hero() {
   }, [slides.length])
 
   // Function to handle slide navigation
-  const goToSlide = (index: number) => { // Type fixed here
+  const goToSlide = (index: number) => { 
     setFade(false)
     setTimeout(() => {
       setCurrentSlide(index)
@@ -95,13 +95,13 @@ export default function Hero() {
         {/* Content */}
         <div className="relative z-10 h-full flex flex-col justify-center items-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl">
-            {/* Headline using the Great Vibes script font, enforced white color */}
-            <h1 className="text-6xl md:text-8xl text-white font-script mb-4 leading-none tracking-tight">
+            {/* Headline is now explicitly text-white and larger (text-7xl) for impact */}
+            <h1 className="text-6xl md:text-7xl !text-white font-sans mb-4 leading-none tracking-tight">
               {slides[currentSlide].title}
             </h1>
             
-            {/* Subtitle using the Great Vibes script font */}
-            <p className="text-2xl sm:text-3xl text-white font-script mb-12 font-normal leading-relaxed italic">
+            {/* Subtitle is also explicitly text-white and font-sans */}
+            <p className="text-2xl sm:text-3xl !text-white font-sans mb-12 font-normal leading-relaxed">
               {slides[currentSlide].subtitle}
             </p>
 
@@ -111,7 +111,7 @@ export default function Hero() {
 
             {/* Slide Indicators: Positioned below content, as seen in the video */}
             <div className="flex gap-4 items-center">
-              {slides.map((_, index: number) => ( // Type fixed here
+              {slides.map((_, index: number) => ( 
                 <div
                   key={index}
                   onClick={() => goToSlide(index)}
@@ -131,7 +131,7 @@ export default function Hero() {
 
       {/* ACTION CARDS SECTION - MODIFIED */}
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-0">
-        {actionCards.map((card, index: number) => { // Type fixed here
+        {actionCards.map((card, index: number) => { 
           const Icon = card.icon
           return (
             <div
