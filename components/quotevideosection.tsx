@@ -5,7 +5,7 @@ import { PlayCircle } from "lucide-react"
 
 export default function QuoteVideoSection() {
     // Placeholder video ID for an example video. Replace with the actual video ID later.
-    const youtubeVideoId: string = "dQw4w9WgXcQ"; // Explicitly defined type as string
+    const youtubeVideoId: string = "TBUP1CmYSvE"; // Explicitly defined type as string
 
     return (
         <section className="py-16 sm:py-24 bg-white">
