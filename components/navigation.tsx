@@ -27,7 +27,6 @@ export default function Navigation() {
               <span className="text-3xl font-extrabold text-blue-900 tracking-tight">
                 <img
               src="/dozlogtransp.png"
-              alt="Dozie Nwankwo"
             />
               </span>
             </div>
