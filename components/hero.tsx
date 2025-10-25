@@ -11,7 +11,7 @@ export default function Hero() {
     {
       image: "/hero_dozie1.jpeg",
       title: "Your Vote, Your Voice",
-      subtitle: "Get involved in our quest for a better representation",
+      subtitle: "Get involved in our quest for better representation",
     },
     {
       image: "/hero_dozie3.jpeg",
@@ -93,7 +93,7 @@ export default function Hero() {
         </div>
 
         {/* Content: HIDDEN (opacity-0 and pointer-events-none added) */}
-        <div className="relative z-10 h-full flex flex-col justify-center items-center sm:items-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 h-full flex flex-col justify-center items-center sm:items-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 opacity-1 pointer-events-auto">
           <div className="max-w-4xl text-center sm:text-left">
             {/* Headline: Hidden */}
             <h1 className="text-4xl md:text-7xl !text-white font-sans mb-3 leading-tight tracking-tight">
