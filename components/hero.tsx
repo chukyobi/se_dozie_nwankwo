@@ -10,8 +10,8 @@ export default function Hero() {
   const slides = [
     {
       image: "/hero_dozie1.jpeg",
-      title: "Together, We Will Move Country Forward!",
-      subtitle: "Risus Commodo Viverra Maecenas Lacus Vel Facilisis.",
+      title: "Your Vote, Your Voice",
+      subtitle: "Get involved in our quest for a better representation",
     },
     {
       image: "/hero_dozie3.jpeg",
@@ -107,7 +107,7 @@ export default function Hero() {
 
             {/* Button: Hidden */}
             <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-bold text-sm transition-colors inline-flex items-center gap-2 rounded-full mb-12">
-              JOIN MOVEMENT <span className="text-lg">›</span>
+              JOIN THE DOZINIZED MOVEMENT <span className="text-lg">›</span>
             </button>
 
             {/* Slide Indicators: Hidden (but can be made visible if needed) */}
