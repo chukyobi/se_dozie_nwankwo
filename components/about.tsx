@@ -35,7 +35,7 @@ export default function About() {
           {/* Placed second on mobile (order-2) and shifted to the left column on desktop (lg:order-1) */}
           <div className="relative h-[450px] sm:h-[550px] order-2 lg:order-1 lg:row-span-2">
             <img
-              src="/section_profile.jpeg"
+              src="/hero_dozie_flag.jpg"
               alt="Hon. Dozie Ferdinand Nwankwo"
               className="w-full h-full object-cover rounded-2xl shadow-2xl border-4 border-gray-100"
             />
