@@ -10,18 +10,18 @@ export default function Hero() {
   const slides = [
     {
       image: "/hero_dozie1.jpeg",
-      title: "Together, We Will Move Country Forward!",
-      subtitle: "Risus Commodo Viverra Maecenas Lacus Vel Facilisis.",
+      title: "One People, One Voice",
+      subtitle: "Get involved in our quest for better representation",
     },
     {
-      image: "/hero_doz_ict.jpg",
+      image: "/hero_dozie11.jpg",
       title: "Building a Better Future for All",
       subtitle: "Join us in creating positive change in our community.",
     },
     {
       image: "/hero_dozie7.jpg",
       title: "Your Voice Matters",
-      subtitle: "Together we can make a difference in our nation.",
+      subtitle: "Together we can make a difference.",
     },
   ]
 
@@ -93,7 +93,7 @@ export default function Hero() {
         </div>
 
         {/* Content: HIDDEN (opacity-0 and pointer-events-none added) */}
-        <div className="relative z-10 h-full flex flex-col justify-center items-center sm:items-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 opacity-0 pointer-events-none">
+        <div className="relative z-10 h-full flex flex-col justify-center items-center sm:items-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl text-center sm:text-left">
             {/* Headline: Hidden */}
             <h1 className="text-4xl md:text-7xl !text-white font-sans mb-3 leading-tight tracking-tight">
@@ -107,7 +107,7 @@ export default function Hero() {
 
             {/* Button: Hidden */}
             <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-bold text-sm transition-colors inline-flex items-center gap-2 rounded-full mb-12">
-              JOIN MOVEMENT <span className="text-lg">›</span>
+              JOIN THE DOZINIZED MOVEMENT <span className="text-lg">›</span>
             </button>
 
             {/* Slide Indicators: Hidden (but can be made visible if needed) */}
