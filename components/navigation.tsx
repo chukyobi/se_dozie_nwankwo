@@ -25,9 +25,7 @@ export default function Navigation() {
             {/* Logo - Updated to use bold text and secondary theme color */}
             <div className="shrink-0 flex items-center gap-2">
               <span className="text-3xl font-extrabold text-blue-900 tracking-tight">
-                <img
-              src="/dozlogtransp.png"
-            />
+                Dozie Nwankwo
               </span>
             </div>
 
