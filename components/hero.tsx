@@ -14,7 +14,7 @@ export default function Hero() {
       subtitle: "Risus Commodo Viverra Maecenas Lacus Vel Facilisis.",
     },
     {
-      image: "/hero_dozie6.jpg",
+      image: "/hero_dozie3.jpg",
       title: "Building a Better Future for All",
       subtitle: "Join us in creating positive change in our community.",
     },
