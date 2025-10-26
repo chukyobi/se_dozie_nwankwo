@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image" // <-- 1. Import the Image component
 import { Menu, X, ArrowRight } from "lucide-react"
 import TopBar from "./top-bar" // Assuming this component exists
 
@@ -12,7 +13,7 @@ export default function Navigation() {
   const navLinks = [
     { name: "Home", href: "/" },
     // { name: "Blog", href: "/blog" }, // Commented out based on original
-    { name: "Our Work", href: "/#" }, // Added a representative link
+    { name: "Our Work", href: "/about" }, // Added a representative link
     { name: "Contact Us", href: "/contact" },
   ]
 
@@ -22,11 +23,26 @@ export default function Navigation() {
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-xl transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            {/* Logo - Updated to use bold text and secondary theme color */}
-            <div className="shrink-0 flex items-center gap-2">
-              <span className="text-3xl font-extrabold text-blue-900 tracking-tight">
-                Dozie Nwankwo
-              </span>
+            {/* 2. Logo - Replaced text with Image component and linked to home */}
+            <div className="shrink-0 flex items-center">
+              <Link href="/" aria-label="Dozie Nwankwo - Home">
+                <Image
+                  // **** IMPORTANT ****
+                  // Replace this with the path to your logo in the /public folder
+                  src="/images/logo1.png" 
+                  alt="Dozie Nwankwo Logo"
+                  
+                  // Set these to your logo's actual dimensions for optimization
+                  width={180} 
+                  height={40}
+
+                  // This class controls the displayed size.
+                  // 'h-10' (2.5rem) is an example. Adjust as needed.
+                  // 'w-auto' will maintain the aspect ratio.
+                  className="h-10 w-auto" 
+                  priority // Load the logo quickly
+                />
+              </Link>
             </div>
 
             {/* Desktop menu */}
@@ -57,7 +73,11 @@ export default function Navigation() {
             </div>
 
             {/* Mobile menu button */}
-            <button className="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
+            <button
+              className="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
               {isOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
             </button>
           </div>
@@ -76,14 +96,14 @@ export default function Navigation() {
                     {link.name}
                   </Link>
                 ))}
-                
+
                 {/* Mobile Get Involved Button */}
-                 <Link
-                    href="/get-involved"
-                    className="block w-full text-center mt-4 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300 text-base"
-                    onClick={() => setIsOpen(false)}
+                <Link
+                  href="/get-involved"
+                  className="block w-full text-center mt-4 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300 text-base"
+                  onClick={() => setIsOpen(false)}
                 >
-                    Get Involved
+                  Get Involved
                 </Link>
               </div>
             </div>
