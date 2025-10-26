@@ -100,7 +100,7 @@ export default function Navigation() {
                 {/* Mobile Get Involved Button */}
                 <Link
                   href="/donate"
-                  className="block w-full text-center mt-4 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300 text-base"
+                  className="block w-full text-center mt-4 bg-red-600 hover:bg-red-700 !text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300 text-base"
                   onClick={() => setIsOpen(false)}
                 >
                   Get Involved
