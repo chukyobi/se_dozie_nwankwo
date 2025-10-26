@@ -36,8 +36,6 @@ const donationTiers = [
   },
 ]
 
-
-
 // const impactStats = [
 //   {
 //     icon: Users,
@@ -90,7 +88,7 @@ export default function DonatePage() {
       </section>
 
       {/* Impact Stats */}
-      {/* <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {impactStats.map((stat, index) => {
@@ -109,7 +107,7 @@ export default function DonatePage() {
             })}
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Donation Form */}
       <section className="py-20">
@@ -153,46 +151,26 @@ export default function DonatePage() {
                   </div>
 
                   {/* Preset Amounts */}
-                   <div>
-
+                  <div>
                     <label className="block text-sm font-medium text-gray-900 mb-3">Select Amount</label>
-
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-
                       {[25, 50, 100, 250].map((amount) => (
-
                         <button
-
                           key={amount}
-
                           onClick={() => {
-
                             setSelectedAmount(amount)
-
                             setCustomAmount("")
-
                           }}
-
                           className={`p-3 rounded-lg border-2 font-semibold transition-all ${
-
                             selectedAmount === amount
-
                               ? "border-primary bg-primary/10 text-primary"
-
                               : "border-gray-300 text-gray-900 hover:border-primary"
-
                           }`}
-
                         >
-
                           ${amount}
-
                         </button>
-
                       ))}
-
                     </div>
-
                   </div>
 
                   {/* Custom Amount */}
