@@ -9,7 +9,7 @@ export default function Footer() {
           
           {/* Brand — full width on mobile */}
           <div className="space-y-4 md:col-span-1">
-            <h3 className="text-2xl font-bold text-primary">Hon. Dozie Nwankwo</h3>
+            <h3 className="text-2xl font-bold text-white">Hon. Dozie Nwankwo</h3>
             <p className="text-gray-400">
               Building a better future through transparent leadership and
               community-driven solutions.
