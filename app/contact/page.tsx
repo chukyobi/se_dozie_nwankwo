@@ -210,45 +210,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 space-y-4">
-            <h2 className="text-4xl font-bold text-gray-900">Frequently Asked Questions</h2>
-            <p className="text-xl text-gray-600">Find answers to common questions about our campaign.</p>
-          </div>
-
-          <div className="space-y-6">
-            {[
-              {
-                q: "How can I volunteer for the campaign?",
-                a: "We'd love to have you join our team! Contact us through this form or call our office to learn about volunteer opportunities.",
-              },
-              {
-                q: "How do I make a donation?",
-                a: "Visit our Donation page to contribute to our campaign. We accept various payment methods and all donations are secure.",
-              },
-              {
-                q: "Where can I attend campaign events?",
-                a: "Check our News page for upcoming events, rallies, and community forums. You can also subscribe to our newsletter for event updates.",
-              },
-              {
-                q: "How do I stay updated on campaign news?",
-                a: "Subscribe to our newsletter on the Blog or News pages to receive regular updates about our campaign and initiatives.",
-              },
-            ].map((faq, index) => (
-              <Card key={index} className="border-gray-200">
-                <CardHeader>
-                  <CardTitle className="text-gray-900">{faq.q}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">{faq.a}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      
     </main>
   )
 }
