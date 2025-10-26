@@ -58,7 +58,7 @@ export default function Hero() {
       setTimeout(() => {
         setCurrentSlide((prev) => (prev + 1) % slides.length)
         setFade(true)
-      }, 500)
+      }, 5000)
     }, 5000)
 
     return () => clearInterval(timer)
@@ -111,7 +111,7 @@ export default function Hero() {
             </button>
 
             {/* Slide Indicators: Hidden (but can be made visible if needed) */}
-            <div className="flex justify-center sm:justify-start gap-4 items-center w-full">
+            {/* <div className="flex justify-center sm:justify-start gap-4 items-center w-full">
               {slides.map((_, index: number) => ( 
                 <div
                   key={index}
@@ -125,7 +125,7 @@ export default function Hero() {
                   {String(index + 1).padStart(2, "0")}
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
