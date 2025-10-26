@@ -81,7 +81,7 @@ export default function PhilanthropySection() {
 
               {/* Stats Bar Redesign: Dark Blue background, Red highlights, White text 
                   MOVED HERE: Added absolute positioning to overlap the image */}
-              <div className="absolute bottom-0 left-0 right-0 bg-blue-900 text-white p-4 sm:p-6 shadow-2xl grid grid-cols-3 divide-x divide-gray-700">
+              <div className="absolute bottom-0 left-0 right-0 bg-green-600 text-white p-4 sm:p-6 shadow-2xl grid grid-cols-3 divide-x divide-gray-700">
                 
                 {/* Stat 1 */}
                 <div className="text-center px-1 sm:px-2">
