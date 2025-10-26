@@ -344,7 +344,7 @@ export default function DonatePage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3 pt-0">
-                    <p className="text-3xl font-extrabold text-blue-600">
+                    <p className="text-3xl font-extrabold text-green-600">
                       {formatNaira(tier.amount)}
                     </p>
                     <ul className="space-y-2 list-none p-0">
@@ -353,7 +353,7 @@ export default function DonatePage() {
                           key={i}
                           className="flex items-start gap-2 text-sm text-gray-700"
                         >
-                          <span className="text-blue-500 font-extrabold mt-0.5">
+                          <span className="text-green-500 font-extrabold mt-0.5">
                             ✓
                           </span>
                           <span>{benefit}</span>
@@ -426,7 +426,7 @@ export default function DonatePage() {
           </p>
           <Button
             variant="outline"
-            className="border-blue-500 text-blue-600 bg-transparent hover:bg-blue-50 transition-colors rounded-lg"
+            className="border-red-500 text-red-600 bg-transparent hover:bg-red-50 transition-colors rounded-lg"
           >
             View Campaign Finance Reports
           </Button>
