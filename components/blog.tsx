@@ -96,7 +96,7 @@ export default function Blog() {
 
         {/* View all button - Updated to use primary colors */}
         <div className="text-center">
-          <Button size="lg" className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all">
+          <Button size="lg" className="bg-green-600 hover:bg-green-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all">
             View All Articles
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
