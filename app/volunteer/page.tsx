@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 // Assuming these component imports are available in the user's project structure
 // Note: We'll use the same UI components as the Donate page for consistency
 import { Button } from "@/components/ui/button"
@@ -50,11 +50,79 @@ export default function VolunteerPage() {
   const [email, setEmail] = useState<string>("")
   const [phoneNo, setPhoneNo] = useState<string>("")
   const [town, setTown] = useState<string>("")
-  const [lga, setLga] = useState<string>("") // Local Government Area
+  const [lga, setLga] = useState<string>("") // Selected LGA
   const [stateOfOrigin, setStateOfOrigin] = useState<string>("")
   const [interests, setInterests] = useState<string[]>([])
   const [submitted, setSubmitted] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  
+  // NEW STATES for dynamic LGA loading
+  const [lgas, setLgas] = useState<string[]>([])
+  const [isLgaLoading, setIsLgaLoading] = useState<boolean>(false)
+
+
+  // Effect to fetch LGAs when stateOfOrigin changes
+  useEffect(() => {
+    const fetchLgas = async (state: string) => {
+        if (!state) {
+            setLgas([]);
+            setLga("");
+            return;
+        }
+
+        setIsLgaLoading(true);
+        setLga(""); // Reset LGA while fetching new list
+
+        // Use the structure provided by the user for the API endpoint
+        const apiUrl = `/api/lgas?state=${encodeURIComponent(state)}`; 
+
+        try {
+            // Implementing simple exponential backoff for robustness
+            const MAX_RETRIES = 3;
+            let response = null;
+            for (let i = 0; i < MAX_RETRIES; i++) {
+                try {
+                    response = await fetch(apiUrl);
+                    if (response.ok) break;
+                } catch (error) {
+                    if (i === MAX_RETRIES - 1) throw error;
+                    // Wait for 1s, 2s, 4s...
+                    await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+                }
+            }
+
+            if (!response || !response.ok) {
+                throw new Error(`Failed to fetch LGAs for ${state} after multiple retries.`);
+            }
+
+            const data = await response.json();
+            
+            if (data.lgas && Array.isArray(data.lgas)) {
+                // Assuming the API returns { lgas: ["LGA1", "LGA2", ...] }
+                setLgas(data.lgas.sort()); // Sort the LGAs alphabetically
+            } else {
+                setLgas([]);
+                console.error("API response structure unexpected or empty LGAs returned:", data);
+                setErrorMessage("Could not load local government areas. Please try again or type manually.");
+            }
+        } catch (error) {
+            console.error("Error fetching LGAs:", error);
+            setLgas([]); 
+            setErrorMessage("Network error fetching LGAs. Please ensure your connection is stable.");
+        } finally {
+            setIsLgaLoading(false);
+        }
+    };
+
+    if (stateOfOrigin) {
+        fetchLgas(stateOfOrigin);
+        setErrorMessage(null); // Clear previous errors on new state selection
+    } else {
+        setLgas([]);
+        setLga("");
+    }
+  }, [stateOfOrigin]); // Dependency array: run when stateOfOrigin changes
+
 
   const handleInterestChange = (interest: string) => {
     setInterests(prev => 
@@ -63,6 +131,11 @@ export default function VolunteerPage() {
         : [...prev, interest]
     )
   }
+
+  const handleStateChange = (state: string) => {
+    setStateOfOrigin(state);
+    setLga(""); // Clear LGA selection when state changes
+  };
 
   const handleVolunteerSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -194,20 +267,33 @@ export default function VolunteerPage() {
                       required
                       className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
-                    <input
-                      type="text"
-                      placeholder="Local Government Area (LGA) (Required)"
-                      value={lga}
-                      onChange={(e) => setLga(e.target.value)}
-                      required
-                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                    />
+                    {/* LGA SELECTOR: Now dynamic based on stateOfOrigin */}
+                    <select
+                        value={lga}
+                        onChange={(e) => setLga(e.target.value)}
+                        required
+                        // Disable if no state is selected or if LGAs are loading
+                        disabled={!stateOfOrigin || isLgaLoading || lgas.length === 0}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white appearance-none"
+                    >
+                        <option value="" disabled>
+                            {isLgaLoading 
+                                ? "Loading LGAs..." 
+                                : stateOfOrigin && lgas.length > 0
+                                    ? "Select Local Government Area (Required)"
+                                    : "Select State first"
+                            }
+                        </option>
+                        {lgas.map(lgaOption => (
+                        <option key={lgaOption} value={lgaOption}>{lgaOption}</option>
+                        ))}
+                    </select>
                   </div>
                   
                   {/* State of Origin Selector */}
                   <select
                     value={stateOfOrigin}
-                    onChange={(e) => setStateOfOrigin(e.target.value)}
+                    onChange={(e) => handleStateChange(e.target.value)} // Use new handler
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white appearance-none"
                   >
