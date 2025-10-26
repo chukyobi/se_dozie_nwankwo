@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function VolunteerPage() {
   const [formData, setFormData] = useState({
@@ -15,7 +15,44 @@ export default function VolunteerPage() {
 
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const [states, setStates] = useState<string[]>([]);
+  const [lgas, setLgas] = useState<string[]>([]);
+
+  // Load list of states (hard-coded or via API)
+  useEffect(() => {
+    // Example: using public list of Nigerian states
+    setStates([
+      "Abia", "Adamawa", "Akwa Ibom", "Anambra", /* etc... all 36 + FCT */
+      "Lagos", "Kano", "Kaduna", "Rivers", "Oyo"
+    ]);
+  }, []);
+
+  // When state changes, fetch LGAs for that state
+  useEffect(() => {
+    const state = formData.stateOfOrigin;
+    if (!state) {
+      setLgas([]);
+      return;
+    }
+
+    fetch(`/api/lgas?state=${encodeURIComponent(state)}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.lgas && Array.isArray(data.lgas)) {
+          setLgas(data.lgas.map((item: any) => item.name ?? item));
+        } else {
+          setLgas([]);
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching LGAs:", err);
+        setLgas([]);
+      });
+  }, [formData.stateOfOrigin]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -24,6 +61,7 @@ export default function VolunteerPage() {
     e.preventDefault();
     console.log("Volunteer Data:", formData);
     setSubmitted(true);
+    // Reset form if needed
     setFormData({
       fullName: "",
       email: "",
@@ -33,6 +71,7 @@ export default function VolunteerPage() {
       stateOfOrigin: "",
       interest: "",
     });
+    setLgas([]);
   };
 
   return (
@@ -66,7 +105,7 @@ export default function VolunteerPage() {
               />
             </div>
 
-            {/* Email (optional) */}
+            {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Email (optional)
@@ -80,7 +119,7 @@ export default function VolunteerPage() {
               />
             </div>
 
-            {/* Phone Number */}
+            {/* Phone */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Phone Number *
@@ -110,37 +149,54 @@ export default function VolunteerPage() {
               />
             </div>
 
-            {/* Local Government */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Local Government *
-              </label>
-              <input
-                type="text"
-                name="localGovernment"
-                value={formData.localGovernment}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"
-              />
-            </div>
-
             {/* State of Origin */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 State of Origin *
               </label>
-              <input
-                type="text"
+              <select
                 name="stateOfOrigin"
                 value={formData.stateOfOrigin}
                 onChange={handleChange}
                 required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"
-              />
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none bg-white"
+              >
+                <option value="">-- Select a State --</option>
+                {states.map((st) => (
+                  <option key={st} value={st}>
+                    {st}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            {/* Area of Interest */}
+            {/* Local Government – populated after state selected */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Local Government *
+              </label>
+              <select
+                name="localGovernment"
+                value={formData.localGovernment}
+                onChange={handleChange}
+                required
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none bg-white"
+                disabled={!lgas.length}
+              >
+                <option value="">
+                  {lgas.length
+                    ? "-- Select Local Government --"
+                    : "Select state first"}
+                </option>
+                {lgas.map((lga) => (
+                  <option key={lga} value={lga}>
+                    {lga}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Interest Selection */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Area of Interest *
@@ -174,4 +230,3 @@ export default function VolunteerPage() {
     </section>
   );
 }
-
