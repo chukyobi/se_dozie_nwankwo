@@ -33,8 +33,8 @@ export default function Navigation() {
                   alt="Dozie Nwankwo Logo"
                   
                   // Set these to your logo's actual dimensions for optimization
-                  width={180} 
-                  height={40}
+                  width={240} 
+                  height={100}
 
                   // This class controls the displayed size.
                   // 'h-10' (2.5rem) is an example. Adjust as needed.
