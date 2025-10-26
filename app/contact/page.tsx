@@ -63,13 +63,13 @@ export default function ContactPage() {
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="font-bold text-gray-900">Email</h3>
-                <p className="text-gray-600 text-sm">info@politicia.com</p>
+                <p className="text-gray-600 text-sm">hello@dozienwankwo.com</p>
                 <p className="text-gray-500 text-xs">We respond within 24 hours</p>
               </CardContent>
             </Card>
 
             {/* Phone */}
-            <Card className="border-gray-200 text-center">
+            {/* <Card className="border-gray-200 text-center">
               <CardContent className="pt-6 space-y-3">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto">
                   <Phone className="h-6 w-6 text-primary" />
@@ -78,7 +78,7 @@ export default function ContactPage() {
                 <p className="text-gray-600 text-sm">+1 (234) 567-890</p>
                 <p className="text-gray-500 text-xs">Mon-Fri, 9 AM - 5 PM</p>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Address */}
             <Card className="border-gray-200 text-center">
@@ -87,13 +87,13 @@ export default function ContactPage() {
                   <MapPin className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="font-bold text-gray-900">Address</h3>
-                <p className="text-gray-600 text-sm">123 Main Street</p>
-                <p className="text-gray-500 text-xs">City, State 12345</p>
+                <p className="text-gray-600 text-sm">Enugu Ukwu</p>
+                <p className="text-gray-500 text-xs">Anambra State, 420110</p>
               </CardContent>
             </Card>
 
             {/* Hours */}
-            <Card className="border-gray-200 text-center">
+            {/* <Card className="border-gray-200 text-center">
               <CardContent className="pt-6 space-y-3">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto">
                   <Clock className="h-6 w-6 text-primary" />
@@ -102,7 +102,7 @@ export default function ContactPage() {
                 <p className="text-gray-600 text-sm">Monday - Friday</p>
                 <p className="text-gray-500 text-xs">9:00 AM - 6:00 PM</p>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
 
           {/* Contact Form */}
