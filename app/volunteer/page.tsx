@@ -1,8 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-// Assuming these component imports are available in the user's project structure
-// Note: We'll use the same UI components as the Donate page for consistency
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Users, TrendingUp, Award, Zap, MapPin, Mail, Phone } from "lucide-react"
@@ -19,29 +17,60 @@ const NIGERIAN_STATES = [
 
 const INTEREST_OPTIONS = [
   "Media and Publicity",
-  "Campaign Funding", // Although related to donations, this is a volunteer role for securing funds
+  "Campaign Funding",
   "Grass Root Mobilization",
   "Logistics and Operations",
   "Data Entry and Analysis",
 ];
 
 const volunteerStats = [
-  {
-    icon: Users,
-    number: "5K+",
-    label: "Active Volunteers",
-  },
-  {
-    icon: TrendingUp,
-    number: "1M+", 
-    label: "Voters Mobilized",
-  },
-  {
-    icon: Award,
-    number: "75%",
-    label: "Success Rate",
-  },
+  { icon: Users, number: "5K+", label: "Active Volunteers" },
+  { icon: TrendingUp, number: "1M+", label: "Voters Mobilized" },
+  { icon: Award, number: "75%", label: "Success Rate" },
 ]
+
+// --- EMBEDDED NIGERIAN STATES AND LGA DATA (REPLACES UNSTABLE API) ---
+// This data is now local and reliable.
+const NIGERIA_LGA_DATA: { [key: string]: string[] } = {
+    "Abia": ["Aba North", "Aba South", "Arochukwu", "Bende", " "],
+    "Adamawa": ["Demsa", "Fufore", "Ganye", "Gombi", "Guyuk", "Hong", "Jada", "Lamurde", "Madagali", "Maiha", "Mayo-Belwa", "Michika", "Mubi North", "Mubi South", "Numan", "Shelleng", "Song", "Toungo", "Yola North", "Yola South"],
+    "Akwa Ibom": ["Abak", "Eastern Obolo", "Eket", "Esit-Eket", "Essien Udim", "Etim-Ekpo", "Etinan", "Ibeno", "Ibesikpo-Asutan", "Ibiono-Ibom", "Ika", "Ikono", "Ikot Abasi", "Ikot Ekpene", "Ini", "Itu", "Mbo", "Mkpat-Enin", "Nsit-Atai", "Nsit-Ibom", "Nsit-Ubium", "Obot-Akara", "Okobo", "Onna", "Oron", "Oruk Anam", "Ukanafun", "Udung-Uko", "Uruan", "Urue-Offong/Oruko", "Uyo"],
+    "Anambra": ["Aguata", "Anambra East", "Anambra West", "Anaocha", "Awka North", "Awka South", "Ayamelum", "Dunukofia", "Ekwusigo", "Idemili North", "Idemili South", "Ihiala", "Njikoka", "Nnewi North", "Nnewi South", "Ogbaru", "Onitsha North", "Onitsha South", "Orumba North", "Orumba South", "Oyi"],
+    "Bauchi": ["Alkaleri", "Bauchi", "Bogoro", "Damban", "Darazo", "Dass", "Ganjuwa", "Giade", "Itas/Gadau", "Jama'are", "Katagum", "Kirfi", "Misau", "Ningi", "Shira", "Tafawa Balewa", "Toro", "Warji", "Zaki"],
+    "Bayelsa": ["Brass", "Ekeremor", "Kolokuma/Opokuma", "Nembe", "Ogbia", "Sagbama", "Southern Ijaw", "Yenagoa"],
+    "Benue": ["Ado", "Agatu", "Apa", "Buruku", "Gboko", "Guma", "Gwer East", "Gwer West", "Katsina-Ala", "Konshisha", "Kwande", "Logo", "Makurdi", "Obi", "Ogbadibo", "Ohimini", "Oju", "Okpokwu", "Oturkpo", "Tarka", "Ukum", "Vandeikya"],
+    "Borno": ["Abadam", "Askira/Uba", "Bama", "Bayo", " "],
+    "Cross River": ["Abi", "Akamkpa", "Akpabuyo", "Bakassi", "Bekwarra", "Biase", "Boki", "Calabar Municipal", "Calabar South", "Etung", "Ikom", "Obanliku", "Obubra", "Obudu", "Odukpani", "Ogoja", "Yakuur", "Yala"],
+    "Delta": ["Aniocha North", "Aniocha South", "Bomadi", "Burutu", "Ethiope East", "Ethiope West", "Ika North East", "Ika South", "Isoko North", "Isoko South", "Ndokwa East", "Ndokwa West", "Okpe", "Oshimili North", "Oshimili South", "Patani", "Sapele", "Udu", "Ughelli North", "Ughelli South", "Warri North", "Warri South", "Warri South West"],
+    "Ebonyi": ["Abakaliki", "Afikpo North", "Afikpo South", "Ebonyi", "Ezza North", "Ezza South", "Ikwo", "Ishielu", "Ivo", "Izzi", "Ohaozara", "Ohaukwu", "Onicha"],
+    "Edo": ["Akoko-Edo", "Egor", "Esan Central", "Esan North-East", "Esan South-East", "Esan West", "Etsako Central", "Etsako East", "Etsako West", "Igueben", "Ikpoba Okha", "Orhionmwon", "Ovia North-East", "Ovia South-West", "Owan East", "Owan West", "Uhunmwonde"],
+    "Ekiti": ["Ado-Ekiti", "Efon", "Ekiti East", "Ekiti South-West", "Ekiti West", "Emure", "Gbonyin", "Ido-Osi", "Ijero", "Ikere", "Ikole", "Ilejemeje", "Irepodun/Ifelodun", "Ise/Orun", "Moba", "Oye"],
+    "Enugu": ["Aninri", "Awgu", "Enugu East", "Enugu North", "Enugu South", "Ezeagu", "Igbo Etiti", "Igbo Eze North", "Igbo Eze South", "Isi Uzo", "Nkanu East", "Nkanu West", "Nsukka", "Oji River", "Udenu", "Udi", "Uzo-Uwani"],
+    "Gombe": ["Akko", "Balanga", "Billiri", "Dukku", "Funakaye", "Gombe", "Kwami", "Nafada", "Shongom", "Yamaltu/Deba"],
+    "Imo": ["Aboh Mbaise", "Ahiazu Mbaise", "Ehime Mbano", "Ezinihitte", "Ideato North", "Ideato South", "Ikeduru", "Isiala Mbano", "Isu", "Mbaitoli", "Ngor Okpala", "Njaba", "Nkwerre", "Nwangele", "Obowo", "Oguta", "Ohaji/Egbema", "Okigwe", "Orlu", "Orsu", "Oru East", "Oru West", "Owerri Municipal", "Owerri North", "Owerri West", "Unuimo"],
+    "Jigawa": ["Auyo", "Babura", "Biriniwa", "Birnin Kudu", "Buji", "Dutse", "Gagarawa", "Garki", "Gumel", "Guri", "Gwaram", "Hadejia", "Jahun", "Kafin Hausa", "Kaugama", "Kazaure", "Kiri Kasama", "Kiyawa", "Kudai", "Maigatari", "Malam Madori", "Miga", "Ringim", "Roni", "Sule Tankarkar", "Taura", "Yankwashi"],
+    "Kaduna": ["Birnin Gwari", "Chikun", "Giwa", "Igabi", "Ikara", "Jaba", "Jema'a", "Kachia", "Kaduna North", "Kaduna South", "Kagarko", "Kajuru", "Kaura", "Kauru", "Kubau", "Kudan", "Lere", "Makarfi", "Sanga", "Sabon Gari", "Soba", "Zangon Kataf", "Zaria"],
+    "Kano": ["Ajingi", "Albasu", "Bagwai", "Bebeji", "Bichi", "Bunkure", "Dala", "Dambatta", "Dawakin Kudu", "Dawakin Tofa", "Doguwa", "Fagge", "Gabasawa", "Garko", "Garun Mallam", "Gaya", "Gezawa", "Gwale", "Gwarzo", "Kabo", "Kano Municipal", "Karaye", "Kibiya", "Kirikasamma", "Kumbotso", "Kunchi", "Kura", "Madobi", "Makoda", "Minjibir", "Nassarawa", "Rano", "Rimin Gado", "Rogo", "Shanono", "Sumaila", "Takai", "Tarauni", "Tofa", "Tsanyawa", "Tudun Wada", "Ungogo", "Warawa", "Wudil"],
+    "Katsina": ["Bakori", "Batagarawa", "Batsari", "Baure", "Bindawa", "Charanchi", "Dan Musa", "Dandume", "Danja", "Daura", "Dutsi", "Dutsin-Ma", "Faskari", "Funtua", "Ingawa", "Jibia", "Kafur", "Kaita", "Kankara", "Kankia", "Katsina", "Kurfi", "Kusada", "Mai'Adua", "Malumfashi", "Mani", "Mashi", "Matazu", "Musawa", "Rimi", "Sabuwa", "Safana", "Sandamu", "Zango"],
+    "Kebbi": ["Aleiro", "Arewa Dandi", "Argungu", "Augie", "Bagudo", "Birnin Kebbi", "Bunza", "Dandi", "Fakai", "Gwandu", "Jega", "Kalgo", "Koko/Besse", "Maiyama", "Ngaski", "Sakaba", "Shanga", "Suru", "Wasagu/Danko", "Yauri", "Zuru"],
+    "Kogi": ["Adavi", "Ajaokuta", "Ankpa", "Bassa", "Dekina", "Ibaji", "Idah", "Igalamela-Odolu", "Ijumu", "Kabba/Bunu", "Kogi", "Lokoja", "Mopa-Muro", "Ofu", "Ogori/Magongo", "Okehi", "Okene", "Olamaboro", "Omala", "Yagba East", "Yagba West"],
+    "Kwara": ["Asa", "Baruten", "Edu", "Ekiti", "Ifelodun", "Ilorin East", "Ilorin South", "Ilorin West", "Irepodun", "Isin", "Kaiama", "Moro", "Offa", "Oke Ero", "Oyun", "Pategi"],
+    "Lagos": ["Agege", "Ajeromi-Ifelodun", "Alimosho", "Amuwo-Odofin", "Apapa", "Badagry", "Epe", "Eti-Osa", "Ibeju-Lekki", "Ifako-Ijaiye", "Ikeja", "Ikorodu", "Kosofe", "Lagos Island", "Lagos Mainland", "Mushin", "Ojo", "Oshodi-Isolo", "Shomolu", "Surulere"],
+    "Nasarawa": ["Awe", "Doma", "Karima", "Keana", "Keffi", "Kokona", "Lafia", "Nasarawa", "Nasarawa Egon", "Obi", "Toto", "Wamba"],
+    "Niger": ["Agaie", "Agwara", "Bida", "Borgu", "Bosso", "Chanchaga", "Edati", "Gbako", "Gurara", "Katcha", "Kontagora", "Lapai", "Lavun", "Magama", "Mariga", "Mashegu", "Mokwa", "Muya", "Pailoro", "Rijau", "Shiroro", "Suleja", "Tafa", "Wushishi"],
+    "Ogun": ["Abeokuta North", "Abeokuta South", "Ado-Odo/Ota", "Egbado North", "Egbado South", "Ewekoro", "Ifo", "Ijebu East", "Ijebu North", "Ijebu North East", "Ijebu Ode", "Ikenne", "Imeko Afon", "Ipokia", "Obafemi Owode", "Odeda", "Odogbolu", "Ogun Waterside", "Remo North", "Shagamu"],
+    "Ondo": ["Akoko North-East", "Akoko North-West", "Akoko South-West", "Akoko South-East", "Ile Oluji/Okeigbo", "Ilaje", "Irele", "Odigbo", "Okitipupa", "Ondo East", "Ondo West", "Ose", "Owo"],
+    "Osun": ["Aiyedaade", "Aiyedire", "Atakumosa East", "Atakumosa West", "Boluwaduro", "Boripe", "Ede North", "Ede South", "Egbedore", "Ejigbo", "Ife Central", "Ife East", "Ife North", "Ife South", "Ifelodun", "Ila", "Ilesa East", "Ilesa West", "Irepodun", "Irewole", "Isokan", "Iwo", "Obokun", "Odo Otin", "Ola Oluwa", "Olorunda", "Oriade", "Orolu", "Osogbo"],
+    "Oyo": ["Afijio", "Akinyele", "Atiba", "Atisbo", "Egbeda", "Ibadan North", "Ibadan North-East", "Ibadan North-West", "Ibadan South-East", "Ibadan South-West", "Ibarapa Central", "Ibarapa East", "Ibarapa North", "Ido", "Irepo", "Iseyin", "Itesiwaju", "Iwajowa", "Kajola", "Lagelu", "Ogbomosho North", "Ogbomosho South", "Ogo Oluwa", "Olorunsogo", "Oluyole", "Ona Ara", "Orelope", "Ori Ire", "Oyo East", "Oyo West", "Saki East", "Saki West", "Surulere"],
+    "Plateau": ["Barkin Ladi", "Bassa", "Bokkos", "Jos East", "Jos North", "Jos South", "Kanam", "Kanke", "Langtang North", "Langtang South", "Mangu", "Mikang", "Pankshin", "Qua'an Pan", "Riyom", "Shendam", "Wase"],
+    "Rivers": ["Abua/Odual", "Ahoada East", "Ahoada West", "Akuku-Toru", "Andoni", "Asari-Toru", "Bonny", "Degema", "Eleme", "Emuoha", "Etche", "Gokana", "Ikwerre", "Khana", "Obio/Akpor", "Ogba/Egbema/Ndoni", "Ogu/Bolo", "Okrika", "Omuma", "Opobo/Nkoro", "Oyigbo", "Port Harcourt", "Tai"],
+    "Sokoto": ["Binji", "Bodinga", "Dange/Shuni", "Gada", "Goronyo", "Gudu", "Gwadabawa", "Illela", "Kebbe", "Kware", "Rabah", "Sabon Birni", "Shagari", "Silame", "Sokoto North", "Sokoto South", "Tambuwal", "Tangaza", "Tureta", "Wamako", "Wurno", "Yabo"],
+    "Taraba": ["Ardo Kola", "Bali", "Donga", "Gashaka", "Gassol", "Ibi", "Jalingo", "Karim Lamido", "Kauru", "Kurmi", "Lau", "Sardauna", "Takum", "Ussa", "Wukari", "Yorro", "Zing"],
+    "Yobe": ["Bade", "Bursari", "Damaturu", "Fika", "Fune", "Geidam", "Gujba", "Gulani", "Jakusko", "Karasuwa", "Machina", "Nangere", "Nguru", "Potiskum", "Tarmuwa", "Yunusari", "Yusufari"],
+    "Zamfara": ["Anka", "Bakura", "Birnin Magaji/Kiyaw", "Bungudu", "Gummi", "Gusau", "Kaura Namoda", "Maradun", "Shinkafi", "Talata Mafara", "Tsafe", "Zurmi"],
+    "FCT": ["Abaji", "Bwari", "Gwagwalada", "Kuje", "Kwali", "Municipal Area Council"]
+};
+
 
 // --- Volunteer Page Component ---
 
@@ -56,72 +85,41 @@ export default function VolunteerPage() {
   const [submitted, setSubmitted] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   
-  // NEW STATES for dynamic LGA loading
+  // State for LGAs is kept, but loading state is removed as lookup is synchronous
   const [lgas, setLgas] = useState<string[]>([])
-  const [isLgaLoading, setIsLgaLoading] = useState<boolean>(false)
 
 
-  // Effect to fetch LGAs when stateOfOrigin changes
+  // Effect to perform LOCAL LGA lookup when stateOfOrigin changes
   useEffect(() => {
-    const fetchLgas = async (state: string) => {
+    const loadLgas = (state: string) => {
         if (!state) {
             setLgas([]);
             setLga("");
+            setErrorMessage(null);
             return;
         }
 
-        setIsLgaLoading(true);
-        setLga(""); // Reset LGA while fetching new list
-
-        // Use the structure provided by the user for the API endpoint
-        const apiUrl = `/api/lgas?state=${encodeURIComponent(state)}`; 
-
-        try {
-            // Implementing simple exponential backoff for robustness
-            const MAX_RETRIES = 3;
-            let response = null;
-            for (let i = 0; i < MAX_RETRIES; i++) {
-                try {
-                    response = await fetch(apiUrl);
-                    if (response.ok) break;
-                } catch (error) {
-                    if (i === MAX_RETRIES - 1) throw error;
-                    // Wait for 1s, 2s, 4s...
-                    await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
-                }
-            }
-
-            if (!response || !response.ok) {
-                // Check if response is available but not OK (e.g., 400 or 500 status)
-                const errorDetail = response ? `Status: ${response.status}` : "Network failed.";
-                throw new Error(`Failed to fetch LGAs for ${state}. ${errorDetail}`);
-            }
-
-            const data = await response.json();
-            
-            if (data.lgas && Array.isArray(data.lgas)) {
-                // Assuming the API returns { lgas: ["LGA1", "LGA2", ...] }
-                setLgas(data.lgas.sort()); // Sort the LGAs alphabetically
-            } else {
-                setLgas([]);
-                console.error("API response structure unexpected or empty LGAs returned:", data);
-                setErrorMessage("Could not load local government areas. The list may be temporarily unavailable.");
-            }
-        } catch (error) {
-            console.error("Error fetching LGAs:", error);
-            setLgas([]); 
-            setErrorMessage("Network error or API issue loading LGAs. Please try another state or check your connection.");
-        } finally {
-            setIsLgaLoading(false);
+        // --- LOCAL DATA LOOKUP ---
+        const foundLgas = NIGERIA_LGA_DATA[state];
+        
+        if (foundLgas && foundLgas.length > 0) {
+            // Success: Set LGAs from local data
+            setLgas(foundLgas.sort());
+            setErrorMessage(null);
+        } else {
+            // Data mismatch error (highly unlikely with this complete list)
+            setLgas([]);
+            setLga("");
+            setErrorMessage(`Data mismatch: Could not find LGAs for the selected state.`);
         }
     };
 
     if (stateOfOrigin) {
-        fetchLgas(stateOfOrigin);
-        setErrorMessage(null); // Clear previous errors on new state selection
+        loadLgas(stateOfOrigin);
     } else {
         setLgas([]);
         setLga("");
+        setErrorMessage(null);
     }
   }, [stateOfOrigin]); // Dependency array: run when stateOfOrigin changes
 
@@ -261,7 +259,7 @@ export default function VolunteerPage() {
                     Location Details
                   </h3>
                   
-                  {/* State of Origin Selector (MOVED TO TOP) */}
+                  {/* State of Origin Selector */}
                   <select
                     value={stateOfOrigin}
                     onChange={(e) => handleStateChange(e.target.value)} // Use new handler
@@ -293,16 +291,14 @@ export default function VolunteerPage() {
                         value={lga}
                         onChange={(e) => setLga(e.target.value)}
                         required
-                        // Disable if no state is selected or if LGAs are loading
-                        disabled={!stateOfOrigin || isLgaLoading || lgas.length === 0}
+                        // The select is now only disabled if no state is selected or if the LGA list is empty
+                        disabled={!stateOfOrigin || lgas.length === 0}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white appearance-none"
                     >
                         <option value="" disabled>
-                            {isLgaLoading 
-                                ? "Loading LGAs..." 
-                                : stateOfOrigin && lgas.length > 0
-                                    ? "Select Local Government Area (Required)"
-                                    : "Select State first"
+                            {stateOfOrigin && lgas.length > 0
+                                ? "Select Local Government Area (Required)"
+                                : "Select State first"
                             }
                         </option>
                         {lgas.map(lgaOption => (
