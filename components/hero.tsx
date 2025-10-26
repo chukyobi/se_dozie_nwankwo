@@ -36,7 +36,7 @@ export default function Hero() {
       icon: Handshake,
       title: "Contribute",
       subtitle: "Become a volunteer",
-      bgColor: "bg-blue-900",
+      bgColor: "bg-green-600",
     },
     {
       icon: Zap,
@@ -48,7 +48,7 @@ export default function Hero() {
       icon: Users,
       title: "Leadership",
       subtitle: "Become a volunteer",
-      bgColor: "bg-blue-900",
+      bgColor: "bg-green-600",
     },
   ]
 
