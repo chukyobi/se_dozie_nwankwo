@@ -36,14 +36,7 @@ const donationTiers = [
   },
 ]
 
-const formatNaira = (nairaAmount) => {
-  return nairaAmount.toLocaleString('en-NG', {
-    style: 'currency',
-    currency: 'NGN',
-    minimumFractionDigits: 0, // No kobo
-    maximumFractionDigits: 0,
-  }).replace('NGN', '₦'); // Replace the 'NGN' text with the Naira symbol
-};
+
 
 // const impactStats = [
 //   {
@@ -160,29 +153,46 @@ export default function DonatePage() {
                   </div>
 
                   {/* Preset Amounts */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-3">Select Amount (₦)</label>
+                   <div>
+
+                    <label className="block text-sm font-medium text-gray-900 mb-3">Select Amount</label>
+
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                      {/* Updated to common Naira donation amounts: ₦5,000, ₦10,000, ₦25,000, ₦50,000 */}
-                      {[5000, 10000, 25000, 50000].map((amount) => (
+
+                      {[25, 50, 100, 250].map((amount) => (
+
                         <button
+
                           key={amount}
+
                           onClick={() => {
-                            // Note: setSelectedAmount and setCustomAmount will now hold Naira values
+
                             setSelectedAmount(amount)
+
                             setCustomAmount("")
+
                           }}
+
                           className={`p-3 rounded-lg border-2 font-semibold transition-all ${
+
                             selectedAmount === amount
+
                               ? "border-primary bg-primary/10 text-primary"
+
                               : "border-gray-300 text-gray-900 hover:border-primary"
+
                           }`}
+
                         >
-                          {/* Use the formatNaira function to display the currency correctly */}
-                          {formatNaira(amount)}
+
+                          ${amount}
+
                         </button>
+
                       ))}
+
                     </div>
+
                   </div>
 
                   {/* Custom Amount */}
