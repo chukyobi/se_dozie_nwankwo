@@ -83,7 +83,7 @@ export default function Footer() {
 
         {/* Divider */}
         <div className="border-t border-gray-800 py-8">
-          <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+          <div className="flex flex-col md:flex-row justify-center md:justify-center items-center md:items-center gap-4">
             <p className="text-gray-400 text-sm">
               &copy; 2025 Hon. Dozie Nwankwo Campaign Organization. All rights reserved.
             </p>
