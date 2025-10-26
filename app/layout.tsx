@@ -15,9 +15,9 @@ const greatVibes = Great_Vibes({
 });
 
 export const metadata: Metadata = {
-  title: "Campaign for Leadership",
-  description: "Candidate for the African Union Commission",
-  generator: "v0.app",
+  title: "Hon. Ferdinard Dozie Nwnakwo",
+  description: "Honorable of the Federal Republic of Nigeria ",
+  
 };
 
 export const viewport: Viewport = {
