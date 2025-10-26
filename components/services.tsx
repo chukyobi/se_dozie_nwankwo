@@ -63,7 +63,7 @@ export default function Services() {
               >
                 <CardHeader className="p-8 pb-4">
                   {/* Icon Container - Blue with Red accent */}
-                  <div className="w-14 h-14 bg-blue-900 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:rotate-6">
+                  <div className="w-14 h-14 bg-gren-600 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:rotate-6">
                     <Icon className="h-8 w-8 text-white" strokeWidth={2} />
                   </div>
                   <CardTitle className="text-2xl font-extrabold text-gray-900 leading-snug">
