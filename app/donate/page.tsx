@@ -56,7 +56,7 @@ const donationTiers = [
     ],
   },
   {
-    amount: 1000000+,
+    amount: 1000000,
     label: "Leader",
     description: "Be part of our leadership",
     benefits: [
