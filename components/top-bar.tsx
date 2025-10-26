@@ -1,6 +1,6 @@
 export default function TopBar() {
   return (
-    <div className="border-b h-10 bg-green-600 border-gray-300 py-2">
+    <div className="border-b h-10 bg-gray-900 border-gray-300 py-2">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* On small screens, content is centered (justify-center); on larger screens, it's spread out (justify-between) */}
         <div className="flex justify-center sm:justify-between items-center text-sm">
