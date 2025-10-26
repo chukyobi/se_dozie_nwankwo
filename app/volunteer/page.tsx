@@ -3,230 +3,174 @@
 import { useState, useEffect } from "react";
 
 export default function VolunteerPage() {
+  const [states, setStates] = useState<string[]>([]);
+  const [lgas, setLgas] = useState<string[]>([]);
+  const [selectedState, setSelectedState] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
     town: "",
-    localGovernment: "",
-    stateOfOrigin: "",
-    interest: "",
+    lga: "",
+    state: "",
+    category: "",
   });
 
-  const [submitted, setSubmitted] = useState(false);
-
-  const [states, setStates] = useState<string[]>([]);
-  const [lgas, setLgas] = useState<string[]>([]);
-
-  // Load list of states (hard-coded or via API)
+  // Fetch all states
   useEffect(() => {
-    // Example: using public list of Nigerian states
-    setStates([
-      "Abia", "Adamawa", "Akwa Ibom", "Anambra", /* etc... all 36 + FCT */
-      "Lagos", "Kano", "Kaduna", "Rivers", "Oyo"
-    ]);
+    fetch("https://nga-states-lga.vercel.app/api/states")
+      .then((res) => res.json())
+      .then((data) => setStates(data))
+      .catch((err) => console.error("Error fetching states:", err));
   }, []);
 
-  // When state changes, fetch LGAs for that state
+  // Fetch LGAs when state changes
   useEffect(() => {
-    const state = formData.stateOfOrigin;
-    if (!state) {
+    if (selectedState) {
+      fetch(`https://nga-states-lga.vercel.app/api/lgas/${selectedState}`)
+        .then((res) => res.json())
+        .then((data) => setLgas(data))
+        .catch((err) => console.error("Error fetching LGAs:", err));
+    } else {
       setLgas([]);
-      return;
     }
+  }, [selectedState]);
 
-    fetch(`/api/lgas?state=${encodeURIComponent(state)}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.lgas && Array.isArray(data.lgas)) {
-          setLgas(data.lgas.map((item: any) => item.name ?? item));
-        } else {
-          setLgas([]);
-        }
-      })
-      .catch((err) => {
-        console.error("Error fetching LGAs:", err);
-        setLgas([]);
-      });
-  }, [formData.stateOfOrigin]);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "state") {
+      setSelectedState(value);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Volunteer Data:", formData);
-    setSubmitted(true);
-    // Reset form if needed
-    setFormData({
-      fullName: "",
-      email: "",
-      phone: "",
-      town: "",
-      localGovernment: "",
-      stateOfOrigin: "",
-      interest: "",
-    });
-    setLgas([]);
+    alert("Thank you for volunteering! Your form has been submitted successfully.");
+    console.log(formData);
   };
 
   return (
-    <section className="min-h-screen bg-gray-50 flex flex-col items-center justify-center py-12 px-4">
-      <div className="w-full max-w-lg bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
-        <h1 className="text-3xl font-bold text-center text-red-600 mb-2">
-          Become a Volunteer
-        </h1>
-        <p className="text-gray-600 text-center mb-8">
-          Join the Dozinized Movement — make an impact in your community.
-        </p>
+    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-md mt-10 mb-10">
+      <h1 className="text-2xl font-bold mb-6 text-center">Volunteer Registration</h1>
 
-        {submitted ? (
-          <div className="text-center text-green-600 font-medium">
-            ✅ Thank you for volunteering! We’ll reach out to you soon.
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Full Name */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Full Name *
-              </label>
-              <input
-                type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"
-              />
-            </div>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Full Name */}
+        <div>
+          <label className="block font-medium mb-1">Full Name</label>
+          <input
+            type="text"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+            required
+            className="w-full border border-gray-300 p-2 rounded"
+          />
+        </div>
 
-            {/* Email */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email (optional)
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"
-              />
-            </div>
+        {/* Email */}
+        <div>
+          <label className="block font-medium mb-1">Email (Optional)</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full border border-gray-300 p-2 rounded"
+          />
+        </div>
 
-            {/* Phone */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Phone Number *
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"
-              />
-            </div>
+        {/* Phone */}
+        <div>
+          <label className="block font-medium mb-1">Phone Number</label>
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+            className="w-full border border-gray-300 p-2 rounded"
+          />
+        </div>
 
-            {/* Town */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Town *
-              </label>
-              <input
-                type="text"
-                name="town"
-                value={formData.town}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"
-              />
-            </div>
+        {/* Town */}
+        <div>
+          <label className="block font-medium mb-1">Town</label>
+          <input
+            type="text"
+            name="town"
+            value={formData.town}
+            onChange={handleChange}
+            required
+            className="w-full border border-gray-300 p-2 rounded"
+          />
+        </div>
 
-            {/* State of Origin */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                State of Origin *
-              </label>
-              <select
-                name="stateOfOrigin"
-                value={formData.stateOfOrigin}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none bg-white"
-              >
-                <option value="">-- Select a State --</option>
-                {states.map((st) => (
-                  <option key={st} value={st}>
-                    {st}
-                  </option>
-                ))}
-              </select>
-            </div>
+        {/* State */}
+        <div>
+          <label className="block font-medium mb-1">State of Origin</label>
+          <select
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+            required
+            className="w-full border border-gray-300 p-2 rounded"
+          >
+            <option value="">Select a state</option>
+            {states.map((state) => (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            ))}
+          </select>
+        </div>
 
-            {/* Local Government – populated after state selected */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Local Government *
-              </label>
-              <select
-                name="localGovernment"
-                value={formData.localGovernment}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none bg-white"
-                disabled={!lgas.length}
-              >
-                <option value="">
-                  {lgas.length
-                    ? "-- Select Local Government --"
-                    : "Select state first"}
+        {/* Local Government */}
+        {lgas.length > 0 && (
+          <div>
+            <label className="block font-medium mb-1">Local Government Area</label>
+            <select
+              name="lga"
+              value={formData.lga}
+              onChange={handleChange}
+              required
+              className="w-full border border-gray-300 p-2 rounded"
+            >
+              <option value="">Select an LGA</option>
+              {lgas.map((lga) => (
+                <option key={lga} value={lga}>
+                  {lga}
                 </option>
-                {lgas.map((lga) => (
-                  <option key={lga} value={lga}>
-                    {lga}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Interest Selection */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Area of Interest *
-              </label>
-              <select
-                name="interest"
-                value={formData.interest}
-                onChange={handleChange}
-                required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none bg-white"
-              >
-                <option value="">-- Select an area --</option>
-                <option value="media">Media and Publicity</option>
-                <option value="funding">Campaign Funding</option>
-                <option value="mobilization">Grassroot Mobilization</option>
-              </select>
-            </div>
-
-            {/* Submit Button */}
-            <div className="text-center">
-              <button
-                type="submit"
-                className="bg-red-600 hover:bg-green-600 text-white px-6 py-3 font-bold rounded-full transition-all"
-              >
-                Submit Application
-              </button>
-            </div>
-          </form>
+              ))}
+            </select>
+          </div>
         )}
-      </div>
-    </section>
+
+        {/* Category */}
+        <div>
+          <label className="block font-medium mb-1">Select Category</label>
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+            className="w-full border border-gray-300 p-2 rounded"
+          >
+            <option value="">Choose one</option>
+            <option value="Media and Publicity">Media and Publicity</option>
+            <option value="Campaign Funding">Campaign Funding</option>
+            <option value="Grass Root Mobilization">Grass Root Mobilization</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
   );
 }
