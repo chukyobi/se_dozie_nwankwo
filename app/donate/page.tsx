@@ -1,95 +1,110 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-// Assuming these component imports are available in the user's project structure
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Heart, Users, TrendingUp, Award } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Heart, Users, TrendingUp, Award } from "lucide-react";
 
-// Helper function to format the number as Naira currency
-// FIX: Added explicit type 'amount: number' to resolve the TypeScript error.
+// Helper function to format Naira currency
 const formatNaira = (amount: number) => {
-  if (typeof amount !== 'number' || isNaN(amount)) return '';
-  
-  // Use toLocaleString for comma separation and currency formatting
-  return amount.toLocaleString('en-NG', {
-    style: 'currency',
-    currency: 'NGN',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).replace('NGN', '₦'); // Explicitly replace 'NGN' with the Naira symbol '₦'
+  if (typeof amount !== "number" || isNaN(amount)) return "";
+
+  return amount
+    .toLocaleString("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    })
+    .replace("NGN", "₦");
 };
 
-// Fixed the syntax error by removing commas from the numbers
+// Donation tiers
 const donationTiers = [
   {
-    amount: 5000, 
+    amount: 5000,
     label: "Supporter",
     description: "Help us reach more voters",
     benefits: ["Campaign updates", "Event invitations"],
   },
   {
-    amount: 100000, 
+    amount: 100000,
     label: "Advocate",
     description: "Make a meaningful impact",
-    benefits: ["All Supporter benefits", "Monthly newsletter", "Exclusive content"],
+    benefits: [
+      "All Supporter benefits",
+      "Monthly newsletter",
+      "Exclusive content",
+    ],
     featured: true,
   },
   {
-    amount: 500000, 
+    amount: 500000,
     label: "Champion",
     description: "Drive real change",
-    benefits: ["All Advocate benefits", "VIP event access", "Direct campaign updates"],
+    benefits: [
+      "All Advocate benefits",
+      "VIP event access",
+      "Direct campaign updates",
+    ],
   },
   {
-    amount: 1000000, 
+    amount: 1000000,
     label: "Leader",
     description: "Be part of our leadership",
-    benefits: ["All Champion benefits", "Private briefings", "Recognition on website"],
+    benefits: [
+      "All Champion benefits",
+      "Private briefings",
+      "Recognition on website",
+    ],
   },
-]
+];
 
-// const impactStats = [
-//   {
-//     icon: Users,
-//     number: "50K+",
-//     label: "Supporters",
-//   },
-//   {
-//     icon: TrendingUp,
-//     number: "₦500M+", 
-//     label: "Raised",
-//   },
-//   {
-//     icon: Award,
-//     number: "25+",
-//     label: "Districts",
-//   },
-// ]
-
+// ✅ Impact statistics section data
+const impactStats = [
+  {
+    icon: Users,
+    number: "10,000+",
+    label: "Supporters Nationwide",
+  },
+  {
+    icon: TrendingUp,
+    number: "85%",
+    label: "Campaign Growth Rate",
+  },
+  {
+    icon: Award,
+    number: "50+",
+    label: "Community Projects",
+  },
+];
 
 export default function DonatePage() {
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(10000) 
-  // Custom amount is kept as string since it comes from an input field
-  const [customAmount, setCustomAmount] = useState<string>("")
-  const [donationFrequency, setDonationFrequency] = useState("one-time")
-  const [submitted, setSubmitted] = useState(false)
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(10000);
+  const [customAmount, setCustomAmount] = useState<string>("");
+  const [donationFrequency, setDonationFrequency] = useState("one-time");
+  const [submitted, setSubmitted] = useState(false);
 
   const handleDonate = (e: React.FormEvent) => {
-    e.preventDefault()
-    // In a real app, this would process the donation
+    e.preventDefault();
     console.log({
       amount: selectedAmount || customAmount,
       frequency: donationFrequency,
-    })
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
-  }
+    });
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3000);
+  };
 
-  // Determine the amount to display on the donate button, converting customAmount to number if present
   const parseCustomAmount = customAmount ? parseFloat(customAmount) : 0;
-  const displayAmount = selectedAmount !== null ? selectedAmount : parseCustomAmount;
+  const displayAmount =
+    selectedAmount !== null ? selectedAmount : parseCustomAmount;
 
   return (
     <main className="min-h-screen bg-white font-['Inter']">
@@ -97,11 +112,15 @@ export default function DonatePage() {
       <section className="bg-gradient-to-br from-green-600 to-white py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4">
-            <p className="text-blue-600 font-semibold text-lg">Support Our Campaign</p>
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">Make a Donation</h1>
+            <p className="text-blue-600 font-semibold text-lg">
+              Support Our Campaign
+            </p>
+            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">
+              Make a Donation
+            </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Your contribution helps us reach more voters and build the future we believe in. Every donation makes a
-              difference.
+              Your contribution helps us reach more voters and build the future
+              we believe in. Every donation makes a difference.
             </p>
           </div>
         </div>
@@ -112,18 +131,23 @@ export default function DonatePage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {impactStats.map((stat, index) => {
-              const Icon = stat.icon
+              const Icon = stat.icon;
               return (
-                <Card key={index} className="border-gray-200 shadow-lg rounded-xl overflow-hidden">
+                <Card
+                  key={index}
+                  className="border-gray-200 shadow-lg rounded-xl overflow-hidden"
+                >
                   <CardContent className="pt-6 space-y-3 text-center">
                     <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto shadow-md">
                       <Icon className="h-6 w-6 text-blue-600" />
                     </div>
-                    <p className="text-3xl font-extrabold text-blue-600">{stat.number}</p>
+                    <p className="text-3xl font-extrabold text-blue-600">
+                      {stat.number}
+                    </p>
                     <p className="text-gray-600 font-medium">{stat.label}</p>
                   </CardContent>
                 </Card>
-              )
+              );
             })}
           </div>
         </div>
@@ -137,15 +161,27 @@ export default function DonatePage() {
             <div className="lg:col-span-2 space-y-8">
               <Card className="border-gray-200 shadow-2xl rounded-xl">
                 <CardHeader className="bg-gray-50/50 border-b">
-                  <CardTitle className="text-gray-900">Choose Your Donation Amount</CardTitle>
-                  <CardDescription>Select a preset amount or enter a custom amount.</CardDescription>
+                  <CardTitle className="text-gray-900">
+                    Choose Your Donation Amount
+                  </CardTitle>
+                  <CardDescription>
+                    Select a preset amount or enter a custom amount.
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6 p-6 sm:p-8">
                   {/* Donation Frequency */}
                   <div>
-                    <label className="block text-sm font-semibold text-gray-900 mb-3">Donation Frequency</label>
+                    <label className="block text-sm font-semibold text-gray-900 mb-3">
+                      Donation Frequency
+                    </label>
                     <div className="flex gap-4">
-                      <label className={`flex items-center gap-2 cursor-pointer p-2 border rounded-lg transition-colors ${donationFrequency === "one-time" ? "border-blue-500 bg-blue-50" : "border-gray-300"}`}>
+                      <label
+                        className={`flex items-center gap-2 cursor-pointer p-2 border rounded-lg transition-colors ${
+                          donationFrequency === "one-time"
+                            ? "border-blue-500 bg-blue-50"
+                            : "border-gray-300"
+                        }`}
+                      >
                         <input
                           type="radio"
                           name="frequency"
@@ -154,9 +190,17 @@ export default function DonatePage() {
                           onChange={(e) => setDonationFrequency(e.target.value)}
                           className="w-4 h-4 text-blue-600"
                         />
-                        <span className="text-gray-700 font-medium">One-time</span>
+                        <span className="text-gray-700 font-medium">
+                          One-time
+                        </span>
                       </label>
-                      <label className={`flex items-center gap-2 cursor-pointer p-2 border rounded-lg transition-colors ${donationFrequency === "monthly" ? "border-green-500 bg-green-50" : "border-gray-300"}`}>
+                      <label
+                        className={`flex items-center gap-2 cursor-pointer p-2 border rounded-lg transition-colors ${
+                          donationFrequency === "monthly"
+                            ? "border-green-500 bg-green-50"
+                            : "border-gray-300"
+                        }`}
+                      >
                         <input
                           type="radio"
                           name="frequency"
@@ -165,21 +209,25 @@ export default function DonatePage() {
                           onChange={(e) => setDonationFrequency(e.target.value)}
                           className="w-4 h-4 text-blue-600"
                         />
-                        <span className="text-gray-700 font-medium">Monthly</span>
+                        <span className="text-gray-700 font-medium">
+                          Monthly
+                        </span>
                       </label>
                     </div>
                   </div>
 
-                  {/* Preset Amounts (Now in Naira and formatted) */}
+                  {/* Preset Amounts */}
                   <div>
-                    <label className="block text-sm font-semibold text-gray-900 mb-3">Select Amount (₦)</label>
+                    <label className="block text-sm font-semibold text-gray-900 mb-3">
+                      Select Amount (₦)
+                    </label>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                       {[5000, 10000, 25000, 50000].map((amount) => (
                         <button
                           key={amount}
                           onClick={() => {
-                            setSelectedAmount(amount)
-                            setCustomAmount("")
+                            setSelectedAmount(amount);
+                            setCustomAmount("");
                           }}
                           className={`p-3 rounded-xl border-2 font-bold transition-all shadow-sm ${
                             selectedAmount === amount
@@ -187,7 +235,6 @@ export default function DonatePage() {
                               : "border-gray-300 text-gray-900 hover:border-blue-500 hover:bg-gray-50"
                           }`}
                         >
-                          {/* Display the formatted Naira amount */}
                           {formatNaira(amount)}
                         </button>
                       ))}
@@ -196,16 +243,19 @@ export default function DonatePage() {
 
                   {/* Custom Amount */}
                   <div>
-                    <label className="block text-sm font-semibold text-gray-900 mb-2">Custom Amount</label>
+                    <label className="block text-sm font-semibold text-gray-900 mb-2">
+                      Custom Amount
+                    </label>
                     <div className="flex gap-2">
-                      {/* Display Naira symbol prefix */}
-                      <span className="flex items-center px-4 bg-gray-100 border border-gray-300 rounded-lg text-gray-600 font-bold">₦</span>
+                      <span className="flex items-center px-4 bg-gray-100 border border-gray-300 rounded-lg text-gray-600 font-bold">
+                        ₦
+                      </span>
                       <input
                         type="number"
                         value={customAmount}
                         onChange={(e) => {
-                          setCustomAmount(e.target.value)
-                          setSelectedAmount(null)
+                          setCustomAmount(e.target.value);
+                          setSelectedAmount(null);
                         }}
                         placeholder="e.g., 75000"
                         className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -215,7 +265,9 @@ export default function DonatePage() {
 
                   {/* Donor Info */}
                   <div className="space-y-4 pt-6 border-t border-gray-200">
-                    <h3 className="font-bold text-lg text-gray-900">Donor Information</h3>
+                    <h3 className="font-bold text-lg text-gray-900">
+                      Donor Information
+                    </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <input
                         type="text"
@@ -235,7 +287,7 @@ export default function DonatePage() {
                     />
                   </div>
 
-                  {/* Donate Button (Displays formatted Naira amount) */}
+                  {/* Donate Button */}
                   <Button
                     onClick={handleDonate}
                     size="lg"
@@ -245,12 +297,16 @@ export default function DonatePage() {
                     <Heart className="mr-2 h-5 w-5" />
                     Donate {formatNaira(displayAmount)}
                   </Button>
+
                   {submitted && (
-                    <p className="text-center text-sm text-green-600 font-medium animate-pulse">Thank you for your generous donation!</p>
+                    <p className="text-center text-sm text-green-600 font-medium animate-pulse">
+                      Thank you for your generous donation!
+                    </p>
                   )}
 
                   <p className="text-xs text-gray-500 text-center mt-4">
-                    Your donation is secure and encrypted. We accept all major credit cards.
+                    Your donation is secure and encrypted. We accept all major
+                    credit cards.
                   </p>
                 </CardContent>
               </Card>
@@ -258,30 +314,48 @@ export default function DonatePage() {
 
             {/* Donation Tiers Sidebar */}
             <div className="space-y-4 lg:col-span-1">
-              <h3 className="font-extrabold text-gray-900 text-xl border-b pb-2">Membership Tiers</h3>
+              <h3 className="font-extrabold text-gray-900 text-xl border-b pb-2">
+                Membership Tiers
+              </h3>
               {donationTiers.map((tier, index) => (
                 <Card
                   key={index}
                   className={`border-2 relative rounded-xl cursor-pointer transition-all shadow-md ${
-                    tier.featured ? "border-green-500 bg-green-50 shadow-xl" : "border-gray-200 hover:border-green-400"
+                    tier.featured
+                      ? "border-green-500 bg-green-50 shadow-xl"
+                      : "border-gray-200 hover:border-green-400"
                   }`}
                   onClick={() => {
-                    setSelectedAmount(tier.amount)
-                    setCustomAmount("")
+                    setSelectedAmount(tier.amount);
+                    setCustomAmount("");
                   }}
                 >
-                  {tier.featured && <Badge className="absolute top-3 right-3 bg-green-600 text-white font-bold px-3 py-1 text-sm rounded-full shadow-lg">Popular</Badge>}
+                  {tier.featured && (
+                    <Badge className="absolute top-3 right-3 bg-green-600 text-white font-bold px-3 py-1 text-sm rounded-full shadow-lg">
+                      Popular
+                    </Badge>
+                  )}
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-xl text-gray-900">{tier.label}</CardTitle>
-                    <CardDescription className="text-sm">{tier.description}</CardDescription>
+                    <CardTitle className="text-xl text-gray-900">
+                      {tier.label}
+                    </CardTitle>
+                    <CardDescription className="text-sm">
+                      {tier.description}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3 pt-0">
-                    {/* Display the formatted Naira amount for the tier */}
-                    <p className="text-3xl font-extrabold text-blue-600">{formatNaira(tier.amount)}</p>
+                    <p className="text-3xl font-extrabold text-blue-600">
+                      {formatNaira(tier.amount)}
+                    </p>
                     <ul className="space-y-2 list-none p-0">
                       {tier.benefits.map((benefit, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                          <span className="text-blue-500 font-extrabold mt-0.5">✓</span>
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-sm text-gray-700"
+                        >
+                          <span className="text-blue-500 font-extrabold mt-0.5">
+                            ✓
+                          </span>
                           <span>{benefit}</span>
                         </li>
                       ))}
@@ -298,28 +372,37 @@ export default function DonatePage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 space-y-4">
-            <h2 className="text-4xl font-bold text-gray-900">Why Your Donation Matters</h2>
-            <p className="text-xl text-gray-600">Every contribution directly supports our campaign efforts.</p>
+            <h2 className="text-4xl font-bold text-gray-900">
+              Why Your Donation Matters
+            </h2>
+            <p className="text-xl text-gray-600">
+              Every contribution directly supports our campaign efforts.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 title: "Reach More Voters",
-                description: "Your donation helps us reach more people with our message of change and hope.",
+                description:
+                  "Your donation helps us reach more people with our message of change and hope.",
               },
               {
                 title: "Build Community",
-                description: "We invest in grassroots organizing and community engagement programs.",
+                description:
+                  "We invest in grassroots organizing and community engagement programs.",
               },
               {
                 title: "Drive Change",
-                description: "Together, we can create the future we believe in for our community.",
+                description:
+                  "Together, we can create the future we believe in for our community.",
               },
             ].map((item, index) => (
               <Card key={index} className="border-gray-200 shadow-md rounded-xl">
                 <CardHeader>
-                  <CardTitle className="text-blue-600 text-xl">{item.title}</CardTitle>
+                  <CardTitle className="text-blue-600 text-xl">
+                    {item.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600">{item.description}</p>
@@ -333,16 +416,22 @@ export default function DonatePage() {
       {/* Transparency Section */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <h2 className="text-4xl font-bold text-gray-900">Transparency & Accountability</h2>
+          <h2 className="text-4xl font-bold text-gray-900">
+            Transparency & Accountability
+          </h2>
           <p className="text-xl text-gray-600">
-            We believe in complete transparency about how campaign funds are used. All donations are reported in
-            accordance with campaign finance laws.
+            We believe in complete transparency about how campaign funds are
+            used. All donations are reported in accordance with campaign finance
+            laws.
           </p>
-          <Button variant="outline" className="border-blue-500 text-blue-600 bg-transparent hover:bg-blue-50 transition-colors rounded-lg">
+          <Button
+            variant="outline"
+            className="border-blue-500 text-blue-600 bg-transparent hover:bg-blue-50 transition-colors rounded-lg"
+          >
             View Campaign Finance Reports
           </Button>
         </div>
       </section>
     </main>
-  )
+  );
 }
