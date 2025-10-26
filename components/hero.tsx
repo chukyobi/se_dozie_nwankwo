@@ -100,7 +100,7 @@ export default function Hero() {
         {/* Content */}
         <div className="relative z-10 h-full flex flex-col justify-center items-center sm:items-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl text-center sm:text-left">
-            <h1 className="text-4xl md:text-7xl text-white font-sans mb-3 leading-tight tracking-tight">
+            <h1 className="text-4xl md:text-7xl !text-white font-sans mb-3 leading-tight tracking-tight">
               {slides[currentSlide].title}
             </h1>
 
