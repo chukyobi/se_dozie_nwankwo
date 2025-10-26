@@ -197,26 +197,7 @@ export default function VolunteerPage() {
       </section>
 
       {/* Volunteer Impact Stats */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {volunteerStats.map((stat, index) => {
-              const Icon = stat.icon
-              return (
-                <Card key={index} className="border-gray-200 shadow-lg rounded-xl overflow-hidden">
-                  <CardContent className="pt-6 space-y-3 text-center">
-                    <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto shadow-md">
-                      <Icon className="h-6 w-6 text-red-600" />
-                    </div>
-                    <p className="text-3xl font-extrabold text-red-600">{stat.number}</p>
-                    <p className="text-gray-600 font-medium">{stat.label}</p>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-        </div>
-      </section>
+      
 
       {/* Volunteer Form */}
       <section className="py-20">
@@ -283,7 +264,7 @@ export default function VolunteerPage() {
                     ))}
                   </select>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  
                     {/* LGA SELECTOR: Dynamic based on stateOfOrigin */}
                     <select
                         value={lga}
@@ -312,7 +293,7 @@ export default function VolunteerPage() {
                       // Dynamic class for Town/City
                       className={`px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${getBorderClasses(town)}`}
                     />
-                  </div>
+              
                 </div>
 
                 {/* Areas of Interest - Now uses GREEN on selection */}
