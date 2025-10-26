@@ -165,9 +165,9 @@ export default function VolunteerPage() {
     setStateOfOrigin("")
     setInterests([])
 
-    // Show success message
+    // Show success modal
     setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 5000)
+    // NOTE: Removed setTimeout so the modal stays open until manually closed
   }
 
   const isFormValid = fullName && phoneNo && town && lga && stateOfOrigin && interests.length > 0;
@@ -183,6 +183,18 @@ export default function VolunteerPage() {
 
   return (
     <main className="min-h-screen bg-white font-['Inter']">
+        
+        {/* Style block for Modal animation (optional, for smoother look) */}
+        <style jsx="true">{`
+            @keyframes fadeIn {
+                from { opacity: 0; transform: scale(0.95) translateY(10px); }
+                to { opacity: 1; transform: scale(1) translateY(0); }
+            }
+            .animate-fade-in-up {
+                animation: fadeIn 0.3s ease-out forwards;
+            }
+        `}</style>
+        
       {/* Hero Section - Adapted for Volunteering */}
       <section className="bg-gradient-to-br from-red-50 to-white py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -196,8 +208,7 @@ export default function VolunteerPage() {
         </div>
       </section>
 
-      {/* Volunteer Impact Stats */}
-      
+
 
       {/* Volunteer Form */}
       <section className="py-20">
@@ -264,7 +275,7 @@ export default function VolunteerPage() {
                     ))}
                   </select>
 
-                  
+                  {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
                     {/* LGA SELECTOR: Dynamic based on stateOfOrigin */}
                     <select
                         value={lga}
@@ -293,10 +304,10 @@ export default function VolunteerPage() {
                       // Dynamic class for Town/City
                       className={`px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${getBorderClasses(town)}`}
                     />
-              
+                  {/* </div> */}
                 </div>
 
-                {/* Areas of Interest - Now uses GREEN on selection */}
+                {/* Areas of Interest - Uses GREEN on selection */}
                 <div className={`space-y-4 pt-4 p-4 rounded-xl transition-all border-2 ${
                     interests.length > 0 ? "border-green-500 bg-green-50/20" : "border-gray-200"
                 }`}>
@@ -310,9 +321,8 @@ export default function VolunteerPage() {
                         key={interest} 
                         className={`flex items-center gap-3 cursor-pointer p-4 border-2 rounded-xl transition-all shadow-sm ${
                           interests.includes(interest) 
-                            // ************ UPDATED TO GREEN THEME ************
+                            // Green ring/border/color when selected
                             ? "border-green-600 bg-green-50 text-green-700 ring-2 ring-green-500" 
-                            // **********************************************
                             : "border-gray-200 text-gray-800 hover:border-red-400"
                         }`}
                       >
@@ -344,10 +354,6 @@ export default function VolunteerPage() {
                   Sign Up to Volunteer
                 </Button>
                 
-                {submitted && (
-                  <p className="text-center text-sm text-green-600 font-medium animate-pulse">Thank you! We've received your application and will be in touch soon.</p>
-                )}
-                
                 <p className="text-xs text-gray-500 text-center mt-4">
                   Your contact information will only be used for campaign-related coordination.
                 </p>
@@ -376,6 +382,36 @@ export default function VolunteerPage() {
           </div>
         </div>
       </section>
+      
+      {/* --- Success Modal Component (New) --- */}
+      {submitted && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 backdrop-blur-sm p-4 transition-opacity">
+          <Card className="max-w-md w-full rounded-xl shadow-2xl animate-fade-in-up">
+            <CardHeader className="text-center space-y-2 p-6">
+              <div className="mx-auto w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+                {/* Checkmark SVG Icon */}
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+              </div>
+              <CardTitle className="text-2xl font-bold text-green-700">Application Submitted!</CardTitle>
+              <CardDescription className="text-gray-600">
+                Thank you for signing up. Your commitment to our movement is invaluable.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6 pt-0 space-y-4">
+              <p className="text-sm text-gray-700 text-center">
+                A coordinator will reach out to you within **48 hours** via your phone number to discuss next steps.
+              </p>
+              <Button
+                onClick={() => setSubmitted(false)}
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg transition-colors"
+              >
+                Close
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+      {/* --- End Success Modal Component --- */}
     </main>
   )
 }
