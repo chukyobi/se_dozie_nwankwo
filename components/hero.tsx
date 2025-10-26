@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react"
-import { Megaphone, Handshake, Zap, Users } from "lucide-react"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Megaphone, Handshake, Zap, Users } from "lucide-react";
 
 export default function Hero() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [fade, setFade] = useState(true)
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [fade, setFade] = useState(true);
+  const router = useRouter();
 
   const slides = [
     {
@@ -23,7 +25,7 @@ export default function Hero() {
       title: "Your Voice Matters",
       subtitle: "Together we can make a difference.",
     },
-  ]
+  ];
 
   const actionCards = [
     {
@@ -50,34 +52,38 @@ export default function Hero() {
       subtitle: "Become a volunteer",
       bgColor: "bg-green-600",
     },
-  ]
+  ];
 
+  // Auto-slide logic
   useEffect(() => {
     const timer = setInterval(() => {
-      setFade(false)
+      setFade(false);
       setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length)
-        setFade(true)
-      }, 5000)
-    }, 5000)
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+        setFade(true);
+      }, 500);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
 
-    return () => clearInterval(timer)
-  }, [slides.length])
-
-  // Function to handle slide navigation
-  const goToSlide = (index: number) => { 
-    setFade(false)
+  const goToSlide = (index: number) => {
+    setFade(false);
     setTimeout(() => {
-      setCurrentSlide(index)
-      setFade(true)
-    }, 500)
-  }
+      setCurrentSlide(index);
+      setFade(true);
+    }, 500);
+  };
+
+  // ✅ Handle button click
+  const handleJoinClick = () => {
+    router.push("/volunteer");
+  };
 
   return (
     <>
-      {/* Hero Section with Slider: Reduced height for mobile (h-[65vh]) */}
+      {/* Hero Section */}
       <section className="relative w-full h-[65vh] sm:h-screen overflow-hidden">
-        {/* Slider background */}
+        {/* Background */}
         <div className="absolute inset-0">
           <div
             className={`absolute inset-0 transition-opacity duration-500`}
@@ -88,69 +94,56 @@ export default function Hero() {
               opacity: fade ? 1 : 0,
             }}
           />
-          {/* Dark overlay */}
           <div className="absolute inset-0 bg-black/60" />
         </div>
 
-        {/* Content: HIDDEN (opacity-0 and pointer-events-none added) */}
+        {/* Content */}
         <div className="relative z-10 h-full flex flex-col justify-center items-center sm:items-start max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl text-center sm:text-left">
-            {/* Headline: Hidden */}
-            <h1 className="text-4xl md:text-7xl !text-white font-sans mb-3 leading-tight tracking-tight">
+            <h1 className="text-4xl md:text-7xl text-white font-sans mb-3 leading-tight tracking-tight">
               {slides[currentSlide].title}
             </h1>
-            
-            {/* Subtitle: Hidden */}
-            <p className="text-xl sm:text-3xl !text-white font-sans mb-8 font-normal leading-relaxed">
+
+            <p className="text-xl sm:text-3xl text-white font-sans mb-8 font-normal leading-relaxed">
               {slides[currentSlide].subtitle}
             </p>
 
-            {/* Button: Hidden */}
-            <button className="bg-red-600 hover:bg-green-600 text-white px-6 py-3 font-bold text-sm transition-colors inline-flex items-center gap-2 rounded-full mb-12">
+            {/* ✅ Clickable Button */}
+            <button
+              onClick={handleJoinClick}
+              className="bg-red-600 hover:bg-green-600 text-white px-6 py-3 font-bold text-sm transition-colors inline-flex items-center gap-2 rounded-full mb-12"
+            >
               JOIN THE DOZINIZED MOVEMENT <span className="text-lg">›</span>
             </button>
-
-            {/* Slide Indicators: Hidden (but can be made visible if needed) */}
-            {/* <div className="flex justify-center sm:justify-start gap-4 items-center w-full">
-              {slides.map((_, index: number) => ( 
-                <div
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`w-6 h-6 rounded-full font-bold text-xs transition-all border-2 flex items-center justify-center cursor-pointer ${
-                    index === currentSlide
-                      ? "bg-red-600 border-red-600 text-white scale-105 shadow-md"
-                      : "bg-transparent border-white text-white hover:bg-white/20"
-                  }`}
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </div>
-              ))}
-            </div> */}
           </div>
         </div>
       </section>
 
-      {/* ACTION CARDS SECTION - MODIFIED: Ensured responsiveness remains intact */}
+      {/* Action Cards Section */}
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-0">
-        {actionCards.map((card, index: number) => { 
-          const Icon = card.icon
+        {actionCards.map((card, index: number) => {
+          const Icon = card.icon;
           return (
             <div
               key={index}
               className={`${card.bgColor} p-6 sm:p-8 flex items-center justify-between group cursor-pointer hover:shadow-2xl transition-all`}
             >
-              {/* Content wrapper for Icon and Text (Left side) */}
               <div className="flex items-center gap-4">
-                <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-white shrink-0" strokeWidth={1.5} />
+                <Icon
+                  className="w-8 h-8 sm:w-10 sm:h-10 text-white shrink-0"
+                  strokeWidth={1.5}
+                />
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-0 leading-tight">{card.title}</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-0 leading-tight">
+                    {card.title}
+                  </h3>
                   <p className="text-white/90 text-sm">{card.subtitle}</p>
                 </div>
               </div>
             </div>
-          )
+          );
         })}
       </section>
     </>
-  )
+  );
 }
