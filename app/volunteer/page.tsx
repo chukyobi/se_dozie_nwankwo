@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
+// Assuming these component imports are available in the user's project structure
+// Note: We'll use the same UI components as the Donate page for consistency
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Users, TrendingUp, Award, Zap, MapPin, Mail, Phone } from "lucide-react"
@@ -32,14 +34,14 @@ const volunteerStats = [
 // --- EMBEDDED NIGERIAN STATES AND LGA DATA (REPLACES UNSTABLE API) ---
 // This data is now local and reliable.
 const NIGERIA_LGA_DATA: { [key: string]: string[] } = {
-    "Abia": ["Aba North", "Aba South", "Arochukwu", "Bende", " "],
+    "Abia": ["Aba North", "Aba South", "Arochukwu", "Bende", "Isiala Ngwa North", "Isiala Ngwa South", "Isuikwuato", "Obi Ngwa", "Ohafia", "Osisioma Ngwa", "Ugwunagbo", "Ukwa East", "Ukwa West", "Umuahia North", "Umuahia South", "Umu Nneochi"],
     "Adamawa": ["Demsa", "Fufore", "Ganye", "Gombi", "Guyuk", "Hong", "Jada", "Lamurde", "Madagali", "Maiha", "Mayo-Belwa", "Michika", "Mubi North", "Mubi South", "Numan", "Shelleng", "Song", "Toungo", "Yola North", "Yola South"],
     "Akwa Ibom": ["Abak", "Eastern Obolo", "Eket", "Esit-Eket", "Essien Udim", "Etim-Ekpo", "Etinan", "Ibeno", "Ibesikpo-Asutan", "Ibiono-Ibom", "Ika", "Ikono", "Ikot Abasi", "Ikot Ekpene", "Ini", "Itu", "Mbo", "Mkpat-Enin", "Nsit-Atai", "Nsit-Ibom", "Nsit-Ubium", "Obot-Akara", "Okobo", "Onna", "Oron", "Oruk Anam", "Ukanafun", "Udung-Uko", "Uruan", "Urue-Offong/Oruko", "Uyo"],
     "Anambra": ["Aguata", "Anambra East", "Anambra West", "Anaocha", "Awka North", "Awka South", "Ayamelum", "Dunukofia", "Ekwusigo", "Idemili North", "Idemili South", "Ihiala", "Njikoka", "Nnewi North", "Nnewi South", "Ogbaru", "Onitsha North", "Onitsha South", "Orumba North", "Orumba South", "Oyi"],
     "Bauchi": ["Alkaleri", "Bauchi", "Bogoro", "Damban", "Darazo", "Dass", "Ganjuwa", "Giade", "Itas/Gadau", "Jama'are", "Katagum", "Kirfi", "Misau", "Ningi", "Shira", "Tafawa Balewa", "Toro", "Warji", "Zaki"],
     "Bayelsa": ["Brass", "Ekeremor", "Kolokuma/Opokuma", "Nembe", "Ogbia", "Sagbama", "Southern Ijaw", "Yenagoa"],
     "Benue": ["Ado", "Agatu", "Apa", "Buruku", "Gboko", "Guma", "Gwer East", "Gwer West", "Katsina-Ala", "Konshisha", "Kwande", "Logo", "Makurdi", "Obi", "Ogbadibo", "Ohimini", "Oju", "Okpokwu", "Oturkpo", "Tarka", "Ukum", "Vandeikya"],
-    "Borno": ["Abadam", "Askira/Uba", "Bama", "Bayo", " "],
+    "Borno": ["Abadam", "Askira/Uba", "Bama", "Bayo", "Biu", "Chibok", "Damboa", "Dikwa", "Gubio", "Guzamala", "Kala/Balge", "Kaga", "Konduga", "Kukawa", "Kwaya Kusar", "Mafa", "Magumeri", "Maiduguri", "Marte", "Mobbar", "Monguno", "Ngala", "Nganzai", "Shani"],
     "Cross River": ["Abi", "Akamkpa", "Akpabuyo", "Bakassi", "Bekwarra", "Biase", "Boki", "Calabar Municipal", "Calabar South", "Etung", "Ikom", "Obanliku", "Obubra", "Obudu", "Odukpani", "Ogoja", "Yakuur", "Yala"],
     "Delta": ["Aniocha North", "Aniocha South", "Bomadi", "Burutu", "Ethiope East", "Ethiope West", "Ika North East", "Ika South", "Isoko North", "Isoko South", "Ndokwa East", "Ndokwa West", "Okpe", "Oshimili North", "Oshimili South", "Patani", "Sapele", "Udu", "Ughelli North", "Ughelli South", "Warri North", "Warri South", "Warri South West"],
     "Ebonyi": ["Abakaliki", "Afikpo North", "Afikpo South", "Ebonyi", "Ezza North", "Ezza South", "Ikwo", "Ishielu", "Ivo", "Izzi", "Ohaozara", "Ohaukwu", "Onicha"],
@@ -85,7 +87,6 @@ export default function VolunteerPage() {
   const [submitted, setSubmitted] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   
-  // State for LGAs is kept, but loading state is removed as lookup is synchronous
   const [lgas, setLgas] = useState<string[]>([])
 
 
@@ -103,11 +104,9 @@ export default function VolunteerPage() {
         const foundLgas = NIGERIA_LGA_DATA[state];
         
         if (foundLgas && foundLgas.length > 0) {
-            // Success: Set LGAs from local data
             setLgas(foundLgas.sort());
             setErrorMessage(null);
         } else {
-            // Data mismatch error (highly unlikely with this complete list)
             setLgas([]);
             setLga("");
             setErrorMessage(`Data mismatch: Could not find LGAs for the selected state.`);
@@ -173,6 +172,14 @@ export default function VolunteerPage() {
 
   const isFormValid = fullName && phoneNo && town && lga && stateOfOrigin && interests.length > 0;
 
+  // Helper function to dynamically set classes based on field status
+  const getBorderClasses = (value: string | string[]) => {
+      const isFilled = Array.isArray(value) ? value.length > 0 : value.length > 0;
+      return isFilled
+          ? "border-green-500 ring-green-500 border-2" // Green ring/border when filled
+          : "border-gray-300 focus:ring-red-500 border"; // Default/focus ring
+  };
+
   return (
     <main className="min-h-screen bg-white font-['Inter']">
       {/* Hero Section - Adapted for Volunteering */}
@@ -189,7 +196,7 @@ export default function VolunteerPage() {
       </section>
 
       {/* Volunteer Impact Stats */}
-      
+     
 
       {/* Volunteer Form */}
       <section className="py-20">
@@ -214,7 +221,8 @@ export default function VolunteerPage() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    // NEW: Dynamic class for Full Name
+                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${getBorderClasses(fullName)}`}
                   />
                   <input
                     type="email"
@@ -229,7 +237,8 @@ export default function VolunteerPage() {
                     value={phoneNo}
                     onChange={(e) => setPhoneNo(e.target.value)}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    // NEW: Dynamic class for Phone Number
+                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${getBorderClasses(phoneNo)}`}
                   />
                 </div>
 
@@ -243,14 +252,10 @@ export default function VolunteerPage() {
                   {/* State of Origin Selector */}
                   <select
                     value={stateOfOrigin}
-                    onChange={(e) => handleStateChange(e.target.value)} // Use new handler
+                    onChange={(e) => handleStateChange(e.target.value)}
                     required
                     // Dynamic class change: use green ring/border if state is selected
-                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 bg-white appearance-none transition-all ${
-                        stateOfOrigin
-                            ? "border-green-500 ring-green-500 border-2" 
-                            : "border-gray-300 focus:ring-red-500 border"
-                    }`}
+                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 bg-white appearance-none transition-all ${getBorderClasses(stateOfOrigin)}`}
                   >
                     <option value="" disabled>Select State of Origin (Required)</option>
                     {NIGERIAN_STATES.map(state => (
@@ -265,16 +270,17 @@ export default function VolunteerPage() {
                       value={town}
                       onChange={(e) => setTown(e.target.value)}
                       required
-                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                      // NEW: Dynamic class for Town/City
+                      className={`px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${getBorderClasses(town)}`}
                     />
                     {/* LGA SELECTOR: Dynamic based on stateOfOrigin */}
                     <select
                         value={lga}
                         onChange={(e) => setLga(e.target.value)}
                         required
-                        // The select is now only disabled if no state is selected or if the LGA list is empty
                         disabled={!stateOfOrigin || lgas.length === 0}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white appearance-none"
+                        // NEW: Dynamic class for LGA
+                        className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 bg-white appearance-none transition-all ${getBorderClasses(lga)}`}
                     >
                         <option value="" disabled>
                             {stateOfOrigin && lgas.length > 0
@@ -290,7 +296,10 @@ export default function VolunteerPage() {
                 </div>
 
                 {/* Areas of Interest */}
-                <div className="space-y-4 pt-4">
+                {/* NEW: Apply a border to the entire interest section when at least one is selected */}
+                <div className={`space-y-4 pt-4 p-4 rounded-xl transition-all border-2 ${
+                    interests.length > 0 ? "border-green-500 bg-green-50/20" : "border-gray-200"
+                }`}>
                   <h3 className="font-bold text-lg text-gray-900 border-b pb-2 flex items-center gap-2">
                     <Zap className="w-5 h-5 text-red-500" />
                     Areas of Interest (Select all that apply)
