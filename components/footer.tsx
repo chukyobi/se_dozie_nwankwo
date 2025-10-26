@@ -9,7 +9,7 @@ export default function Footer() {
           
           {/* Brand — full width on mobile */}
           <div className="space-y-4 md:col-span-1">
-            <h3 className="text-2xl font-bold text-primary">Politicia</h3>
+            <h3 className="text-2xl font-bold text-primary">Hon. Dozie Nwankwo</h3>
             <p className="text-gray-400">
               Building a better future through transparent leadership and
               community-driven solutions.
@@ -23,20 +23,16 @@ export default function Footer() {
               <h4 className="font-bold text-lg">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#" className="!text-white hover:text-white transition-colors">
+                  <a href="/about" className="!text-white hover:text-white transition-colors">
                     About Us
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="!text-white hover:text-white transition-colors">
-                    Our Platform
+                  <a href="/contact" className="!text-white hover:text-white transition-colors">
+                    Contact us
                   </a>
                 </li>
-                <li>
-                  <a href="#" className="!text-white hover:text-white transition-colors">
-                    News
-                  </a>
-                </li>
+            
                 <li>
                   <a href="#" className="!text-white hover:text-white transition-colors">
                     Events
@@ -50,22 +46,17 @@ export default function Footer() {
               <h4 className="font-bold text-lg">Resources</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#" className="!text-white hover:text-white transition-colors">
+                  <a href="/volunteer" className="!text-white hover:text-white transition-colors">
                     Volunteer
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="!text-white hover:text-white transition-colors">
+                  <a href="/donate" className="!text-white hover:text-white transition-colors">
                     Donate
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="!text-white hover:text-white transition-colors">
-                    Contact
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="!text-white hover:text-white transition-colors">
+                  <a href="/#" className="!text-white hover:text-white transition-colors">
                     Privacy Policy
                   </a>
                 </li>
@@ -94,9 +85,9 @@ export default function Footer() {
         <div className="border-t border-gray-800 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              &copy; 2025 Dozie Nwankwo Campaign. All rights reserved.
+              &copy; 2025 Hon. Dozie Nwankwo Campaign Organization. All rights reserved.
             </p>
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
               <a href="#" className="text-gray-400 hover:text-primary transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>
@@ -109,7 +100,7 @@ export default function Footer() {
               <a href="#" className="text-gray-400 hover:text-primary transition-colors">
                 <Linkedin className="h-5 w-5" />
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
