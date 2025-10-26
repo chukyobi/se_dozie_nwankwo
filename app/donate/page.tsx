@@ -56,7 +56,7 @@ const donationTiers = [
     ],
   },
   {
-    amount: 1000000,
+    amount: 1000000+,
     label: "Leader",
     description: "Be part of our leadership",
     benefits: [
@@ -71,7 +71,7 @@ const donationTiers = [
 const impactStats = [
   {
     icon: Users,
-    number: "10,000+",
+    number: "1M+",
     label: "Supporters Nationwide",
   },
   {
@@ -81,7 +81,7 @@ const impactStats = [
   },
   {
     icon: Award,
-    number: "50+",
+    number: "1000+",
     label: "Community Projects",
   },
 ];
@@ -139,9 +139,9 @@ export default function DonatePage() {
                 >
                   <CardContent className="pt-6 space-y-3 text-center">
                     <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto shadow-md">
-                      <Icon className="h-6 w-6 text-blue-600" />
+                      <Icon className="h-6 w-6 text-red-600" />
                     </div>
-                    <p className="text-3xl font-extrabold text-blue-600">
+                    <p className="text-3xl font-extrabold text-red-600">
                       {stat.number}
                     </p>
                     <p className="text-gray-600 font-medium">{stat.label}</p>
@@ -178,7 +178,7 @@ export default function DonatePage() {
                       <label
                         className={`flex items-center gap-2 cursor-pointer p-2 border rounded-lg transition-colors ${
                           donationFrequency === "one-time"
-                            ? "border-blue-500 bg-blue-50"
+                            ? "border-red-500 bg-blue-50"
                             : "border-gray-300"
                         }`}
                       >
@@ -188,7 +188,7 @@ export default function DonatePage() {
                           value="one-time"
                           checked={donationFrequency === "one-time"}
                           onChange={(e) => setDonationFrequency(e.target.value)}
-                          className="w-4 h-4 text-blue-600"
+                          className="w-4 h-4 text-red-600"
                         />
                         <span className="text-gray-700 font-medium">
                           One-time
@@ -231,7 +231,7 @@ export default function DonatePage() {
                           }}
                           className={`p-3 rounded-xl border-2 font-bold transition-all shadow-sm ${
                             selectedAmount === amount
-                              ? "border-blue-600 bg-blue-100 text-green-700 ring-2 ring-green-500"
+                              ? "border-red-600 bg-blue-100 text-green-700 ring-2 ring-green-500"
                               : "border-gray-300 text-gray-900 hover:border-blue-500 hover:bg-gray-50"
                           }`}
                         >
@@ -258,7 +258,7 @@ export default function DonatePage() {
                           setSelectedAmount(null);
                         }}
                         placeholder="e.g., 75000"
-                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                       />
                     </div>
                   </div>
