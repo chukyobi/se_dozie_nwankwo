@@ -36,23 +36,23 @@ const donationTiers = [
   },
 ]
 
-const impactStats = [
-  {
-    icon: Users,
-    number: "50K+",
-    label: "Supporters",
-  },
-  {
-    icon: TrendingUp,
-    number: "$500K+",
-    label: "Raised",
-  },
-  {
-    icon: Award,
-    number: "25+",
-    label: "Districts",
-  },
-]
+// const impactStats = [
+//   {
+//     icon: Users,
+//     number: "50K+",
+//     label: "Supporters",
+//   },
+//   {
+//     icon: TrendingUp,
+//     number: "$500K+",
+//     label: "Raised",
+//   },
+//   {
+//     icon: Award,
+//     number: "25+",
+//     label: "Districts",
+//   },
+// ]
 
 export default function DonatePage() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(50)
@@ -88,7 +88,7 @@ export default function DonatePage() {
       </section>
 
       {/* Impact Stats */}
-      <section className="py-16 bg-gray-50">
+      {/* <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {impactStats.map((stat, index) => {
@@ -107,7 +107,7 @@ export default function DonatePage() {
             })}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Donation Form */}
       <section className="py-20">
