@@ -18,14 +18,14 @@ const posts = [
     excerpt: "A deep dive into the Bill for an Act to Establish the Federal College of Agriculture in Enugwu-Ukwu, and its potential to boost local technology and employment.",
     date: "July 19, 2024",
     category: "Education",
-    image: "/environmental-initiative.jpg", // Placeholder image for Education
+    image: "/dozie_hero2.jpg", // Placeholder image for Education
   },
   {
     title: "Humanitarian Outreach: Free Medical Services to Over 4,000",
     excerpt: "Celebrating the success of the Ferdinand Dozie Nwankwo Foundation in providing free medical care, surgeries, and vision support across the Senatorial Zone.",
     date: "June 05, 2024",
     category: "Philanthropy",
-    image: "/dozie_hero4.jpg", // Placeholder image for Philanthropy
+    image: "/dozie_grid2.jpeg", // Placeholder image for Philanthropy
   },
 ]
 
