@@ -1,176 +1,298 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
+import { useState } from "react"
+// Assuming these component imports are available in the user's project structure
+// Note: We'll use the same UI components as the Donate page for consistency
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Users, TrendingUp, Award, Zap, MapPin, Mail, Phone } from "lucide-react"
+
+// --- Constants for Form Data ---
+
+const NIGERIAN_STATES = [
+  "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno", 
+  "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Gombe", "Imo", 
+  "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", 
+  "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", 
+  "Sokoto", "Taraba", "Yobe", "Zamfara", "FCT",
+];
+
+const INTEREST_OPTIONS = [
+  "Media and Publicity",
+  "Campaign Funding", // Although related to donations, this is a volunteer role for securing funds
+  "Grass Root Mobilization",
+  "Logistics and Operations",
+  "Data Entry and Analysis",
+];
+
+const volunteerStats = [
+  {
+    icon: Users,
+    number: "5K+",
+    label: "Active Volunteers",
+  },
+  {
+    icon: TrendingUp,
+    number: "1M+", 
+    label: "Voters Mobilized",
+  },
+  {
+    icon: Award,
+    number: "75%",
+    label: "Success Rate",
+  },
+]
+
+// --- Volunteer Page Component ---
 
 export default function VolunteerPage() {
-  const [states, setStates] = useState<string[]>([]);
-  const [lgas, setLgas] = useState<string[]>([]);
-  const [selectedState, setSelectedState] = useState("");
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    town: "",
-    lga: "",
-    state: "",
-    category: "",
-  });
+  const [fullName, setFullName] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
+  const [phoneNo, setPhoneNo] = useState<string>("")
+  const [town, setTown] = useState<string>("")
+  const [lga, setLga] = useState<string>("") // Local Government Area
+  const [stateOfOrigin, setStateOfOrigin] = useState<string>("")
+  const [interests, setInterests] = useState<string[]>([])
+  const [submitted, setSubmitted] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  // Fetch all states
-  useEffect(() => {
-    fetch("https://nga-states-lga.vercel.app/api/states")
-      .then((res) => res.json())
-      .then((data) => setStates(data))
-      .catch((err) => console.error("Error fetching states:", err));
-  }, []);
+  const handleInterestChange = (interest: string) => {
+    setInterests(prev => 
+      prev.includes(interest) 
+        ? prev.filter(i => i !== interest) 
+        : [...prev, interest]
+    )
+  }
 
-  // Fetch LGAs when state changes
-  useEffect(() => {
-    if (selectedState) {
-      fetch(`https://nga-states-lga.vercel.app/api/lgas/${selectedState}`)
-        .then((res) => res.json())
-        .then((data) => setLgas(data))
-        .catch((err) => console.error("Error fetching LGAs:", err));
-    } else {
-      setLgas([]);
+  const handleVolunteerSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setErrorMessage(null)
+
+    if (!fullName || !phoneNo || !town || !lga || !stateOfOrigin || interests.length === 0) {
+      setErrorMessage("Please fill out all required fields (Full Name, Phone No, Location, and select at least one Interest).")
+      return
     }
-  }, [selectedState]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    // In a real app, this would send data to a backend (e.g., Firestore)
+    console.log({
+      fullName,
+      email: email || "Not Provided",
+      phoneNo,
+      town,
+      lga,
+      stateOfOrigin,
+      interests,
+    })
+    
+    // Reset form fields
+    setFullName("")
+    setEmail("")
+    setPhoneNo("")
+    setTown("")
+    setLga("")
+    setStateOfOrigin("")
+    setInterests([])
 
-    if (name === "state") {
-      setSelectedState(value);
-    }
-  };
+    // Show success message
+    setSubmitted(true)
+    setTimeout(() => setSubmitted(false), 5000)
+  }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert("Thank you for volunteering! Your form has been submitted successfully.");
-    console.log(formData);
-  };
+  const isFormValid = fullName && phoneNo && town && lga && stateOfOrigin && interests.length > 0;
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-md mt-10 mb-10">
-      <h1 className="text-2xl font-bold mb-6 text-center">Volunteer Registration</h1>
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Full Name */}
-        <div>
-          <label className="block font-medium mb-1">Full Name</label>
-          <input
-            type="text"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            required
-            className="w-full border border-gray-300 p-2 rounded"
-          />
-        </div>
-
-        {/* Email */}
-        <div>
-          <label className="block font-medium mb-1">Email (Optional)</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full border border-gray-300 p-2 rounded"
-          />
-        </div>
-
-        {/* Phone */}
-        <div>
-          <label className="block font-medium mb-1">Phone Number</label>
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            className="w-full border border-gray-300 p-2 rounded"
-          />
-        </div>
-
-        {/* Town */}
-        <div>
-          <label className="block font-medium mb-1">Town</label>
-          <input
-            type="text"
-            name="town"
-            value={formData.town}
-            onChange={handleChange}
-            required
-            className="w-full border border-gray-300 p-2 rounded"
-          />
-        </div>
-
-        {/* State */}
-        <div>
-          <label className="block font-medium mb-1">State of Origin</label>
-          <select
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-            required
-            className="w-full border border-gray-300 p-2 rounded"
-          >
-            <option value="">Select a state</option>
-            {states.map((state) => (
-              <option key={state} value={state}>
-                {state}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Local Government */}
-        {lgas.length > 0 && (
-          <div>
-            <label className="block font-medium mb-1">Local Government Area</label>
-            <select
-              name="lga"
-              value={formData.lga}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 p-2 rounded"
-            >
-              <option value="">Select an LGA</option>
-              {lgas.map((lga) => (
-                <option key={lga} value={lga}>
-                  {lga}
-                </option>
-              ))}
-            </select>
+    <main className="min-h-screen bg-white font-['Inter']">
+      {/* Hero Section - Adapted for Volunteering */}
+      <section className="bg-gradient-to-br from-red-50 to-white py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-4">
+            <p className="text-red-600 font-semibold text-lg">Join Our Movement</p>
+            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">Become a Volunteer</h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Lend your skill, time, and passion. Together, we can mobilize our communities and achieve our goals.
+            </p>
           </div>
-        )}
-
-        {/* Category */}
-        <div>
-          <label className="block font-medium mb-1">Select Category</label>
-          <select
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            required
-            className="w-full border border-gray-300 p-2 rounded"
-          >
-            <option value="">Choose one</option>
-            <option value="Media and Publicity">Media and Publicity</option>
-            <option value="Campaign Funding">Campaign Funding</option>
-            <option value="Grass Root Mobilization">Grass Root Mobilization</option>
-          </select>
         </div>
+      </section>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-        >
-          Submit
-        </button>
-      </form>
-    </div>
-  );
+      {/* Volunteer Impact Stats */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {volunteerStats.map((stat, index) => {
+              const Icon = stat.icon
+              return (
+                <Card key={index} className="border-gray-200 shadow-lg rounded-xl overflow-hidden">
+                  <CardContent className="pt-6 space-y-3 text-center">
+                    <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto shadow-md">
+                      <Icon className="h-6 w-6 text-red-600" />
+                    </div>
+                    <p className="text-3xl font-extrabold text-red-600">{stat.number}</p>
+                    <p className="text-gray-600 font-medium">{stat.label}</p>
+                  </CardContent>
+                </Card>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Volunteer Form */}
+      <section className="py-20">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Card className="border-gray-200 shadow-2xl rounded-xl">
+            <CardHeader className="bg-gray-50/50 border-b">
+              <CardTitle className="text-gray-900">Volunteer Application</CardTitle>
+              <CardDescription>Fill out the form below to register your interest in volunteering.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-8 p-6 sm:p-8">
+              <form onSubmit={handleVolunteerSubmit} className="space-y-6">
+                
+                {/* Personal Information */}
+                <div className="space-y-4">
+                  <h3 className="font-bold text-lg text-gray-900 border-b pb-2 flex items-center gap-2">
+                    <Users className="w-5 h-5 text-red-500" />
+                    Personal Details
+                  </h3>
+                  <input
+                    type="text"
+                    placeholder="Full Name (Required)"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email Address (Optional)"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Phone Number (Required)"
+                    value={phoneNo}
+                    onChange={(e) => setPhoneNo(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  />
+                </div>
+
+                {/* Location Information */}
+                <div className="space-y-4 pt-4">
+                  <h3 className="font-bold text-lg text-gray-900 border-b pb-2 flex items-center gap-2">
+                    <MapPin className="w-5 h-5 text-red-500" />
+                    Location Details
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input
+                      type="text"
+                      placeholder="Town / City (Required)"
+                      value={town}
+                      onChange={(e) => setTown(e.target.value)}
+                      required
+                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Local Government Area (LGA) (Required)"
+                      value={lga}
+                      onChange={(e) => setLga(e.target.value)}
+                      required
+                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    />
+                  </div>
+                  
+                  {/* State of Origin Selector */}
+                  <select
+                    value={stateOfOrigin}
+                    onChange={(e) => setStateOfOrigin(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white appearance-none"
+                  >
+                    <option value="" disabled>Select State of Origin (Required)</option>
+                    {NIGERIAN_STATES.map(state => (
+                      <option key={state} value={state}>{state}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Areas of Interest */}
+                <div className="space-y-4 pt-4">
+                  <h3 className="font-bold text-lg text-gray-900 border-b pb-2 flex items-center gap-2">
+                    <Zap className="w-5 h-5 text-red-500" />
+                    Areas of Interest (Select all that apply)
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {INTEREST_OPTIONS.map((interest) => (
+                      <label 
+                        key={interest} 
+                        className={`flex items-center gap-3 cursor-pointer p-4 border-2 rounded-xl transition-all shadow-sm ${
+                          interests.includes(interest) 
+                            ? "border-red-600 bg-red-50 text-red-700 ring-2 ring-red-500" 
+                            : "border-gray-200 text-gray-800 hover:border-red-400"
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={interests.includes(interest)}
+                          onChange={() => handleInterestChange(interest)}
+                          className="w-4 h-4 text-red-600 rounded"
+                        />
+                        <span className="font-medium text-sm">{interest}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Submit Button */}
+                {errorMessage && (
+                  <p className="text-center text-sm text-red-600 font-medium">⚠️ {errorMessage}</p>
+                )}
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full bg-red-600 hover:bg-red-700 text-white text-lg py-3 rounded-xl shadow-lg transition-colors"
+                  disabled={!isFormValid}
+                >
+                  <Users className="mr-2 h-5 w-5" />
+                  Sign Up to Volunteer
+                </Button>
+                
+                {submitted && (
+                  <p className="text-center text-sm text-green-600 font-medium animate-pulse">Thank you! We've received your application and will be in touch soon.</p>
+                )}
+                
+                <p className="text-xs text-gray-500 text-center mt-4">
+                  Your contact information will only be used for campaign-related coordination.
+                </p>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Call to Action Section - Adapted */}
+      <section className="py-20 bg-red-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+          <h2 className="text-4xl font-bold text-gray-900">Have Questions? Get in Touch!</h2>
+          <p className="text-xl text-gray-600">
+            If you need more information about specific volunteer roles or commitments, please contact our team.
+          </p>
+          <div className="flex justify-center gap-4 flex-wrap">
+            <Button className="bg-red-600 hover:bg-red-700 rounded-lg">
+              <Mail className="w-4 h-4 mr-2" />
+              Email Us
+            </Button>
+            <Button variant="outline" className="border-red-500 text-red-600 bg-transparent hover:bg-red-100 transition-colors rounded-lg">
+              <Phone className="w-4 h-4 mr-2" />
+              Call Coordinator
+            </Button>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
 }
