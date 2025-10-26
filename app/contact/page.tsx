@@ -55,7 +55,7 @@ export default function ContactPage() {
       {/* Contact Information Cards */}
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16 justify-center items-center">
             {/* Email */}
             <Card className="border-gray-200 text-center">
               <CardContent className="pt-6 space-y-3">
