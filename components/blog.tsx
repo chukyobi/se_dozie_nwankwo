@@ -25,7 +25,7 @@ const posts = [
     excerpt: "Celebrating the success of the Ferdinand Dozie Nwankwo Foundation in providing free medical care, surgeries, and vision support across the Senatorial Zone.",
     date: "June 05, 2024",
     category: "Philanthropy",
-    image: "/", // Placeholder image for Philanthropy
+    image: "/dozie_hero4.jpg", // Placeholder image for Philanthropy
   },
 ]
 
