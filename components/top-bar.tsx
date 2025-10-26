@@ -20,28 +20,28 @@ export default function TopBar() {
             <div className="flex gap-2 text-white">
               <a
                 href="#"
-                className="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs hover:text-red-600 transition-colors"
+                className="w-5 h-5 rounded-full flex items-center justify-center !text-white text-xs hover:text-red-600 transition-colors"
                 aria-label="Facebook"
               >
                 f
               </a>
               <a
                 href="#"
-                className="w-5 h-5  rounded-full flex items-center justify-center text-white text-xs hover:text-red-600 transition-colors"
+                className="w-5 h-5  rounded-full flex items-center justify-center !text-white text-xs hover:text-red-600 transition-colors"
                 aria-label="Twitter/X"
               >
                 𝕏
               </a>
               <a
                 href="#"
-                className="w-5 h-5  rounded-full flex items-center justify-center text-white text-xs hover:text-red-600 transition-colors"
+                className="w-5 h-5  rounded-full flex items-center justify-center !text-white text-xs hover:text-red-600 transition-colors"
                 aria-label="LinkedIn"
               >
                 in
               </a>
               <a
                 href="#"
-                className="w-5 h-5  rounded-full flex items-center justify-center text-white text-xs hover:text-red-600 transition-colors"
+                className="w-5 h-5  rounded-full flex items-center justify-center !text-white text-xs hover:text-red-600 transition-colors"
                 aria-label="YouTube"
               >
                 ▶
