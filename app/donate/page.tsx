@@ -112,7 +112,7 @@ export default function DonatePage() {
       <section className="bg-gradient-to-br from-green-600 to-white py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4">
-            <p className="text-blue-600 font-semibold text-lg">
+            <p className="text-red-600 font-semibold text-lg">
               Support Our Campaign
             </p>
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">
@@ -178,7 +178,7 @@ export default function DonatePage() {
                       <label
                         className={`flex items-center gap-2 cursor-pointer p-2 border rounded-lg transition-colors ${
                           donationFrequency === "one-time"
-                            ? "border-red-500 bg-blue-50"
+                            ? "border-green-500 bg-green-50"
                             : "border-gray-300"
                         }`}
                       >
@@ -188,7 +188,7 @@ export default function DonatePage() {
                           value="one-time"
                           checked={donationFrequency === "one-time"}
                           onChange={(e) => setDonationFrequency(e.target.value)}
-                          className="w-4 h-4 text-red-600"
+                          className="w-4 h-4 text-green-600"
                         />
                         <span className="text-gray-700 font-medium">
                           One-time
@@ -207,7 +207,7 @@ export default function DonatePage() {
                           value="monthly"
                           checked={donationFrequency === "monthly"}
                           onChange={(e) => setDonationFrequency(e.target.value)}
-                          className="w-4 h-4 text-blue-600"
+                          className="w-4 h-4 text-green-600"
                         />
                         <span className="text-gray-700 font-medium">
                           Monthly
@@ -231,8 +231,8 @@ export default function DonatePage() {
                           }}
                           className={`p-3 rounded-xl border-2 font-bold transition-all shadow-sm ${
                             selectedAmount === amount
-                              ? "border-red-600 bg-blue-100 text-green-700 ring-2 ring-green-500"
-                              : "border-gray-300 text-gray-900 hover:border-blue-500 hover:bg-gray-50"
+                              ? "border-green-600 bg-green-100 text-green-700 ring-2 ring-green-500"
+                              : "border-gray-300 text-gray-900 hover:border-green-500 hover:bg-gray-50"
                           }`}
                         >
                           {formatNaira(amount)}
@@ -400,7 +400,7 @@ export default function DonatePage() {
             ].map((item, index) => (
               <Card key={index} className="border-gray-200 shadow-md rounded-xl">
                 <CardHeader>
-                  <CardTitle className="text-blue-600 text-xl">
+                  <CardTitle className="text-red-600 text-xl">
                     {item.title}
                   </CardTitle>
                 </CardHeader>
