@@ -29,7 +29,7 @@ export default function Navigation() {
                 <Image
                   // **** IMPORTANT ****
                   // Replace this with the path to your logo in the /public folder
-                  src="/images/logo.jpg" 
+                  src="/images/Logo.png" 
                   alt="Dozie Nwankwo Logo"
                   
                   // Set these to your logo's actual dimensions for optimization
