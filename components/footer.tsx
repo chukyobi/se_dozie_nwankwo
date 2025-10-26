@@ -5,21 +5,21 @@ export default function Footer() {
     <footer className="bg-gray-900 py-20 text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Wrapper grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12"> */}
           
           {/* Brand — full width on mobile */}
-          <div className="space-y-4 md:col-span-1">
+          {/* <div className="space-y-4 md:col-span-1">
             <h3 className="text-2xl font-bold text-white">Hon. Dozie Nwankwo</h3>
             <p className="text-gray-400">
               Building a better future through transparent leadership and
               community-driven solutions.
             </p>
-          </div>
+          </div> */}
 
           {/* On mobile: Quick Links + Resources side-by-side */}
-          <div className="grid grid-cols-2 gap-8 md:contents">
+          {/* <div className="grid grid-cols-2 gap-8 md:contents"> */}
             {/* Quick Links */}
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               <h4 className="font-bold text-lg">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
@@ -39,10 +39,10 @@ export default function Footer() {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
 
             {/* Resources */}
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               <h4 className="font-bold text-lg">Resources</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
@@ -62,10 +62,10 @@ export default function Footer() {
                 </li>
               </ul>
             </div>
-          </div>
+          </div> */}
 
           {/* Contact — full width at bottom on mobile */}
-          <div className="space-y-4 md:col-span-1">
+          {/* <div className="space-y-4 md:col-span-1">
             <h4 className="font-bold text-lg">Contact</h4>
             <ul className="space-y-3 text-gray-400">
               <li className="flex items-center gap-2">
@@ -79,7 +79,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
 
         {/* Divider */}
         <div className="border-t border-gray-800 py-8">
