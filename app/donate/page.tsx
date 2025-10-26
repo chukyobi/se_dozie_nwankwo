@@ -188,7 +188,7 @@ export default function DonatePage() {
                           value="one-time"
                           checked={donationFrequency === "one-time"}
                           onChange={(e) => setDonationFrequency(e.target.value)}
-                          className="w-4 h-4 text-green-600"
+                          className="w-4 h-4 !text-green-600"
                         />
                         <span className="text-gray-700 font-medium">
                           One-time
@@ -207,7 +207,7 @@ export default function DonatePage() {
                           value="monthly"
                           checked={donationFrequency === "monthly"}
                           onChange={(e) => setDonationFrequency(e.target.value)}
-                          className="w-4 h-4 text-green-600"
+                          className="w-4 h-4 !text-green-600"
                         />
                         <span className="text-gray-700 font-medium">
                           Monthly
