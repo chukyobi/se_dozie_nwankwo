@@ -174,6 +174,7 @@ export default function VolunteerPage() {
 
   // Helper function to dynamically set classes based on field status
   const getBorderClasses = (value: string | string[]) => {
+      // Check if value is an array (for interests) or a string (for inputs/selects)
       const isFilled = Array.isArray(value) ? value.length > 0 : value.length > 0;
       return isFilled
           ? "border-green-500 ring-green-500 border-2" // Green ring/border when filled
@@ -196,7 +197,26 @@ export default function VolunteerPage() {
       </section>
 
       {/* Volunteer Impact Stats */}
-     
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {volunteerStats.map((stat, index) => {
+              const Icon = stat.icon
+              return (
+                <Card key={index} className="border-gray-200 shadow-lg rounded-xl overflow-hidden">
+                  <CardContent className="pt-6 space-y-3 text-center">
+                    <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto shadow-md">
+                      <Icon className="h-6 w-6 text-red-600" />
+                    </div>
+                    <p className="text-3xl font-extrabold text-red-600">{stat.number}</p>
+                    <p className="text-gray-600 font-medium">{stat.label}</p>
+                  </CardContent>
+                </Card>
+              )
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* Volunteer Form */}
       <section className="py-20">
@@ -221,7 +241,7 @@ export default function VolunteerPage() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     required
-                    // NEW: Dynamic class for Full Name
+                    // Dynamic class for Full Name
                     className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${getBorderClasses(fullName)}`}
                   />
                   <input
@@ -237,16 +257,16 @@ export default function VolunteerPage() {
                     value={phoneNo}
                     onChange={(e) => setPhoneNo(e.target.value)}
                     required
-                    // NEW: Dynamic class for Phone Number
+                    // Dynamic class for Phone Number
                     className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${getBorderClasses(phoneNo)}`}
                   />
                 </div>
 
-                {/* Location Information */}
+                {/* Location Information (Includes Town/City and LGA) */}
                 <div className="space-y-4 pt-4">
                   <h3 className="font-bold text-lg text-gray-900 border-b pb-2 flex items-center gap-2">
                     <MapPin className="w-5 h-5 text-red-500" />
-                    Location Details
+                    Location Details (State, LGA, Town)
                   </h3>
                   
                   {/* State of Origin Selector */}
@@ -264,22 +284,13 @@ export default function VolunteerPage() {
                   </select>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input
-                      type="text"
-                      placeholder="Town / City (Required)"
-                      value={town}
-                      onChange={(e) => setTown(e.target.value)}
-                      required
-                      // NEW: Dynamic class for Town/City
-                      className={`px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${getBorderClasses(town)}`}
-                    />
                     {/* LGA SELECTOR: Dynamic based on stateOfOrigin */}
                     <select
                         value={lga}
                         onChange={(e) => setLga(e.target.value)}
                         required
                         disabled={!stateOfOrigin || lgas.length === 0}
-                        // NEW: Dynamic class for LGA
+                        // Dynamic class for LGA
                         className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 bg-white appearance-none transition-all ${getBorderClasses(lga)}`}
                     >
                         <option value="" disabled>
@@ -292,11 +303,19 @@ export default function VolunteerPage() {
                         <option key={lgaOption} value={lgaOption}>{lgaOption}</option>
                         ))}
                     </select>
+                     <input
+                      type="text"
+                      placeholder="Town / City (Required)"
+                      value={town}
+                      onChange={(e) => setTown(e.target.value)}
+                      required
+                      // Dynamic class for Town/City
+                      className={`px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${getBorderClasses(town)}`}
+                    />
                   </div>
                 </div>
 
-                {/* Areas of Interest */}
-                {/* NEW: Apply a border to the entire interest section when at least one is selected */}
+                {/* Areas of Interest - Now uses GREEN on selection */}
                 <div className={`space-y-4 pt-4 p-4 rounded-xl transition-all border-2 ${
                     interests.length > 0 ? "border-green-500 bg-green-50/20" : "border-gray-200"
                 }`}>
@@ -310,7 +329,9 @@ export default function VolunteerPage() {
                         key={interest} 
                         className={`flex items-center gap-3 cursor-pointer p-4 border-2 rounded-xl transition-all shadow-sm ${
                           interests.includes(interest) 
-                            ? "border-red-600 bg-red-50 text-red-700 ring-2 ring-red-500" 
+                            // ************ UPDATED TO GREEN THEME ************
+                            ? "border-green-600 bg-green-50 text-green-700 ring-2 ring-green-500" 
+                            // **********************************************
                             : "border-gray-200 text-gray-800 hover:border-red-400"
                         }`}
                       >
@@ -318,7 +339,8 @@ export default function VolunteerPage() {
                           type="checkbox"
                           checked={interests.includes(interest)}
                           onChange={() => handleInterestChange(interest)}
-                          className="w-4 h-4 text-red-600 rounded"
+                          // This class helps ensure the checkbox itself is green when checked
+                          className="w-4 h-4 text-green-600 rounded focus:ring-green-500"
                         />
                         <span className="font-medium text-sm">{interest}</span>
                       </label>
