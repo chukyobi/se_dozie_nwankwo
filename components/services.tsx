@@ -46,7 +46,7 @@ export default function Services() {
             Commitment and Core Initiatives
           </h2>
           {/* Subtle separator using the theme color */}
-          <div className="w-16 h-1 bg-blue-900 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-green-600 mx-auto rounded-full" />
           <p className="text-xl text-gray-600 max-w-3xl mx-auto pt-4">
             Our comprehensive approach to leadership is built upon a foundation of dedicated legislative action and profound humanitarian impact.
           </p>
@@ -63,7 +63,7 @@ export default function Services() {
               >
                 <CardHeader className="p-8 pb-4">
                   {/* Icon Container - Blue with Red accent */}
-                  <div className="w-14 h-14 bg-gren-600 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:rotate-6">
+                  <div className="w-14 h-14 bg-green-600 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:rotate-6">
                     <Icon className="h-8 w-8 text-white" strokeWidth={2} />
                   </div>
                   <CardTitle className="text-2xl font-extrabold text-gray-900 leading-snug">
