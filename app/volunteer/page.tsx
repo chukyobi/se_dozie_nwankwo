@@ -92,7 +92,9 @@ export default function VolunteerPage() {
             }
 
             if (!response || !response.ok) {
-                throw new Error(`Failed to fetch LGAs for ${state} after multiple retries.`);
+                // Check if response is available but not OK (e.g., 400 or 500 status)
+                const errorDetail = response ? `Status: ${response.status}` : "Network failed.";
+                throw new Error(`Failed to fetch LGAs for ${state}. ${errorDetail}`);
             }
 
             const data = await response.json();
@@ -103,12 +105,12 @@ export default function VolunteerPage() {
             } else {
                 setLgas([]);
                 console.error("API response structure unexpected or empty LGAs returned:", data);
-                setErrorMessage("Could not load local government areas. Please try again or type manually.");
+                setErrorMessage("Could not load local government areas. The list may be temporarily unavailable.");
             }
         } catch (error) {
             console.error("Error fetching LGAs:", error);
             setLgas([]); 
-            setErrorMessage("Network error fetching LGAs. Please ensure your connection is stable.");
+            setErrorMessage("Network error or API issue loading LGAs. Please try another state or check your connection.");
         } finally {
             setIsLgaLoading(false);
         }
@@ -189,7 +191,26 @@ export default function VolunteerPage() {
       </section>
 
       {/* Volunteer Impact Stats */}
-     
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {volunteerStats.map((stat, index) => {
+              const Icon = stat.icon
+              return (
+                <Card key={index} className="border-gray-200 shadow-lg rounded-xl overflow-hidden">
+                  <CardContent className="pt-6 space-y-3 text-center">
+                    <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto shadow-md">
+                      <Icon className="h-6 w-6 text-red-600" />
+                    </div>
+                    <p className="text-3xl font-extrabold text-red-600">{stat.number}</p>
+                    <p className="text-gray-600 font-medium">{stat.label}</p>
+                  </CardContent>
+                </Card>
+              )
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* Volunteer Form */}
       <section className="py-20">
@@ -239,6 +260,25 @@ export default function VolunteerPage() {
                     <MapPin className="w-5 h-5 text-red-500" />
                     Location Details
                   </h3>
+                  
+                  {/* State of Origin Selector (MOVED TO TOP) */}
+                  <select
+                    value={stateOfOrigin}
+                    onChange={(e) => handleStateChange(e.target.value)} // Use new handler
+                    required
+                    // Dynamic class change: use green ring/border if state is selected
+                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 bg-white appearance-none transition-all ${
+                        stateOfOrigin
+                            ? "border-green-500 ring-green-500 border-2" 
+                            : "border-gray-300 focus:ring-red-500 border"
+                    }`}
+                  >
+                    <option value="" disabled>Select State of Origin (Required)</option>
+                    {NIGERIAN_STATES.map(state => (
+                      <option key={state} value={state}>{state}</option>
+                    ))}
+                  </select>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
                       type="text"
@@ -248,7 +288,7 @@ export default function VolunteerPage() {
                       required
                       className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
-                    {/* LGA SELECTOR: Now dynamic based on stateOfOrigin */}
+                    {/* LGA SELECTOR: Dynamic based on stateOfOrigin */}
                     <select
                         value={lga}
                         onChange={(e) => setLga(e.target.value)}
@@ -270,19 +310,6 @@ export default function VolunteerPage() {
                         ))}
                     </select>
                   </div>
-                  
-                  {/* State of Origin Selector */}
-                  <select
-                    value={stateOfOrigin}
-                    onChange={(e) => handleStateChange(e.target.value)} // Use new handler
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white appearance-none"
-                  >
-                    <option value="" disabled>Select State of Origin (Required)</option>
-                    {NIGERIAN_STATES.map(state => (
-                      <option key={state} value={state}>{state}</option>
-                    ))}
-                  </select>
                 </div>
 
                 {/* Areas of Interest */}
