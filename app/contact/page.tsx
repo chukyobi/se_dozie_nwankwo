@@ -88,7 +88,7 @@ export default function ContactPage() {
                 </div>
                 <h3 className="font-bold text-gray-900">Address</h3>
                 <p className="text-gray-600 text-sm">Enugwu Ukwu</p>
-                <p className="text-gray-500 text-xs">Anambra State, 420110</p>
+                <p className="text-gray-500 text-xs">Anambra State, NG</p>
               </CardContent>
             </Card>
 
