@@ -46,25 +46,25 @@ const donationTiers = [
   },
 ]
 
-// Re-enabled and updated impact stats for context (assuming the goal is a fully functional page)
-const impactStats = [
-  {
-    icon: Users,
-    number: "50K+",
-    label: "Supporters",
-  },
-  {
-    icon: TrendingUp,
-    // Updated to show Naira amount
-    number: "₦500M+", 
-    label: "Raised",
-  },
-  {
-    icon: Award,
-    number: "25+",
-    label: "Districts",
-  },
-]
+// // Re-enabled and updated impact stats for context (assuming the goal is a fully functional page)
+// const impactStats = [
+//   {
+//     icon: Users,
+//     number: "50K+",
+//     label: "Supporters",
+//   },
+//   {
+//     icon: TrendingUp,
+//     // Updated to show Naira amount
+//     number: "₦500M+", 
+//     label: "Raised",
+//   },
+//   {
+//     icon: Award,
+//     number: "25+",
+//     label: "Districts",
+//   },
+// ]
 
 
 export default function DonatePage() {
