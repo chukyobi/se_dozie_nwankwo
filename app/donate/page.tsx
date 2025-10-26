@@ -94,7 +94,7 @@ export default function DonatePage() {
   return (
     <main className="min-h-screen bg-white font-['Inter']">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-white py-16">
+      <section className="bg-gradient-to-br from-green-600 to-white py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4">
             <p className="text-blue-600 font-semibold text-lg">Support Our Campaign</p>
@@ -116,7 +116,7 @@ export default function DonatePage() {
               return (
                 <Card key={index} className="border-gray-200 shadow-lg rounded-xl overflow-hidden">
                   <CardContent className="pt-6 space-y-3 text-center">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto shadow-md">
+                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto shadow-md">
                       <Icon className="h-6 w-6 text-blue-600" />
                     </div>
                     <p className="text-3xl font-extrabold text-blue-600">{stat.number}</p>
@@ -156,7 +156,7 @@ export default function DonatePage() {
                         />
                         <span className="text-gray-700 font-medium">One-time</span>
                       </label>
-                      <label className={`flex items-center gap-2 cursor-pointer p-2 border rounded-lg transition-colors ${donationFrequency === "monthly" ? "border-blue-500 bg-blue-50" : "border-gray-300"}`}>
+                      <label className={`flex items-center gap-2 cursor-pointer p-2 border rounded-lg transition-colors ${donationFrequency === "monthly" ? "border-green-500 bg-green-50" : "border-gray-300"}`}>
                         <input
                           type="radio"
                           name="frequency"
@@ -183,7 +183,7 @@ export default function DonatePage() {
                           }}
                           className={`p-3 rounded-xl border-2 font-bold transition-all shadow-sm ${
                             selectedAmount === amount
-                              ? "border-blue-600 bg-blue-100 text-blue-700 ring-2 ring-blue-500"
+                              ? "border-blue-600 bg-blue-100 text-green-700 ring-2 ring-green-500"
                               : "border-gray-300 text-gray-900 hover:border-blue-500 hover:bg-gray-50"
                           }`}
                         >
@@ -220,18 +220,18 @@ export default function DonatePage() {
                       <input
                         type="text"
                         placeholder="Full Name"
-                        className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                       />
                       <input
                         type="email"
                         placeholder="Email Address"
-                        className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                       />
                     </div>
                     <input
                       type="text"
                       placeholder="Address (Street, City, State)"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                     />
                   </div>
 
@@ -239,7 +239,7 @@ export default function DonatePage() {
                   <Button
                     onClick={handleDonate}
                     size="lg"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-3 rounded-xl shadow-lg transition-colors"
+                    className="w-full bg-green-600 hover:bg-green-700 text-white text-lg py-3 rounded-xl shadow-lg transition-colors"
                     disabled={displayAmount === 0}
                   >
                     <Heart className="mr-2 h-5 w-5" />
@@ -263,14 +263,14 @@ export default function DonatePage() {
                 <Card
                   key={index}
                   className={`border-2 relative rounded-xl cursor-pointer transition-all shadow-md ${
-                    tier.featured ? "border-blue-500 bg-blue-50 shadow-xl" : "border-gray-200 hover:border-blue-400"
+                    tier.featured ? "border-green-500 bg-green-50 shadow-xl" : "border-gray-200 hover:border-green-400"
                   }`}
                   onClick={() => {
                     setSelectedAmount(tier.amount)
                     setCustomAmount("")
                   }}
                 >
-                  {tier.featured && <Badge className="absolute top-3 right-3 bg-blue-600 text-white font-bold px-3 py-1 text-sm rounded-full shadow-lg">Popular</Badge>}
+                  {tier.featured && <Badge className="absolute top-3 right-3 bg-green-600 text-white font-bold px-3 py-1 text-sm rounded-full shadow-lg">Popular</Badge>}
                   <CardHeader className="pb-3">
                     <CardTitle className="text-xl text-gray-900">{tier.label}</CardTitle>
                     <CardDescription className="text-sm">{tier.description}</CardDescription>
