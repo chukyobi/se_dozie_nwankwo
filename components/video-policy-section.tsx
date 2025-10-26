@@ -41,7 +41,7 @@ export default function VideoPolicySection() {
           </div>
 
           {/* Bottom Right - Policy Analysis */}
-          <div className="bg-blue-900 text-white flex flex-col justify-center items-center p-8">
+          <div className="bg-green-600 text-white flex flex-col justify-center items-center p-8">
             <div className="text-center">
               <h3 className="text-3xl text-white font-bold mb-4">Policy Analysis</h3>
               <p className="text-sm mb-6 leading-relaxed">
