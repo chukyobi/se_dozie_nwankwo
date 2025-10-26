@@ -87,7 +87,7 @@ export default function ContactPage() {
                   <MapPin className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="font-bold text-gray-900">Address</h3>
-                <p className="text-gray-600 text-sm">Enugu Ukwu</p>
+                <p className="text-gray-600 text-sm">Enugwu Ukwu</p>
                 <p className="text-gray-500 text-xs">Anambra State, 420110</p>
               </CardContent>
             </Card>
@@ -137,7 +137,7 @@ export default function ContactPage() {
                           onChange={handleChange}
                           required
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                          placeholder="John Doe"
+                          placeholder="Okonkwo Emmanuel"
                         />
                       </div>
                       <div>
@@ -149,7 +149,7 @@ export default function ContactPage() {
                           onChange={handleChange}
                           required
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                          placeholder="john@example.com"
+                          placeholder="okonkwo@example.com"
                         />
                       </div>
                     </div>
@@ -163,7 +163,7 @@ export default function ContactPage() {
                           value={formData.phone}
                           onChange={handleChange}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                          placeholder="+1 (234) 567-890"
+                          placeholder="+234 8000000000"
                         />
                       </div>
                       <div>
