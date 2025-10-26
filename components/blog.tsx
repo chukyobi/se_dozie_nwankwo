@@ -11,21 +11,21 @@ const posts = [
     excerpt: "Reviewing the motion on the urgent need to tackle devastating gully erosion in Anaocha/Njikoka/Dunukofia Federal Constituency and the ongoing remediation efforts.",
     date: "August 28, 2024",
     category: "Infrastructure",
-    image: "/blog_erosion.jpeg", // Placeholder image for Infrastructure
+    image: "/hero_doz_ict.jpg", // Placeholder image for Infrastructure
   },
   {
     title: "Legislative Impact: Championing the Federal College of Agriculture Bill",
     excerpt: "A deep dive into the Bill for an Act to Establish the Federal College of Agriculture in Enugwu-Ukwu, and its potential to boost local technology and employment.",
     date: "July 19, 2024",
     category: "Education",
-    image: "/blog_education.jpeg", // Placeholder image for Education
+    image: "/environmental-initiative.jpg", // Placeholder image for Education
   },
   {
     title: "Humanitarian Outreach: Free Medical Services to Over 4,000",
     excerpt: "Celebrating the success of the Ferdinand Dozie Nwankwo Foundation in providing free medical care, surgeries, and vision support across the Senatorial Zone.",
     date: "June 05, 2024",
     category: "Philanthropy",
-    image: "/blog_medical.jpeg", // Placeholder image for Philanthropy
+    image: "/", // Placeholder image for Philanthropy
   },
 ]
 
