@@ -10,31 +10,40 @@ import { Heart, Users, TrendingUp, Award } from "lucide-react"
 
 const donationTiers = [
   {
-    amount: 25,
+    amount: 5,000,
     label: "Supporter",
     description: "Help us reach more voters",
     benefits: ["Campaign updates", "Event invitations"],
   },
   {
-    amount: 50,
+    amount: 100,000,
     label: "Advocate",
     description: "Make a meaningful impact",
     benefits: ["All Supporter benefits", "Monthly newsletter", "Exclusive content"],
     featured: true,
   },
   {
-    amount: 100,
+    amount: 500,000,
     label: "Champion",
     description: "Drive real change",
     benefits: ["All Advocate benefits", "VIP event access", "Direct campaign updates"],
   },
   {
-    amount: 250,
+    amount: 1,000,000,
     label: "Leader",
     description: "Be part of our leadership",
     benefits: ["All Champion benefits", "Private briefings", "Recognition on website"],
   },
 ]
+
+const formatNaira = (nairaAmount) => {
+  return nairaAmount.toLocaleString('en-NG', {
+    style: 'currency',
+    currency: 'NGN',
+    minimumFractionDigits: 0, // No kobo
+    maximumFractionDigits: 0,
+  }).replace('NGN', '₦'); // Replace the 'NGN' text with the Naira symbol
+};
 
 // const impactStats = [
 //   {
@@ -152,12 +161,14 @@ export default function DonatePage() {
 
                   {/* Preset Amounts */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-3">Select Amount</label>
+                    <label className="block text-sm font-medium text-gray-900 mb-3">Select Amount (₦)</label>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                      {[25, 50, 100, 250].map((amount) => (
+                      {/* Updated to common Naira donation amounts: ₦5,000, ₦10,000, ₦25,000, ₦50,000 */}
+                      {[5000, 10000, 25000, 50000].map((amount) => (
                         <button
                           key={amount}
                           onClick={() => {
+                            // Note: setSelectedAmount and setCustomAmount will now hold Naira values
                             setSelectedAmount(amount)
                             setCustomAmount("")
                           }}
@@ -167,7 +178,8 @@ export default function DonatePage() {
                               : "border-gray-300 text-gray-900 hover:border-primary"
                           }`}
                         >
-                          ${amount}
+                          {/* Use the formatNaira function to display the currency correctly */}
+                          {formatNaira(amount)}
                         </button>
                       ))}
                     </div>
