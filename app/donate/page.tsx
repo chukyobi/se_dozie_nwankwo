@@ -199,7 +199,7 @@ export default function DonatePage() {
                   <div>
                     <label className="block text-sm font-medium text-gray-900 mb-2">Custom Amount</label>
                     <div className="flex gap-2">
-                      <span className="flex items-center px-3 bg-gray-100 rounded-lg text-gray-600">$</span>
+                      <span className="flex items-center px-3 bg-gray-100 rounded-lg text-gray-600">NGN</span>
                       <input
                         type="number"
                         value={customAmount}
