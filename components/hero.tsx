@@ -27,30 +27,34 @@ export default function Hero() {
     },
   ];
 
-  const actionCards = [
+ const actionCards = [
     {
       icon: Megaphone,
       title: "Manifesto",
-      subtitle: "Join the campaign",
+      subtitle: "Read Manifesto",
       bgColor: "bg-red-600",
+      href: "/manifesto",
     },
     {
       icon: Handshake,
       title: "Contribute",
-      subtitle: "Become a volunteer",
+      subtitle: "Make a Donation",
       bgColor: "bg-green-600",
+      href: "/donate",
     },
     {
       icon: Zap,
       title: "Taking action",
-      subtitle: "Join the campaign",
+      subtitle: "Join the Movement",
       bgColor: "bg-red-600",
+      href: "/volunteer",
     },
     {
       icon: Users,
       title: "Leadership",
       subtitle: "Become a volunteer",
       bgColor: "bg-green-600",
+      href: "/about",
     },
   ];
 
@@ -126,6 +130,14 @@ export default function Hero() {
           return (
             <div
               key={index}
+              role="link" // Add role for accessibility
+              tabIndex={0} // Make it focusable
+              onClick={() => handleCardClick(card.href)} // Click handler added here
+              onKeyDown={(e) => { // Accessibility for keyboard interaction
+                if (e.key === 'Enter' || e.key === ' ') {
+                  handleCardClick(card.href);
+                }
+              }}
               className={`${card.bgColor} p-6 sm:p-8 flex items-center justify-between group cursor-pointer hover:shadow-2xl transition-all`}
             >
               <div className="flex items-center gap-4">
