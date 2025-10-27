@@ -1,56 +1,130 @@
-"use client"
+"use client";
 
-import { PlayCircle } from "lucide-react"
-// Note: Changed file extension to .tsx
+import { useState } from "react";
+import { PlayCircle } from "lucide-react";
 
 export default function QuoteVideoSection() {
-    // Placeholder video ID for an example video. Replace with the actual video ID later.
-    const youtubeVideoId: string = "TBUP1CmYSvE"; // Explicitly defined type as string
+    // Define the list of videos. The first video is the initial featured video.
+    const videoGallery = [
+        {
+            id: "TBUP1CmYSvE",
+            title: "Legislative Vision: Making Serious Laws",
+            description: "Hon. Dozie on the primary role of a legislator.",
+        },
+        {
+            id: "2c-9F-7_s4U", // Placeholder ID 2
+            title: "Community Outreach & Development",
+            description: "Updates on recent community initiatives.",
+        },
+        {
+            id: "l_QnE30D9h8", // Placeholder ID 3
+            title: "The Future of Representation",
+            description: "A look at the movement's goals and vision.",
+        },
+        {
+            id: "5s5b0jUe-jI", // Placeholder ID 4
+            title: "Ask Me Anything Session",
+            description: "Direct answers to common constituent questions.",
+        },
+    ];
+
+    // State to track which video is currently selected and displayed in the main player
+    const [selectedVideoId, setSelectedVideoId] = useState<string>(videoGallery[0].id);
+
+    // Find the currently selected video object
+    const selectedVideo = videoGallery.find(v => v.id === selectedVideoId) || videoGallery[0];
+    
+    // The main quote
+    const mainQuote = "We are legislators, not public works contractors.";
+    const secondaryQuote = "People look up to us to make serious laws that could change the lives of a great number of people, or could change the way society is run or managed";
+
 
     return (
-        <section className="py-16 sm:py-24 bg-white">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <section className="py-16 sm:py-24 bg-white font-sans">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                {/* Quote Title */}
-                {/* Responsive text sizes applied: text-xl (mobile), sm:text-4xl (tablet), md:text-5xl (desktop) */}
-                <h2 className="text-xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 relative">
-                    {/* Fancy opening quote - size reduced on mobile (text-5xl) */}
-                    <span className="text-red-600 text-5xl sm:text-8xl absolute top-[-0.5rem] left-0 sm:left-[-2rem] opacity-20 -z-10 font-serif">“</span>
+                {/* Quote Title Section */}
+                <div className="max-w-4xl mx-auto text-center mb-12">
+                    <h2 className="text-xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 relative">
+                        <span className="text-red-600 text-5xl sm:text-8xl absolute top-[-0.5rem] left-0 sm:left-[-2rem] opacity-20 -z-10 font-serif">“</span>
 
-                    {/* Updated structure to align the quote lines under each other */}
-                    <span className="inline-flex flex-col relative z-10 leading-tight">
-                        {/* First line: Reduced size on mobile (text-xl) */}
-                        <span className="font-serif italic mb-4 font-extrabold text-4xl sm:text-4xl">"We are legislators, not public works contractors."</span> 
-                        
-                        {/* Second line: Reduced size on mobile (text-lg) */}
-                        <span className="font-serif text-xl sm:text-xl md:text-xl text-neutral-800">People look up to us to make serious laws that could change the lives of a great number of people, or could change the way society is run or managed</span>
-                    </span>
+                        <span className="inline-flex flex-col relative z-10 leading-tight">
+                            <span className="font-serif italic mb-4 font-extrabold text-4xl sm:text-4xl">"{mainQuote}"</span>
+                            <span className="font-serif text-xl sm:text-xl md:text-xl text-neutral-800">{secondaryQuote}</span>
+                        </span>
 
-                    {/* Fancy closing quote - size reduced on mobile (text-5xl) */}
-                    <span className="text-red-600 text-5xl sm:text-8xl absolute bottom-[-1rem] right-0 sm:right-[-2rem] opacity-20 -z-10 font-serif">”</span>
-                </h2>
+                        <span className="text-red-600 text-5xl sm:text-8xl absolute bottom-[-1rem] right-0 sm:right-0 opacity-20 -z-10 font-serif">”</span>
+                    </h2>
 
-                {/* Attribution Subtitle: Reduced size (text-base) on mobile */}
-                <p className="text-base sm:text-lg text-blue-900 font-semibold mb-12 sm:mb-16 mt-6 sm:mt-10">
-                    <span className="text-2xl font-black mr-1 text-red-600">»</span> – Hon. Dozie Ferdinand Nwankwo
-                </p>
+                    <p className="text-base sm:text-lg text-blue-900 font-semibold mt-6">
+                        <span className="text-2xl font-black mr-1 text-red-600">»</span> – Hon. Dozie Ferdinand Nwankwo
+                    </p>
+                </div>
 
-                {/* Embedded YouTube Video Container */}
-                <div className="relative aspect-video w-full rounded-2xl shadow-2xl overflow-hidden group">
-                    <iframe
-                        className="absolute top-0 left-0 w-full h-full"
-                        src={`https://www.youtube.com/embed/${youtubeVideoId}`}
-                        title="Legislative Vision"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                    ></iframe>
+                {/* Video Player and Gallery Grid */}
+                {/* The grid layout switches from a single column on mobile to two columns on larger screens */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-8 gap-6 mt-10">
                     
-                    {/* Optional: Add a subtle overlay for visual effect */}
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-all pointer-events-none"></div>
+                    {/* Main Video Player (Takes 2/3 of the space on desktop) */}
+                    <div className="lg:col-span-2 relative aspect-video w-full rounded-2xl shadow-2xl overflow-hidden bg-black">
+                        <iframe
+                            className="absolute top-0 left-0 w-full h-full"
+                            src={`https://www.youtube.com/embed/${selectedVideoId}?autoplay=1`}
+                            title={selectedVideo.title}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
+                    </div>
+
+                    {/* Video Gallery Sidebar (Takes 1/3 of the space on desktop) */}
+                    <div className="lg:col-span-1 space-y-4">
+                        <h3 className="text-2xl font-bold text-gray-900 border-b pb-2 mb-4">Video Gallery</h3>
+                        {videoGallery.map((video) => (
+                            <div
+                                key={video.id}
+                                onClick={() => setSelectedVideoId(video.id)}
+                                className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-all ${
+                                    video.id === selectedVideoId
+                                        ? 'bg-red-50 ring-2 ring-red-600 shadow-md'
+                                        : 'bg-gray-50 hover:bg-gray-100'
+                                }`}
+                            >
+                                {/* Thumbnail Placeholder */}
+                                <div className="relative w-20 h-14 bg-gray-300 rounded overflow-hidden flex-shrink-0">
+                                    <img 
+                                        src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`} 
+                                        alt={`Thumbnail for ${video.title}`}
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => {
+                                            // Fallback for when the YouTube thumbnail image fails to load
+                                            e.currentTarget.onerror = null; 
+                                            e.currentTarget.src = "https://placehold.co/80x56/cccccc/000000?text=Video";
+                                        }}
+                                    />
+                                    {video.id === selectedVideoId ? (
+                                        <PlayCircle className="absolute inset-0 m-auto text-white w-6 h-6 fill-red-600 drop-shadow-lg" />
+                                    ) : (
+                                        <PlayCircle className="absolute inset-0 m-auto text-white w-6 h-6 opacity-70 group-hover:opacity-100 transition-opacity" fill="currentColor" />
+                                    )}
+                                </div>
+                                
+                                {/* Video Details */}
+                                <div>
+                                    <p className="text-sm font-semibold leading-snug text-gray-900">
+                                        {video.title}
+                                    </p>
+                                    <p className="text-xs text-gray-500 mt-1">
+                                        {video.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
                 </div>
 
             </div>
         </section>
-    )
+    );
 }
