@@ -14,7 +14,7 @@ export default function Navigation() {
     { name: "Home", href: "/" },
     // { name: "Blog", href: "/blog" }, // Commented out based on original
     { name: "Projects", href: "/about" }, // Added a representative link
-    { name: "About", href: "/about" }, // Added a representative link
+    { name: "About Onye Ndozi", href: "/about" }, // Added a representative link
     { name: "Contact Us", href: "/contact" },
     {name: "Donate", href: "/donate"},
   ]
