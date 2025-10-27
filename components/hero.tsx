@@ -132,10 +132,10 @@ export default function Hero() {
               key={index}
               role="link" // Add role for accessibility
               tabIndex={0} // Make it focusable
-              onClick={() => handleCardClick(card.href)} // Click handler added here
+              onClick={() => window.location.href = card.href} // Click handler uses direct navigation
               onKeyDown={(e) => { // Accessibility for keyboard interaction
                 if (e.key === 'Enter' || e.key === ' ') {
-                  handleCardClick(card.href);
+                  window.location.href = card.href; // Keydown handler uses direct navigation
                 }
               }}
               className={`${card.bgColor} p-6 sm:p-8 flex items-center justify-between group cursor-pointer hover:shadow-2xl transition-all`}
