@@ -33,8 +33,8 @@ const CardTitle = ({ children, className = "" }: { children: React.ReactNode, cl
     <h3 className={`text-2xl font-bold ${className}`}>{children}</h3>
 )
 
-const CardDescription = ({ children }: { children: React.ReactNode }) => (
-    <p className="text-gray-500 mt-1">{children}</p>
+const CardDescription = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
+    <p className={`text-gray-500 mt-1 ${className}`}>{children}</p>
 )
 
 const CardContent = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
@@ -170,7 +170,7 @@ export default function ContactPage() {
             <section className="bg-gradient-to-br from-green-50 to-white py-16">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center space-y-4">
-                        <p className= "font-semibold text-lg text-green-600">Get in Touch</p>
+                        <p className={`${primaryColorClasses.primary} font-semibold text-lg`}>Get in Touch</p>
                         <h1 className="text-5xl lg:text-6xl font-bold text-gray-900">Contact Us</h1>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                             Have questions or want to get involved? We'd love to hear from you. Reach out to our team today.
@@ -186,8 +186,8 @@ export default function ContactPage() {
                         {/* Email */}
                         <Card className="border-gray-200 text-center">
                             <CardContent className="pt-6 space-y-3">
-                                <div className="w-12 h-12 rounded-lg text-green-600 flex items-center justify-center mx-auto">
-                                    <Mail className="h-6 w-6 text-gren-600" />
+                                <div className={`w-12 h-12 ${primaryColorClasses['primary/10']} rounded-lg flex items-center justify-center mx-auto`}>
+                                    <Mail className={`h-6 w-6 ${primaryColorClasses.primary}`} />
                                 </div>
                                 <h3 className="font-bold text-gray-900">Email</h3>
                                 <p className="text-gray-600 text-sm">hello@dozienwankwo.org</p> 
@@ -198,8 +198,8 @@ export default function ContactPage() {
                         {/* Address */}
                         <Card className="border-gray-200 text-center">
                             <CardContent className="pt-6 space-y-3">
-                                <div className="w-12 h-12 rounded-lg text-green-600 flex items-center justify-center mx-auto">
-                                    <MapPin className="h-6 w-6 text-gren-600" />
+                                <div className={`w-12 h-12 ${primaryColorClasses['primary/10']} rounded-lg flex items-center justify-center mx-auto`}>
+                                    <MapPin className={`h-6 w-6 ${primaryColorClasses.primary}`} />
                                 </div>
                                 <h3 className="font-bold text-gray-900">Address</h3>
                                 <p className="text-gray-600 text-sm">Enugwu Ukwu</p>
