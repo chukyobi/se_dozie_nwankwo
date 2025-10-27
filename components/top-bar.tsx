@@ -39,13 +39,13 @@ export default function TopBar() {
               >
                 in
               </a>
-              <a
-                href="#"
-                className="w-5 h-5  rounded-full flex items-center justify-center !text-white text-xs hover:text-red-600 transition-colors"
-                aria-label="YouTube"
-              >
-                ▶
-              </a>
+              //<a
+                //href="#"
+                //className="w-5 h-5  rounded-full flex items-center justify-center !text-white text-xs hover:text-red-600 transition-colors"
+                //aria-label="YouTube"
+              //>
+                //▶
+              //</a>
             </div>
           </div>
         </div>
