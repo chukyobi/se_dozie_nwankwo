@@ -2,10 +2,9 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Mail, Phone, MapPin, Clock, Send } from "lucide-react"
+import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react"
 
 // --- Custom Component Stubs (to replace external imports) ---
-// Note: These stubs are for demonstration purposes and use simple Tailwind styling.
 
 const Button = ({ children, className = "", onClick, type = "button", disabled = false }: { children: React.ReactNode, className?: string, onClick?: () => void, type?: "button" | "submit", disabled?: boolean }) => (
     <button 
@@ -44,6 +43,61 @@ const CardContent = ({ children, className = "" }: { children: React.ReactNode, 
     </div>
 )
 
+// --- Define Tailwind color mapping for primary color (green-600) ---
+const primaryColorClasses = {
+    primary: 'text-green-600',
+    'primary/10': 'bg-green-100',
+    'bg-primary': 'bg-green-600',
+    'hover:bg-primary-dark': 'hover:bg-green-700',
+    'focus-ring': 'focus:ring-green-600',
+    'border-primary': 'border-green-600',
+};
+
+
+// --- Success Modal Component ---
+const SuccessModal = ({ 
+    isOpen, 
+    onClose, 
+    formData 
+}: { 
+    isOpen: boolean, 
+    onClose: () => void, 
+    formData: { name: string, email: string, phone: string, subject: string } 
+}) => {
+    if (!isOpen) return null;
+
+    const subjectLine = formData.subject || 'General Inquiry';
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-70 p-4 transition-opacity">
+            <Card className="max-w-md w-full text-center p-8 transform transition-transform">
+                <CheckCircle className={`w-16 h-16 ${primaryColorClasses.primary} mx-auto mb-4`} />
+                <CardTitle className="text-gray-900 mb-2">Message Sent!</CardTitle>
+                <CardDescription className="text-lg mb-6">
+                    Thank you, **{formData.name}**! Your message has been received.
+                </CardDescription>
+
+                <div className="text-left bg-gray-50 p-4 rounded-lg mb-6 text-sm">
+                    <p className="font-semibold text-gray-700">Delivery Details:</p>
+                    <ul className="mt-1 space-y-1 text-gray-600">
+                        <li>**To:** hello@dozienwankwo.org</li>
+                        <li>**From:** {formData.email}</li>
+                        <li>**Subject:** [{subjectLine}]</li>
+                    </ul>
+                </div>
+
+                <Button 
+                    onClick={onClose} 
+                    className={`w-full ${primaryColorClasses['bg-primary']} ${primaryColorClasses['hover:bg-primary-dark']} text-white`}
+                >
+                    Close and Continue
+                </Button>
+            </Card>
+        </div>
+    );
+};
+
+
 // --- Main Component ---
 
 export default function ContactPage() {
@@ -57,7 +111,8 @@ export default function ContactPage() {
 
     // State for asynchronous submission feedback
     const [isSending, setIsSending] = useState(false)
-    const [submitMessage, setSubmitMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
+    const [showSuccessModal, setShowSuccessModal] = useState(false) // New state for modal
+    const [submitMessage, setSubmitMessage] = useState<{ type: 'error', text: string } | null>(null) // Used only for error feedback
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
@@ -67,14 +122,19 @@ export default function ContactPage() {
         }))
     }
 
+    const handleCloseModal = () => {
+        setShowSuccessModal(false);
+        // Reset form data after successful submission
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsSending(true)
-        setSubmitMessage(null) // Clear previous messages
+        setSubmitMessage(null) // Clear previous error messages
 
         // IMPORTANT NOTE: NodeMailer runs on a secure backend server. 
         // This client-side code simulates the API call (fetch) to that server.
-        // In a production app, you would replace the simulation below with a real fetch call.
 
         try {
             // --- SIMULATING API CALL (REPLACE THIS IN PRODUCTION) ---
@@ -84,20 +144,14 @@ export default function ContactPage() {
             const success = true; 
 
             if (success) {
-                const subjectLine = `[${formData.subject || 'General Inquiry'}] - Message from ${formData.name}`;
-
-                setSubmitMessage({
-                    type: 'success',
-                    text: `Message sent successfully! The server has initiated email delivery to hello@dozienwankwo.org with the subject: "${subjectLine}"`,
-                });
-                
-                // Clear form after success
-                setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+                // Success: Show modal
+                setShowSuccessModal(true);
             } else {
                  setSubmitMessage({
                     type: 'error',
                     text: 'Failed to send message via server. Please try again later.',
                 });
+                setTimeout(() => setSubmitMessage(null), 8000); // Clear error after delay
             }
         } catch (error) {
             console.error("Submission error:", error);
@@ -105,25 +159,16 @@ export default function ContactPage() {
                 type: 'error',
                 text: 'An unexpected error occurred during submission.',
             });
+            setTimeout(() => setSubmitMessage(null), 8000); // Clear error after delay
         } finally {
             setIsSending(false);
-            // Clear message after 8 seconds
-            setTimeout(() => setSubmitMessage(null), 8000); 
         }
     }
-
-    // Define Tailwind color mapping for primary color (blue-600) for stubs
-    const primaryColorClasses = {
-        primary: 'text-blue-600',
-        'primary/10': 'bg-blue-100',
-        'bg-primary': 'bg-blue-600',
-        'hover:bg-primary-dark': 'hover:bg-blue-700',
-    };
 
     return (
         <main className="min-h-screen bg-white">
             {/* Hero Section */}
-            <section className="bg-gradient-to-br from-blue-50 to-white py-16">
+            <section className="bg-gradient-to-br from-green-50 to-white py-16">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center space-y-4">
                         <p className={`${primaryColorClasses.primary} font-semibold text-lg`}>Get in Touch</p>
@@ -174,9 +219,9 @@ export default function ContactPage() {
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
-                                {/* Submission Status Message */}
+                                {/* Submission Status Message (Error Only) */}
                                 {submitMessage && (
-                                    <div className={`p-4 mb-4 rounded-xl text-center font-medium ${submitMessage.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                                    <div className={`p-4 mb-4 rounded-xl text-center font-medium bg-red-100 text-red-700 border border-red-300`}>
                                         {submitMessage.text}
                                     </div>
                                 )}
@@ -191,7 +236,7 @@ export default function ContactPage() {
                                                 value={formData.name}
                                                 onChange={handleChange}
                                                 required
-                                                className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600`}
+                                                className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ${primaryColorClasses['focus-ring']}`}
                                                 placeholder="Okonkwo Emmanuel"
                                             />
                                         </div>
@@ -203,7 +248,7 @@ export default function ContactPage() {
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 required
-                                                className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600`}
+                                                className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ${primaryColorClasses['focus-ring']}`}
                                                 placeholder="okonkwo@example.com"
                                             />
                                         </div>
@@ -217,7 +262,7 @@ export default function ContactPage() {
                                                 name="phone"
                                                 value={formData.phone}
                                                 onChange={handleChange}
-                                                className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600`}
+                                                className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ${primaryColorClasses['focus-ring']}`}
                                                 placeholder="+234 8000000000"
                                             />
                                         </div>
@@ -228,7 +273,7 @@ export default function ContactPage() {
                                                 value={formData.subject}
                                                 onChange={handleChange}
                                                 required
-                                                className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600`}
+                                                className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ${primaryColorClasses['focus-ring']} bg-white`}
                                             >
                                                 <option value="">Select a subject</option>
                                                 <option value="Volunteer Inquiry">Volunteer Inquiry</option>
@@ -248,7 +293,7 @@ export default function ContactPage() {
                                             onChange={handleChange}
                                             required
                                             rows={6}
-                                            className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none`}
+                                            className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ${primaryColorClasses['focus-ring']} resize-none`}
                                             placeholder="Tell us how we can help..."
                                         />
                                     </div>
@@ -280,6 +325,13 @@ export default function ContactPage() {
                     </div>
                 </div>
             </section>
+
+            {/* Success Modal Render */}
+            <SuccessModal 
+                isOpen={showSuccessModal} 
+                onClose={handleCloseModal} 
+                formData={formData} 
+            />
         </main>
     )
 }
