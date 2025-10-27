@@ -18,7 +18,7 @@ const posts = [
     excerpt: "A deep dive into the Bill for an Act to Establish the Federal College of Agriculture in Enugwu-Ukwu, and its potential to boost local technology and employment.",
     date: "July 19, 2024",
     category: "Education",
-    image: "/dozie_hero2.jpg", // Placeholder image for Education
+    image: "/dozie_hor.jpg", // Placeholder image for Education
   },
   {
     title: "Humanitarian Outreach: Free Medical Services to Over 4,000",
