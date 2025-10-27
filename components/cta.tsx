@@ -16,9 +16,19 @@ export default function CTA() {
     window.location.href = "/subscribe";
   };
   
+  // Define a type for the component props to satisfy the TypeScript compiler
+  // This fixes the "implicitly has an 'any' type" error
+  type ButtonProps = {
+    size: string;
+    variant?: string;
+    className: string;
+    children: any; // Using 'any' for children to keep dependencies minimal
+    onClick: () => void;
+  };
+
   // Custom Button component simulation using Tailwind for styling, 
   // replacing the missing "@/components/ui/button" import.
-  const Button = ({ size, variant, className, children, onClick }) => {
+  const Button = ({ size, variant, className, children, onClick }: ButtonProps) => {
     // Base classes for the button look and feel
     const baseClasses = "font-semibold rounded-full px-6 py-3 transition-colors flex items-center justify-center text-sm shadow-lg transform active:scale-95";
     
