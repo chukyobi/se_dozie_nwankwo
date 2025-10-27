@@ -44,11 +44,10 @@ const CardContent = ({ children, className = "" }: { children: React.ReactNode, 
 )
 
 // --- Define Tailwind color mapping for primary color (green-600) ---
+// Note: 'bg-primary' and 'hover:bg-primary-dark' keys have been removed to use explicit Tailwind classes in the JSX.
 const primaryColorClasses = {
     primary: 'text-green-600',
     'primary/10': 'bg-green-100',
-    'bg-primary': 'bg-green-600',
-    'hover:bg-primary-dark': 'hover:bg-green-700',
     'focus-ring': 'focus:ring-green-600',
     'border-primary': 'border-green-600',
 };
@@ -88,7 +87,7 @@ const SuccessModal = ({
 
                 <Button 
                     onClick={onClose} 
-                    className={`w-full ${primaryColorClasses['bg-primary']} ${primaryColorClasses['hover:bg-primary-dark']} text-white`}
+                    className={`w-full bg-green-600 hover:bg-green-700 text-white`}
                 >
                     Close and Continue
                 </Button>
@@ -298,10 +297,10 @@ export default function ContactPage() {
                                         />
                                     </div>
 
-                                    {/* Submit Button */}
+                                    {/* Submit Button - Now using explicit Tailwind background classes */}
                                     <Button 
                                         type="submit" 
-                                        className={`w-full ${primaryColorClasses['bg-primary']} ${primaryColorClasses['hover:bg-primary-dark']} text-white`}
+                                        className={`w-full bg-green-600 hover:bg-green-700 text-white`}
                                         disabled={isSending}
                                     >
                                         {isSending ? (
