@@ -13,8 +13,10 @@ export default function Navigation() {
   const navLinks = [
     { name: "Home", href: "/" },
     // { name: "Blog", href: "/blog" }, // Commented out based on original
-    { name: "Our Work", href: "/about" }, // Added a representative link
+    { name: "Projects", href: "/about" }, // Added a representative link
+    { name: "About", href: "/about" }, // Added a representative link
     { name: "Contact Us", href: "/contact" },
+    {name: "Donate", href: "/donate"},
   ]
 
   return (
@@ -64,7 +66,7 @@ export default function Navigation() {
             {/* Action Button */}
             <div className="hidden lg:flex items-center">
               <Link
-                href="/donate"
+                href="/volunteer"
                 className=" text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 flex items-center gap-2 text-base"
               >
                 Get Involved
@@ -99,7 +101,7 @@ export default function Navigation() {
 
                 {/* Mobile Get Involved Button */}
                 <Link
-                  href="/donate"
+                  href="/volunteer"
                   className="block w-full text-center mt-4 bg-red-600 hover:bg-red-700 !text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-300 text-base"
                   onClick={() => setIsOpen(false)}
                 >
