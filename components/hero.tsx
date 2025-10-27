@@ -52,7 +52,7 @@ export default function Hero() {
     {
       icon: Users,
       title: "Leadership",
-      subtitle: "Become a volunteer",
+      subtitle: "About the Visionary Leader",
       bgColor: "bg-green-600",
       href: "/about",
     },
