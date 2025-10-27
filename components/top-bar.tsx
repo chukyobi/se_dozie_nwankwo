@@ -10,7 +10,7 @@ export default function TopBar() {
             <div className="flex items-center gap-2">
            
               {/* Changed text color to white for better contrast on dark blue background */}
-              <span className="font-bold text-xs text-white">hello@dozienwankwo.com</span>
+              <span className="font-bold text-xs text-white">hello@dozienwankwo.org</span>
             </div>
           </div>
 
