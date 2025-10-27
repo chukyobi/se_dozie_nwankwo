@@ -1,5 +1,5 @@
 "use client"
-//redo
+
 import type React from "react"
 import { useState } from "react"
 import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react"
@@ -73,7 +73,8 @@ const SuccessModal = ({
                 <CheckCircle className={`w-16 h-16 ${primaryColorClasses.primary} mx-auto mb-4`} />
                 <CardTitle className="text-gray-900 mb-2">Message Sent!</CardTitle>
                 <CardDescription className="text-lg mb-6">
-                    Thank you, **{formData.name}**! Your message has been received.
+                    {/* FIXED: Using a template literal ensures the child is a single string/node, resolving the Type error. */}
+                    {`Thank you, ${formData.name}! Your message has been received.`}
                 </CardDescription>
 
                 <div className="text-left bg-gray-50 p-4 rounded-lg mb-6 text-sm">
