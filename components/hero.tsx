@@ -117,7 +117,7 @@ export default function Hero() {
               onClick={handleJoinClick}
               className="bg-red-600 hover:bg-green-600 text-white px-6 py-3 font-bold text-sm transition-colors inline-flex items-center gap-2 rounded-full mb-12"
             >
-              JOIN THE DOZINIZED MOVEMENT <span className="text-lg">›</span>
+              JOIN THE MOVEMENT <span className="text-lg">›</span>
             </button>
           </div>
         </div>
