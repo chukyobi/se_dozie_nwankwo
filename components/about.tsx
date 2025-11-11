@@ -1,5 +1,8 @@
 "use client";
 
+import Link from 'next/link'; // <-- 1. IMPORT ADDED
+import { CheckCircle } from "lucide-react";
+
 // Simple inline Button definition to maintain file integrity without external dependencies
 const Button = ({ children, className, ...props }: { children: React.ReactNode, className?: string, [key: string]: any }) => (
     <button 
@@ -10,7 +13,6 @@ const Button = ({ children, className, ...props }: { children: React.ReactNode, 
     </button>
 );
 
-import { CheckCircle } from "lucide-react";
 
 export default function About() {
   return (
@@ -57,7 +59,7 @@ export default function About() {
                 "Legislative contributions focused on education, public safety, and national economic development.",
                 "President and Founder of the FDNF, impacting over 44,000 lives across 22 communities since 2007.",
                 "Dedicated to influencing public policy, promoting accountability, and delivering equal opportunity for all.",
-                "Globally recognized academic background from institutions including the London School of Economics and the University of Liverpool.",
+                "Globally recognized academic background from institutions including the London School ofEconomics and the University of Liverpool.",
               ].map((point, index: number) => (
                 <div key={index} className="flex items-start gap-4">
                   {/* Icon updated to use blue theme color */}
@@ -69,9 +71,12 @@ export default function About() {
 
             {/* Button: Centered on mobile, left-aligned on desktop */}
             <div className="flex justify-center lg:justify-start">
-                <Button>
-                  View Full Biography
-                </Button>
+                {/* 2. WRAP ADDED */}
+                <Link href="/about">
+                  <Button>
+                    View Full Biography
+                  </Button>
+                </Link>
             </div>
           </div>
         </div>
