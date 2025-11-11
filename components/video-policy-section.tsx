@@ -22,10 +22,10 @@ export default function VideoPolicySection() {
               <Image src="/policy-document.png" alt="Background" fill className="object-cover" />
             </div>
             <div className="relative z-10 text-center">
-              <h3 className="text-3xl font-bold mb-4">See Our Policy</h3>
+              {/* <h3 className="text-3xl font-bold mb-4">See Our Policy</h3>
               <p className="text-sm mb-6 leading-relaxed">
                 The generated is therefore always free from repetition, injected humour, or words etc.
-              </p>
+              </p> */}
              
             </div>
           </div>
@@ -43,11 +43,11 @@ export default function VideoPolicySection() {
           {/* Bottom Right - Policy Analysis */}
           <div className="bg-green-600 text-white flex flex-col justify-center items-center p-8">
             <div className="text-center">
-              <h3 className="text-3xl text-white font-bold mb-4">Policy Analysis</h3>
+              {/* <h3 className="text-3xl text-white font-bold mb-4">Policy Analysis</h3>
               <p className="text-sm mb-6 leading-relaxed">
                 The generated is therefore always free from repetition, injected humour, or words etc.
               </p>
-              
+               */}
             </div>
           </div>
         </div>
