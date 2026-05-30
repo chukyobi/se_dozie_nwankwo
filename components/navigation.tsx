@@ -1,23 +1,25 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
-import Image from "next/image" // <-- 1. Import the Image component
+import { usePathname } from "next/navigation"
+import Image from "next/image"
 import { Menu, X, ArrowRight } from "lucide-react"
-import TopBar from "./top-bar" // Assuming this component exists
+import TopBar from "./top-bar"
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
 
   // Navigation Links
   const navLinks = [
     { name: "Home", href: "/" },
-    // { name: "Blog", href: "/blog" }, // Commented out based on original
-    { name: "Projects", href: "/about" }, // Added a representative link
-    { name: "About Onye Ndozi", href: "/about" }, // Added a representative link
+    { name: "Projects", href: "/about" },
+    { name: "About Onye Ndozi", href: "/about" },
     { name: "Contact Us", href: "/contact" },
-    {name: "Donate", href: "/donate"},
   ]
+
+  if (pathname?.startsWith("/dashboard")) return null;
 
   return (
     <>

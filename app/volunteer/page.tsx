@@ -410,14 +410,14 @@ export default function VolunteerPage() {
             If you need more information about specific volunteer roles or commitments, please contact our team.
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <Button className="bg-red-600 hover:bg-red-700 rounded-lg">
+            <a href="mailto:hello@dozienwankwo.org" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-red-600 !text-white hover:bg-red-700">
               <Mail className="w-4 h-4 mr-2" />
               Email Us
-            </Button>
-            <Button variant="outline" className="border-red-500 text-red-600 bg-transparent hover:bg-red-100 transition-colors rounded-lg">
+            </a>
+            <a href="tel:+2348000000000" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input h-10 px-4 py-2 border-red-500 text-red-600 bg-transparent hover:bg-red-100">
               <Phone className="w-4 h-4 mr-2" />
               Call Coordinator
-            </Button>
+            </a>
           </div>
         </div>
       </section>

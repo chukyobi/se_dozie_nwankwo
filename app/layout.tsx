@@ -1,12 +1,15 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
-import { Great_Vibes } from "next/font/google";
+import { Inter, Great_Vibes, Outfit } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
 import "./globals.css";
 // NOTE: Assuming your components paths are correct:
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 const greatVibes = Great_Vibes({
   weight: "400",
@@ -39,10 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        // FIX: Removed 'font-sans' here. We only need to add the variable 
-        // which makes '--font-script' available globally. font-sans is now 
-        // correctly applied via globals.css.
-        className={`${greatVibes.variable} antialiased`}
+        className={`${inter.variable} ${inter.className} ${outfit.variable} ${greatVibes.variable} antialiased`}
       >
         <Suspense fallback={null}>
           {/* NOTE: If you are getting errors on these lines, ensure 
