@@ -136,7 +136,9 @@ export default function VolunteerPage() {
     setLga(""); // Clear LGA selection when state changes
   };
 
-  const handleVolunteerSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleVolunteerSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setErrorMessage(null)
 
@@ -145,32 +147,36 @@ export default function VolunteerPage() {
       return
     }
 
-    // In a real app, this would send data to a backend (e.g., Firestore)
-    console.log({
-      fullName,
-      email: email || "Not Provided",
-      phoneNo,
-      town,
-      lga,
-      stateOfOrigin,
-      interests,
-    })
-    
-    // Reset form fields
-    setFullName("")
-    setEmail("")
-    setPhoneNo("")
-    setTown("")
-    setLga("")
-    setStateOfOrigin("")
-    setInterests([])
+    setIsSubmitting(true)
+    try {
+      const res = await fetch("/api/volunteers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fullName, email: email || null, phoneNo, town, lga, stateOfOrigin, interests }),
+      })
 
-    // Show success modal
-    setSubmitted(true)
-    // NOTE: Removed setTimeout so the modal stays open until manually closed
+      if (res.ok) {
+        // Reset form fields
+        setFullName("")
+        setEmail("")
+        setPhoneNo("")
+        setTown("")
+        setLga("")
+        setStateOfOrigin("")
+        setInterests([])
+        setSubmitted(true)
+      } else {
+        const data = await res.json()
+        setErrorMessage(data.error || "Failed to submit. Please try again.")
+      }
+    } catch {
+      setErrorMessage("A network error occurred. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
-  const isFormValid = fullName && phoneNo && town && lga && stateOfOrigin && interests.length > 0;
+  const isFormValid = fullName && phoneNo && town && lga && stateOfOrigin && interests.length > 0 && !isSubmitting;
 
   // Helper function to dynamically set classes based on field status
   const getBorderClasses = (value: string | string[]) => {
@@ -371,8 +377,20 @@ export default function VolunteerPage() {
                   className="w-full bg-red-600 hover:bg-red-700 text-white text-lg py-3 rounded-xl shadow-lg transition-colors"
                   disabled={!isFormValid}
                 >
-                  <Users className="mr-2 h-5 w-5" />
-                  Sign Up to Volunteer
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Submitting...
+                    </>
+                  ) : (
+                    <>
+                      <Users className="mr-2 h-5 w-5" />
+                      Sign Up to Volunteer
+                    </>
+                  )}
                 </Button>
                 
                 <p className="text-xs text-gray-500 text-center mt-4">

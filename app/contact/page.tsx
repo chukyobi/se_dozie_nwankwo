@@ -131,35 +131,32 @@ export default function ContactPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsSending(true)
-        setSubmitMessage(null) // Clear previous error messages
-
-        // IMPORTANT NOTE: NodeMailer runs on a secure backend server. 
-        // This client-side code simulates the API call (fetch) to that server.
+        setSubmitMessage(null)
 
         try {
-            // --- SIMULATING API CALL (REPLACE THIS IN PRODUCTION) ---
-            await new Promise(resolve => setTimeout(resolve, 1500)); 
-            
-            // Assuming successful submission
-            const success = true; 
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
 
-            if (success) {
-                // Success: Show modal
+            if (res.ok) {
                 setShowSuccessModal(true);
             } else {
-                 setSubmitMessage({
+                const data = await res.json();
+                setSubmitMessage({
                     type: 'error',
-                    text: 'Failed to send message via server. Please try again later.',
+                    text: data.error || 'Failed to send message. Please try again later.',
                 });
-                setTimeout(() => setSubmitMessage(null), 8000); // Clear error after delay
+                setTimeout(() => setSubmitMessage(null), 8000);
             }
         } catch (error) {
             console.error("Submission error:", error);
             setSubmitMessage({
                 type: 'error',
-                text: 'An unexpected error occurred during submission.',
+                text: 'An unexpected network error occurred. Please try again.',
             });
-            setTimeout(() => setSubmitMessage(null), 8000); // Clear error after delay
+            setTimeout(() => setSubmitMessage(null), 8000);
         } finally {
             setIsSending(false);
         }
