@@ -92,8 +92,6 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-center md:justify-center items-center md:items-center gap-4">
             <p className="text-gray-400 text-sm">
               &copy; {new Date().getFullYear()} Hon. Dozie Nwankwo. All Rights Reserved. 
-              <span className="mx-2">|</span>
-              <a href="/dashboard" className="hover:text-white transition-colors">Admin Portal</a>
             </p>
             {/* <div className="flex gap-4">
               <a href="#" className="text-gray-400 hover:text-primary transition-colors">
