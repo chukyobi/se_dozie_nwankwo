@@ -82,7 +82,9 @@ export default function VolunteerPage() {
   const [phoneNo, setPhoneNo] = useState<string>("")
   const [town, setTown] = useState<string>("")
   const [lga, setLga] = useState<string>("") // Selected LGA
-  const [stateOfOrigin, setStateOfOrigin] = useState<string>("")
+  const [state, setState] = useState<string>("")
+  const [ward, setWard] = useState<string>("")
+  const [pollingUnit, setPollingUnit] = useState<string>("")
   const [interests, setInterests] = useState<string[]>([])
   const [submitted, setSubmitted] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -90,10 +92,10 @@ export default function VolunteerPage() {
   const [lgas, setLgas] = useState<string[]>([])
 
 
-  // Effect to perform LOCAL LGA lookup when stateOfOrigin changes
+  // Effect to perform LOCAL LGA lookup when state changes
   useEffect(() => {
-    const loadLgas = (state: string) => {
-        if (!state) {
+    const loadLgas = (currentState: string) => {
+        if (!currentState) {
             setLgas([]);
             setLga("");
             setErrorMessage(null);
@@ -101,7 +103,7 @@ export default function VolunteerPage() {
         }
 
         // --- LOCAL DATA LOOKUP ---
-        const foundLgas = NIGERIA_LGA_DATA[state];
+        const foundLgas = NIGERIA_LGA_DATA[currentState];
         
         if (foundLgas && foundLgas.length > 0) {
             setLgas(foundLgas.sort());
@@ -113,14 +115,14 @@ export default function VolunteerPage() {
         }
     };
 
-    if (stateOfOrigin) {
-        loadLgas(stateOfOrigin);
+    if (state) {
+        loadLgas(state);
     } else {
         setLgas([]);
         setLga("");
         setErrorMessage(null);
     }
-  }, [stateOfOrigin]); // Dependency array: run when stateOfOrigin changes
+  }, [state]); // Dependency array: run when state changes
 
 
   const handleInterestChange = (interest: string) => {
@@ -131,8 +133,8 @@ export default function VolunteerPage() {
     )
   }
 
-  const handleStateChange = (state: string) => {
-    setStateOfOrigin(state);
+  const handleStateChange = (newState: string) => {
+    setState(newState);
     setLga(""); // Clear LGA selection when state changes
   };
 
@@ -142,8 +144,8 @@ export default function VolunteerPage() {
     e.preventDefault()
     setErrorMessage(null)
 
-    if (!fullName || !phoneNo || !town || !lga || !stateOfOrigin || interests.length === 0) {
-      setErrorMessage("Please fill out all required fields (Full Name, Phone No, Location, and select at least one Interest).")
+    if (!fullName || !email || !phoneNo || !town || !lga || !state || interests.length === 0) {
+      setErrorMessage("Please fill out all required fields (Full Name, Email, Phone No, Location, and select at least one Interest).")
       return
     }
 
@@ -152,7 +154,7 @@ export default function VolunteerPage() {
       const res = await fetch("/api/volunteers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName, email: email || null, phoneNo, town, lga, stateOfOrigin, interests }),
+        body: JSON.stringify({ fullName, email, phoneNo, town, lga, state, ward, pollingUnit, interests }),
       })
 
       if (res.ok) {
@@ -162,7 +164,9 @@ export default function VolunteerPage() {
         setPhoneNo("")
         setTown("")
         setLga("")
-        setStateOfOrigin("")
+        setState("")
+        setWard("")
+        setPollingUnit("")
         setInterests([])
         setSubmitted(true)
       } else {
@@ -176,7 +180,7 @@ export default function VolunteerPage() {
     }
   }
 
-  const isFormValid = fullName && phoneNo && town && lga && stateOfOrigin && interests.length > 0 && !isSubmitting;
+  const isFormValid = fullName && email && phoneNo && town && lga && state && interests.length > 0 && !isSubmitting;
 
   // Helper function to dynamically set classes based on field status
   const getBorderClasses = (value: string | string[]) => {
@@ -265,10 +269,11 @@ export default function VolunteerPage() {
                   />
                   <input
                     type="email"
-                    placeholder="Email Address (Optional)"
+                    placeholder="Email Address (Required)"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    required
+                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${getBorderClasses(email)}`}
                   />
                   <input
                     type="tel"
@@ -288,32 +293,32 @@ export default function VolunteerPage() {
                     Location Details (State, LGA, Town)
                   </h3>
                   
-                  {/* State of Origin Selector */}
+                  {/* State Selector */}
                   <select
-                    value={stateOfOrigin}
+                    value={state}
                     onChange={(e) => handleStateChange(e.target.value)}
                     required
                     // Dynamic class change: use green ring/border if state is selected
-                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 bg-white appearance-none transition-all ${getBorderClasses(stateOfOrigin)}`}
+                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 bg-white appearance-none transition-all ${getBorderClasses(state)}`}
                   >
-                    <option value="" disabled>Select State of Origin (Required)</option>
-                    {NIGERIAN_STATES.map(state => (
-                      <option key={state} value={state}>{state}</option>
+                    <option value="" disabled>Select State (Required)</option>
+                    {NIGERIAN_STATES.map(st => (
+                      <option key={st} value={st}>{st}</option>
                     ))}
                   </select>
 
                   {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
-                    {/* LGA SELECTOR: Dynamic based on stateOfOrigin */}
+                    {/* LGA SELECTOR: Dynamic based on state */}
                     <select
                         value={lga}
                         onChange={(e) => setLga(e.target.value)}
                         required
-                        disabled={!stateOfOrigin || lgas.length === 0}
+                        disabled={!state || lgas.length === 0}
                         // Dynamic class for LGA
                         className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 bg-white appearance-none transition-all ${getBorderClasses(lga)}`}
                     >
                         <option value="" disabled>
-                            {stateOfOrigin && lgas.length > 0
+                            {state && lgas.length > 0
                                 ? "Select Local Government Area (Required)"
                                 : "Select State first"
                             }
@@ -329,8 +334,26 @@ export default function VolunteerPage() {
                       onChange={(e) => setTown(e.target.value)}
                       required
                       // Dynamic class for Town/City
-                      className={`px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${getBorderClasses(town)}`}
+                      className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${getBorderClasses(town)}`}
                     />
+
+                    {/* Ward & Polling Unit (Optional) */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <input
+                        type="text"
+                        placeholder="Ward (Optional)"
+                        value={ward}
+                        onChange={(e) => setWard(e.target.value)}
+                        className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${ward ? getBorderClasses(ward) : "border-gray-300 focus:ring-red-500 border"}`}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Polling Unit (Optional)"
+                        value={pollingUnit}
+                        onChange={(e) => setPollingUnit(e.target.value)}
+                        className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all ${pollingUnit ? getBorderClasses(pollingUnit) : "border-gray-300 focus:ring-red-500 border"}`}
+                      />
+                    </div>
                   {/* </div> */}
                 </div>
 
